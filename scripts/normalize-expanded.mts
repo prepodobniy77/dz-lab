@@ -1,0 +1,6 @@
+import {readFile,writeFile} from 'node:fs/promises';import {readSpecs} from '../lib/providers.mts';import type {CatalogData} from '../lib/catalog-types';
+const d:CatalogData=JSON.parse(await readFile('data/catalog.json','utf8'));
+d.products=d.products.filter(p=>p.category==='hdd'?/SATA/i.test(p.name+' '+p.description)&&!/SAS|SSD|SCSI|внешний|USB/i.test(p.name+' '+p.description):p.category==='aio'?/жидкост|водян|СЖО/i.test(p.name):true);
+for(const p of d.products){if(['hdd','aio'].includes(p.category))p.specs=readSpecs(p.name,p.description,p.category)}
+const source=d.sources.find(s=>s.name==='XCOM');if(source)source.note='Расширенный снимок: до 6 страниц 10 категорий и крайние ценовые подборки. Каталог получен со страниц, не через API; это часть ассортимента магазина.';
+await writeFile('data/catalog.json',JSON.stringify(d,null,2));const report=JSON.parse(await readFile('data/expansion-report.json','utf8'));report.finalCounts=Object.fromEntries([...new Set(d.products.map(p=>p.category))].map(c=>[c,d.products.filter(p=>p.category===c).length]));report.removedAccessories=true;await writeFile('data/expansion-report.json',JSON.stringify(report,null,2));console.log('FINAL',d.products.length,report.finalCounts);

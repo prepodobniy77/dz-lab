@@ -1,0 +1,87 @@
+{
+  "importedAt": "2026-11-01T19:21:50.286Z",
+  "results": [
+    {
+      "category": "cpu",
+      "page": 2,
+      "count": 24
+    },
+    {
+      "category": "cpu",
+      "page": 1,
+      "count": 24
+    },
+    {
+      "category": "motherboard",
+      "page": 1,
+      "count": 24
+    },
+    {
+      "category": "motherboard",
+      "page": 2,
+      "count": 24
+    },
+    {
+      "category": "gpu",
+      "page": 1,
+      "count": 24
+    },
+    {
+      "category": "gpu",
+      "page": 2,
+      "count": 24
+    },
+    {
+      "category": "ram",
+      "page": 1,
+      "count": 24
+    },
+    {
+      "category": "ram",
+      "page": 2,
+      "count": 24
+    },
+    {
+      "category": "ssd",
+      "page": 1,
+      "count": 24
+    },
+    {
+      "category": "psu",
+      "page": 1,
+      "count": 24
+    },
+    {
+      "category": "ssd",
+      "page": 2,
+      "count": 24
+    },
+    {
+      "category": "cooler",
+      "page": 1,
+      "count": 24
+    },
+    {
+      "category": "psu",
+      "page": 2,
+      "count": 24
+    },
+    {
+      "category": "cooler",
+      "page": 2,
+      "count": 24
+    },
+    {
+      "category": "case",
+      "page": 1,
+      "count": 24
+    },
+    {
+      "category": "case",
+      "page": 2,
+      "count": 24
+    }
+  ],
+  "rawCount": 384,
+  "importedCount": 352
+}

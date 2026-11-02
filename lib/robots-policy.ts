@@ -1,0 +1,8 @@
+export const CATALOG_USER_AGENT='DZLAB-Catalog/1.0 (price-check; +https://dz-lab-performance-dima.ardentglade35.chatgpt.site)';
+type Group={agents:string[];rules:{allow:boolean;pattern:string}[];delay:number};
+export function robotsPolicy(text:string,agent='dzlab-catalog'){
+ const groups:Group[]=[];let current:Group|undefined,hasRules=false;
+ for(const raw of text.split(/\r?\n/)){const line=raw.split('#')[0].trim(),colon=line.indexOf(':');if(colon<0)continue;const key=line.slice(0,colon).toLowerCase(),value=line.slice(colon+1).trim();if(key==='user-agent'){if(!current||hasRules){current={agents:[],rules:[],delay:0};groups.push(current);hasRules=false}current.agents.push(value.toLowerCase())}else if(current&&['allow','disallow','crawl-delay'].includes(key)){hasRules=true;if(key==='crawl-delay'){const delay=Number(value);if(Number.isFinite(delay)&&delay>=0)current.delay=Math.max(current.delay,delay*1000)}else if(value)current.rules.push({allow:key==='allow',pattern:value})}}
+ const score=(g:Group)=>Math.max(-1,...g.agents.map(a=>a==='*'?0:agent.toLowerCase().includes(a)?a.length:-1));const best=Math.max(-1,...groups.map(score));const selected=groups.filter(g=>score(g)===best&&best>=0);
+ return{delayMs:Math.max(500,...selected.map(g=>g.delay)),allows(url:string){const u=new URL(url),path=u.pathname+u.search;let longest=-1,allow=true;for(const rule of selected.flatMap(g=>g.rules)){const end=rule.pattern.endsWith('$');const pattern=(end?rule.pattern.slice(0,-1):rule.pattern).split('*').map(p=>p.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('.*');if(new RegExp('^'+pattern+(end?'$':'')).test(path)){const size=rule.pattern.replace(/[*$]/g,'').length;if(size>longest||size===longest&&rule.allow){longest=size;allow=rule.allow}}}return allow}};
+}

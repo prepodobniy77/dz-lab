@@ -1,0 +1,339 @@
+[
+  {
+    "id": "office-am4",
+    "name": "Office / AM4",
+    "group": "office",
+    "description": "Документы, браузер и видеосвязь. Используется графика процессора.",
+    "integratedGraphics": true,
+    "selection": {
+      "cpu": "xcom-1084725",
+      "motherboard": "xcom-827202",
+      "ram": "xcom-1336934",
+      "ssd": "xcom-1104019",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-970979",
+      "case": "xcom-684824"
+    }
+  },
+  {
+    "id": "study-intel",
+    "name": "Study / Intel",
+    "group": "office",
+    "description": "Учёба и повседневные задачи без отдельной видеокарты.",
+    "integratedGraphics": true,
+    "selection": {
+      "cpu": "xcom-894431",
+      "motherboard": "xcom-1004244",
+      "ram": "xcom-1336934",
+      "ssd": "xcom-1104019",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-970979",
+      "case": "xcom-684824"
+    }
+  },
+  {
+    "id": "home-am4",
+    "name": "Home / 8 cores",
+    "group": "office",
+    "description": "Многозадачность и домашний ПК. Встроенная графика, память 32 ГБ.",
+    "integratedGraphics": true,
+    "selection": {
+      "cpu": "xcom-870669",
+      "motherboard": "xcom-827202",
+      "ram": "xcom-1236237",
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-970979",
+      "case": "xcom-684824"
+    }
+  },
+  {
+    "id": "start-am5",
+    "name": "AM5 / Integrated",
+    "group": "office",
+    "description": "Начало на AM5 с DDR5. Встроенная графика; видеокарту можно добавить позже.",
+    "integratedGraphics": true,
+    "selection": {
+      "cpu": "xcom-1084724",
+      "motherboard": "xcom-1092923",
+      "ram": "xcom-1052933",
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-970979",
+      "case": "xcom-684824"
+    }
+  },
+  {
+    "id": "entry-1650",
+    "name": "Entry / GTX 1650",
+    "group": "budget",
+    "description": "Недорогая основа с отдельной видеокартой. Настройки игр выбираются под нагрузку.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-952253",
+      "motherboard": "xcom-827202",
+      "ram": "xcom-1336934",
+      "ssd": "xcom-1104019",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-970979",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1203030"
+    }
+  },
+  {
+    "id": "entry-intel",
+    "name": "Entry / Intel + RTX",
+    "group": "budget",
+    "description": "Доступная основа Intel с RTX 3050 и SSD 1 ТБ.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-894426",
+      "motherboard": "xcom-1004244",
+      "ram": "xcom-1336934",
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-970979",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1068018"
+    }
+  },
+  {
+    "id": "classic-am4",
+    "name": "Classic / RTX 3060",
+    "group": "budget",
+    "description": "AM4, память DDR4 и RTX 3060 12 ГБ. Основу можно менять по компонентам.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1004058",
+      "motherboard": "xcom-827202",
+      "ram": "xcom-1236237",
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-970979",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1022020"
+    }
+  },
+  {
+    "id": "intel-5060",
+    "name": "Intel / RTX 5060",
+    "group": "gaming",
+    "description": "Игровая основа Intel с 32 ГБ DDR4 и RTX 5060.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-886588",
+      "motherboard": "xcom-1004244",
+      "ram": "xcom-1236237",
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-970979",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1329763"
+    }
+  },
+  {
+    "id": "am5-5060",
+    "name": "AM5 / RTX 5060",
+    "group": "gaming",
+    "description": "AM5, DDR5 и RTX 5060. Вариант для дальнейшего обновления процессора.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1077819",
+      "motherboard": "xcom-1092923",
+      "ram": "xcom-1052933",
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-970979",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1329763"
+    }
+  },
+  {
+    "id": "intel-ti",
+    "name": "Intel / 16 GB VRAM",
+    "group": "gaming",
+    "description": "Core i5-14600KF, RTX 5060 Ti 16 ГБ и башенный кулер.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1057035",
+      "motherboard": "xcom-1004244",
+      "ram": "xcom-1236237",
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1220743",
+      "cooler": "xcom-1037400",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1264487"
+    }
+  },
+  {
+    "id": "radeon-9060",
+    "name": "Radeon / AM5",
+    "group": "gaming",
+    "description": "Ryzen 5 и Radeon RX 9060 XT 16 ГБ, с DDR5 и SSD 1 ТБ.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1077819",
+      "motherboard": "xcom-1092923",
+      "ram": "xcom-1052933",
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-970979",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1242426"
+    }
+  },
+  {
+    "id": "ryzen-5070",
+    "name": "Ryzen / RTX 5070",
+    "group": "gaming",
+    "description": "Ryzen 5 9600X, RTX 5070 и накопитель 2 ТБ.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1129308",
+      "motherboard": "xcom-1092923",
+      "ram": "xcom-1052933",
+      "ssd": "xcom-1125487",
+      "psu": "xcom-1220743",
+      "cooler": "xcom-970979",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1187968"
+    }
+  },
+  {
+    "id": "radeon-9070",
+    "name": "Radeon / RX 9070 XT",
+    "group": "gaming",
+    "description": "Восемь ядер Ryzen и Radeon RX 9070 XT 16 ГБ.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1129307",
+      "motherboard": "xcom-1092923",
+      "ram": "xcom-1052933",
+      "ssd": "xcom-1125487",
+      "psu": "xcom-1220743",
+      "cooler": "xcom-970979",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1242424"
+    }
+  },
+  {
+    "id": "ultra-ti",
+    "name": "Core Ultra / Ti",
+    "group": "gaming",
+    "description": "Платформа LGA1851, RTX 5070 Ti 16 ГБ и СЖО 360 мм.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1128107",
+      "motherboard": "xcom-1126022",
+      "ram": "xcom-1052933",
+      "ssd": "xcom-1125487",
+      "psu": "xcom-1220743",
+      "aio": "xcom-1210633",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1202358"
+    }
+  },
+  {
+    "id": "x3d-ti",
+    "name": "X3D / RTX 5070 Ti",
+    "group": "gaming",
+    "description": "Ryzen 7 9800X3D и RTX 5070 Ti с 16 ГБ видеопамяти.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1157449",
+      "motherboard": "xcom-1092923",
+      "ram": "xcom-1052933",
+      "ssd": "xcom-1125487",
+      "psu": "xcom-1220743",
+      "cooler": "xcom-1037400",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1202358"
+    }
+  },
+  {
+    "id": "x3d-5080",
+    "name": "X3D / RTX 5080",
+    "group": "premium",
+    "description": "Ryzen 7 9800X3D, RTX 5080, 64 ГБ DDR5 и СЖО 360 мм.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1157449",
+      "motherboard": "xcom-1092923",
+      "ram": "xcom-1222740",
+      "ssd": "xcom-1125487",
+      "psu": "xcom-1220739",
+      "aio": "xcom-1210633",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1217669"
+    }
+  },
+  {
+    "id": "flagship-5090",
+    "name": "Flagship / RTX 5090",
+    "group": "premium",
+    "description": "Ryzen 9 9950X3D, RTX 5090 32 ГБ, 64 ГБ памяти и SSD 4 ТБ.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1196278",
+      "motherboard": "xcom-1092923",
+      "ram": "xcom-1222740",
+      "ssd": "xcom-1068015",
+      "psu": "xcom-1220740",
+      "aio": "xcom-1210633",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1187980"
+    }
+  },
+  {
+    "id": "creator-ryzen",
+    "name": "Creator / Ryzen 9",
+    "group": "work",
+    "description": "12 ядер, RTX 5070 Ti, 64 ГБ RAM и HDD 4 ТБ для проектов.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1137706",
+      "motherboard": "xcom-1092923",
+      "ram": "xcom-1222740",
+      "ssd": "xcom-1125487",
+      "psu": "xcom-1220743",
+      "aio": "xcom-1210633",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1202358",
+      "hdd": "xcom-1251110"
+    }
+  },
+  {
+    "id": "creator-intel",
+    "name": "Creator / Core i7",
+    "group": "work",
+    "description": "Core i7-14700K, RTX 5080, 64 ГБ памяти и СЖО 360 мм.",
+    "integratedGraphics": false,
+    "selection": {
+      "cpu": "xcom-1057425",
+      "motherboard": "xcom-1098969",
+      "ram": "xcom-1222740",
+      "ssd": "xcom-1125487",
+      "psu": "xcom-1220739",
+      "aio": "xcom-1210633",
+      "case": "xcom-1047374",
+      "gpu": "xcom-1217669"
+    }
+  },
+  {
+    "id": "home-archive",
+    "name": "Home / Storage",
+    "group": "work",
+    "description": "Домашняя рабочая основа: SSD 1 ТБ и HDD 8 ТБ. HDD не заменяет резервную копию.",
+    "integratedGraphics": true,
+    "selection": {
+      "cpu": "xcom-870669",
+      "motherboard": "xcom-827202",
+      "ram": "xcom-1236237",
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-970979",
+      "case": "xcom-684824",
+      "hdd": "xcom-631724"
+    }
+  }
+]

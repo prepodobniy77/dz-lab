@@ -1,0 +1,16 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {parsePriceExport,fetchPriceExport,apiOffers} from '../lib/price-api.mts';
+import {checkCompatibility,isCompatibleCandidate} from '../lib/catalog.ts';
+import {readSpecs} from '../lib/providers.mts';
+import type {Product} from '../lib/catalog-types';
+const row={offer_id:1,part_number:'EXACT-BOX',distributor:'Netlab',price_rub:1000,stock:4,updated_at:'2026-11-01T10:00:00Z'};
+const dump=(r:unknown[],end:unknown)=>[...r,end].map(v=>JSON.stringify(v)).join('\n');
+test('API requires EOF, correct count and full non-sample export',()=>{assert.equal(parsePriceExport(dump([row],{_eof:true,count:1})).length,1);for(const data of [dump([row],{_eof:true,count:2}),JSON.stringify(row),dump([row],{_eof:true,count:1,sample:true}),dump([],{_eof:true,count:0})+'\n'+JSON.stringify(row)])assert.throws(()=>parsePriceExport(data))});
+test('API matches exact MPN and keeps source timestamp and wholesale condition',()=>{const p={id:'a',mpn:'EXACT-BOX'} as Product;const offers=apiOffers([p,{id:'b',mpn:'EXACT'} as Product],[row],'Netlab');assert.equal(offers.length,1);assert.equal(offers[0].offer.checkedAt,row.updated_at);assert.equal(offers[0].offer.transport,'api');assert.match(offers[0].offer.condition!,/не розничное/)});
+test('API excludes wrong supplier, zero price and missing update time',()=>{for(const r of [{...row,distributor:'Other'},{...row,price_rub:0},{...row,updated_at:''}])assert.equal(apiOffers([{id:'a',mpn:row.part_number} as Product],[r],'Netlab').length,0)});
+test('no API credentials means no outgoing request and no HTML fallback',async()=>{let called=false;await assert.rejects(fetchPriceExport('','Netlab',async()=>{called=true;return new Response('')}));assert.equal(called,false)});
+test('API uses official endpoint, rejects test sample and never follows redirects',async()=>{await assert.rejects(fetchPriceExport('test-key','Netlab',async(url,init)=>{assert.equal(url,'https://delect.ru/api/v1/lite/export/Netlab');assert.equal(init?.redirect,'manual');return new Response('',{headers:{'x-delect-sample':'true'}})}))});
+const p=(id:string,category:Product['category'],specs:Product['specs']):Product=>({id,category,specs,name:id,brand:'',mpn:'',image:'',description:'',offers:[]});
+test('AIO replaces air when checking candidate; saved double cooling is a conflict',()=>{const products=[p('air','cooler',{}),p('water','aio',{})];assert.equal(isCompatibleCandidate(products[1],{cooler:'air'},products),true);assert.ok(checkCompatibility({cooler:'air',aio:'water'},products).some(x=>x.level==='error'))});
+test('unsupported AIO radiator and SAS disks are detected',()=>{const products=[p('water','aio',{radiatorSize:420}),p('box','case',{radiatorSizes:[240,360]}),p('disk','hdd',{interface:'SAS'})];assert.equal(checkCompatibility({aio:'water',case:'box',hdd:'disk'},products).filter(x=>x.level==='error').length,2)});
+test('HDD capacities and AIO radiator parse without synthetic specifications',()=>{assert.equal(readSpecs('Seagate 24 ТБ','SATA','hdd').capacity,24000);assert.equal(readSpecs('AIO 360','AM5 LGA1700','aio').radiatorSize,360)});

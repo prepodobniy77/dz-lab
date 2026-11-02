@@ -1,0 +1,689 @@
+{
+  "checkedAt": "2026-11-01T20:13:15.368Z",
+  "report": [
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1001/processory",
+      "status": "ok",
+      "matched": 18
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1001/processory?page=2",
+      "status": "ok",
+      "matched": 10
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1000/materinskie-platy",
+      "status": "ok",
+      "matched": 0
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1000/materinskie-platy?page=2",
+      "status": "ok",
+      "matched": 0
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1013/videokarty?page=2",
+      "status": "ok",
+      "matched": 5
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1013/videokarty",
+      "status": "ok",
+      "matched": 5
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1010/operativnaya-pamyat",
+      "status": "ok",
+      "matched": 10
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1010/operativnaya-pamyat?page=2",
+      "status": "ok",
+      "matched": 4
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1015/nakopiteli-ssd?page=2",
+      "status": "error",
+      "error": "Error: Магазин вернул HTTP 429"
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1015/nakopiteli-ssd",
+      "status": "ok",
+      "matched": 14
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1225/bloki-pitaniya?page=2",
+      "status": "error",
+      "error": "Error: Магазин вернул HTTP 429"
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/5162/kulery-dlya-processorov",
+      "status": "error",
+      "error": "Error: Магазин вернул HTTP 429"
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/5162/kulery-dlya-processorov?page=2",
+      "status": "error",
+      "error": "Error: Магазин вернул HTTP 429"
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1032/korpusa",
+      "status": "error",
+      "error": "Error: Магазин вернул HTTP 429"
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1032/korpusa?page=2",
+      "status": "error",
+      "error": "Error: Магазин вернул HTTP 429"
+    },
+    {
+      "store": "REGARD",
+      "url": "https://www.regard.ru/catalog/1225/bloki-pitaniya",
+      "status": "ok",
+      "matched": 0
+    },
+    {
+      "store": "DNS",
+      "url": "https://www.dns-shop.ru/product/163592727233ed20/processor-intel-core-i5-14600kf-oem/",
+      "status": "error",
+      "error": "Error: Магазин вернул HTTP 401"
+    },
+    {
+      "store": "DNS",
+      "url": "https://www.dns-shop.ru/product/17e2942c3953ed20/operativnaa-pamat-kingston-fury-beast-black-kf556c36bbek2-32-32-gb/",
+      "status": "error",
+      "error": "Error: Error: Магазин вернул HTTP 401"
+    },
+    {
+      "store": "DNS",
+      "url": "https://www.dns-shop.ru/product/39779619c38e0fd2/1000-gb-m2-nvme-nakopitel-samsung-990-pro-mz-v9p1t0bw/",
+      "status": "error",
+      "error": "Error: Error: Error: Магазин вернул HTTP 401"
+    },
+    {
+      "store": "DNS",
+      "url": "https://www.dns-shop.ru/product/d4bde9994d11ed20/processor-amd-ryzen-5-7500f-oem/",
+      "status": "error",
+      "error": "Error: Магазин вернул HTTP 401"
+    },
+    {
+      "store": "CITILINK",
+      "url": "https://www.citilink.ru/product/processor-amd-ryzen-5-7500f-am5-oem-100-000000597-2005596/",
+      "status": "error",
+      "error": "Error: Магазин вернул HTTP 429"
+    },
+    {
+      "store": "CITILINK",
+      "url": "https://www.citilink.ru/product/pamyat-ddr5-2x16gb-5600mhz-kingston-kf556c36bbek2-32-fury-beast-expo-r-2017943/",
+      "status": "error",
+      "error": "Error: Error: Магазин вернул HTTP 429"
+    },
+    {
+      "store": "CITILINK",
+      "url": "https://www.citilink.ru/product/ssd-nakopitel-samsung-990-pro-mz-v9p1t0bw-1tb-m-2-2280-pcie-4-0-x4-nvm-1896626/",
+      "status": "error",
+      "error": "Error: Error: Error: Магазин вернул HTTP 429"
+    },
+    {
+      "store": "CITILINK",
+      "url": "https://www.citilink.ru/product/processor-intel-core-i5-14600kf-lga-1700-oem-cm8071504821014-srn42-1985476/",
+      "status": "error",
+      "error": "Error: Магазин вернул HTTP 429"
+    },
+    {
+      "store": "E2E4",
+      "url": "https://moscow.e2e4online.ru/catalog/item/protsessor-intel-core-i5-14600kf-tray-oem-1232654/",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "E2E4",
+      "url": "https://moscow.e2e4online.ru/catalog/item/protsessor-amd-ryzen-5-7500f-tray-oem-1270147/",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/441957.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/270266.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/263355.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/337587.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/308207.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/345099.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/308444.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/441958.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/396170.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/477880.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/335377.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/441952.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/396172.htm",
+      "status": "error",
+      "error": "Error: Точный MPN не подтверждён"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/306997.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/328807.htm",
+      "status": "error",
+      "error": "Error: Точный MPN не подтверждён"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/618355.htm",
+      "status": "error",
+      "error": "Error: Точный MPN не подтверждён"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/307741.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/388249.htm",
+      "status": "error",
+      "error": "Error: Точный MPN не подтверждён"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/559870.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/367431.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/482593.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/441956.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/538355.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/330724.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/379135.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/305956.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/482304.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/379794.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/307005.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/305997.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/538356.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/367432.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/396171.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/416263.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/610148.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/388251.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/379795.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/482775.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/379797.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/540122.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/487316.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/379136.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/538358.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/563626.htm",
+      "status": "error",
+      "error": "Error: Предложение основного товара не найдено"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/441957.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/263355.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/270266.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/337587.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/308207.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/345099.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/308444.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/441958.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/396170.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/477880.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/335377.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/441952.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/396172.htm",
+      "status": "error",
+      "error": "Error: Точный MPN не подтверждён"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/306997.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/328807.htm",
+      "status": "error",
+      "error": "Error: Точный MPN не подтверждён"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/618355.htm",
+      "status": "error",
+      "error": "Error: Точный MPN не подтверждён"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/307741.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/388249.htm",
+      "status": "error",
+      "error": "Error: Точный MPN не подтверждён"
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/559870.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/367431.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/482593.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/441956.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/538355.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/330724.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/305956.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/379135.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/482304.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/379794.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/307005.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/305997.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/538356.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/367432.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/396171.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/416263.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/610148.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/388251.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/379795.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/482775.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/379797.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/540122.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/487316.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/379136.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/538358.htm",
+      "status": "ok",
+      "matched": 1
+    },
+    {
+      "store": "COMPDAY",
+      "url": "https://www.compday.ru/komplektuyuszie/protsessory/563626.htm",
+      "status": "ok",
+      "matched": 1
+    }
+  ]
+}

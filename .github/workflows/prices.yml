@@ -1,0 +1,53 @@
+name: Обновление цен DZ LAB
+on:
+  schedule:
+    - cron: '0 3,15 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: dz-lab-prices
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    env:
+      SITE_URL: ${{ vars.SITE_URL }}
+      PRICE_JOB_TOKEN: ${{ secrets.PRICE_JOB_TOKEN }}
+    steps:
+      - name: Запустить защищённое обновление
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$PRICE_JOB_TOKEN" || -z "$SITE_URL" ]]; then
+            echo '::error::Нужны секрет PRICE_JOB_TOKEN и переменная SITE_URL'
+            exit 1
+          fi
+          python3 - <<'PY'
+          import os, urllib.parse
+          u=urllib.parse.urlsplit(os.environ['SITE_URL'])
+          if u.scheme!='https' or not u.hostname or u.username or u.password or u.query or u.fragment:
+              raise SystemExit('SITE_URL должен быть адресом HTTPS без учётных данных и параметров')
+          PY
+          for attempt in $(seq 1 40); do
+            code=$(printf 'Authorization: Bearer %s\n' "$PRICE_JOB_TOKEN" | curl --silent --show-error --proto '=https' --connect-timeout 10 --max-time 150 --request POST --header @- --header 'X-DZ-Price-Trigger: github' --output "$RUNNER_TEMP/dz-prices-response.json" --write-out '%{http_code}' "${SITE_URL%/}/api/prices/sweep")
+            if [[ "$code" != 2?? ]]; then
+              echo "::error::Обновитель вернул HTTP $code"
+              exit 1
+            fi
+            done_flag=$(python3 - <<'PY'
+          import json, os
+          with open(os.path.join(os.environ['RUNNER_TEMP'],'dz-prices-response.json')) as f:
+              result=json.load(f)
+          if not isinstance(result.get('done'), bool):
+              raise SystemExit('Ответ обновителя не содержит done')
+          print('true' if result['done'] else 'false')
+          PY
+            )
+            echo "Порция $attempt выполнена; завершение: $done_flag"
+            if [[ "$done_flag" == true ]]; then exit 0; fi
+            if [[ "$attempt" != 40 ]]; then sleep 5; fi
+          done
+          echo '::error::Цикл не завершился за 40 порций. Курсор сохранён; проверь отчёт'
+          exit 1

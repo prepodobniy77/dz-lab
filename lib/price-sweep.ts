@@ -1,0 +1,21 @@
+import {env} from 'cloudflare:workers';
+import {getCatalog,database,offerWriteStatements} from './catalog-server';
+import {runPricePortion} from './price-cycle';
+import {fetchHtml} from './providers.mts';
+import {findRouterAIPriceLinks} from './routerai-price-search.mts';
+import {findPriceLinks} from './ai-price-search.mts';
+import {fetchPriceExport,apiOffers} from './price-api.mts';
+import {saveSweepReport} from './price-report-store';
+import {SweepIntervalError,priceSweepFailureMessage} from './price-job-errors';
+import {categories} from './catalog';
+import type {SweepReport} from './hourly-prices';
+export async function runPriceSweep(trigger:SweepReport['trigger']='manual'){
+ const config=env as unknown as Record<string,string|undefined>,catalog=await getCatalog(),db=database();
+ return runPricePortion({db,products:catalog.products,config,read:fetchHtml,offerStatements:values=>offerWriteStatements(db,values),onReport:(report,final)=>saveSweepReport(db,report,final,config),
+  ...(config.DELECT_API_KEY&&config.DELECT_DISTRIBUTOR?{bulk:async()=>apiOffers(catalog.products,await fetchPriceExport(config.DELECT_API_KEY!,config.DELECT_DISTRIBUTOR!),config.DELECT_DISTRIBUTOR!).map(v=>({productId:v.id,offer:v.offer}))}:{}),
+  ...(config.ROUTERAI_API_KEY?{search:(products,timeoutMs)=>findRouterAIPriceLinks(products,config.ROUTERAI_API_KEY!,config.ROUTERAI_MODEL,fetch,timeoutMs)}:config.PERPLEXITY_API_KEY?{search:(products,timeoutMs)=>findPriceLinks(products,config.PERPLEXITY_API_KEY!,config.PRICE_AI_MODEL,fetch,timeoutMs)}:{})
+ },trigger);
+}
+export async function recordFailedSweep(error:unknown,trigger:SweepReport['trigger']='cron'){
+ const report:SweepReport={checkedAt:new Date().toISOString(),trigger,status:error instanceof SweepIntervalError?'blocked':'failed',attempted:0,updated:0,skipped:0,categories:Object.fromEntries(categories.map(c=>[c.id,{attempted:0,updated:0}])),message:error instanceof SweepIntervalError?error.message:priceSweepFailureMessage(error),...(error instanceof SweepIntervalError?{retryAfter:error.retryAfter}:{})};await saveSweepReport(database(),report,true,env as unknown as Record<string,string|undefined>);return report;
+}

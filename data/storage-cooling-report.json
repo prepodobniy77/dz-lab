@@ -1,0 +1,1322 @@
+{
+  "checkedAt": "2026-11-01T21:41:43.737Z",
+  "done": 263,
+  "stopped": false,
+  "report": [
+    {
+      "id": "xcom-1095915",
+      "mpn": "WD85PURZ",
+      "attributes": 10
+    },
+    {
+      "id": "xcom-1279322",
+      "mpn": "WD44PURZ",
+      "attributes": 16
+    },
+    {
+      "id": "xcom-982890",
+      "mpn": "ST4000VN006",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-1040370",
+      "mpn": "WD23PURZ",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1102616",
+      "mpn": "WD80EFPX",
+      "attributes": 11
+    },
+    {
+      "id": "xcom-1047633",
+      "mpn": "WD64PURZ",
+      "attributes": 16
+    },
+    {
+      "id": "xcom-1047631",
+      "mpn": "ST2000VX017",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1040371",
+      "mpn": "WD43PURZ",
+      "attributes": 16
+    },
+    {
+      "id": "xcom-1089696",
+      "mpn": "ST1000DM014",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-1192891",
+      "mpn": "WD102PURP",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-639992",
+      "mpn": "ST2000DM008",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-1000510",
+      "mpn": "ST4000VX016",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1049675",
+      "mpn": "WD11PURZ",
+      "attributes": 16
+    },
+    {
+      "id": "xcom-1075391",
+      "mpn": "ST4000VX015",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-871795",
+      "mpn": "ST10000VE001",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-1299189",
+      "mpn": "WD40EFZZ",
+      "attributes": 8
+    },
+    {
+      "id": "xcom-1279320",
+      "mpn": "WD10EARZ",
+      "attributes": 9
+    },
+    {
+      "id": "xcom-674497",
+      "mpn": "ST2000DM005",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-884916",
+      "mpn": "ST10000NM017B",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-889245",
+      "mpn": "WD141PURP",
+      "attributes": 10
+    },
+    {
+      "id": "xcom-810416",
+      "mpn": "ST18000NM000J",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-1216641",
+      "mpn": "WD100EFGX",
+      "attributes": 9
+    },
+    {
+      "id": "xcom-1034106",
+      "mpn": "WD60EFPX",
+      "attributes": 9
+    },
+    {
+      "id": "xcom-833915",
+      "mpn": "WD161KFGX",
+      "attributes": 11
+    },
+    {
+      "id": "xcom-610933",
+      "mpn": "ST6000DM003",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-1062914",
+      "mpn": "WD40EZAX",
+      "attributes": 17
+    },
+    {
+      "id": "xcom-631724",
+      "mpn": "ST8000DM004",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-583315",
+      "mpn": "ST4000DM004",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-1099022",
+      "mpn": "ST1000VX013",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-1077397",
+      "mpn": "ST8000VX009",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-1072144",
+      "mpn": "WD142PURP",
+      "attributes": 17
+    },
+    {
+      "id": "xcom-872515",
+      "mpn": "WD181PURP",
+      "attributes": 11
+    },
+    {
+      "id": "xcom-1000511",
+      "mpn": "ST6000VX009",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-1251112",
+      "mpn": "WD120EFGX",
+      "attributes": 19
+    },
+    {
+      "id": "xcom-1088830",
+      "mpn": "DT02ACA200",
+      "attributes": 17
+    },
+    {
+      "id": "xcom-842451",
+      "mpn": "WD20EZBX",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-1035030",
+      "mpn": "ST8000VX010",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-884912",
+      "mpn": "ST8000NM017B",
+      "attributes": 11
+    },
+    {
+      "id": "xcom-884927",
+      "mpn": "ST20000NM007D",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-1035028",
+      "mpn": "ST14000NM000J",
+      "attributes": 9
+    },
+    {
+      "id": "xcom-728413",
+      "mpn": "ST8000VN004",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-651956",
+      "mpn": "WD20SPZX",
+      "attributes": 10
+    },
+    {
+      "id": "xcom-266973",
+      "mpn": "WD10EZEX",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1279321",
+      "mpn": "WD34PURZ",
+      "attributes": 9
+    },
+    {
+      "id": "xcom-1262015",
+      "mpn": "ST16000VE004",
+      "attributes": 8
+    },
+    {
+      "id": "xcom-884894",
+      "mpn": "ST2000NM000B",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-893179",
+      "mpn": "ST16000NM000J",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-1122896",
+      "mpn": "WD85PURU",
+      "attributes": 17
+    },
+    {
+      "id": "xcom-1099880",
+      "mpn": "WD8005FFBX",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-1210270",
+      "mpn": "WD122PURP",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-1069390",
+      "mpn": "WD20EARZ",
+      "attributes": 11
+    },
+    {
+      "id": "xcom-1251110",
+      "mpn": "DT02ABA400V",
+      "attributes": 18
+    },
+    {
+      "id": "xcom-999609",
+      "mpn": "MQ04ABF100",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-1089695",
+      "mpn": "MG10AFA22TE",
+      "attributes": 10
+    },
+    {
+      "id": "xcom-546607",
+      "mpn": "ST4000LM024",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-553305",
+      "mpn": "ST1000LM048",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-884908",
+      "mpn": "ST6000NM019B",
+      "attributes": 11
+    },
+    {
+      "id": "xcom-1216640",
+      "mpn": "MG10ADA600E",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-623808",
+      "mpn": "WD10SPZX",
+      "attributes": 11
+    },
+    {
+      "id": "xcom-1103879",
+      "mpn": "WD4005FFBX",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-1279685",
+      "mpn": "WD40EZZX",
+      "attributes": 19
+    },
+    {
+      "id": "xcom-1212973",
+      "mpn": "MG11ACA24TE",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-1096190",
+      "mpn": "WD80EAAZ",
+      "attributes": 16
+    },
+    {
+      "id": "xcom-833909",
+      "mpn": "HDWV110UZSVA",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-871796",
+      "mpn": "ST8000VE001",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-884898",
+      "mpn": "ST4000NM000B",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-854840",
+      "mpn": "HDWT840UZSVA",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1250841",
+      "mpn": "ST16000NM002H",
+      "attributes": 7
+    },
+    {
+      "id": "xcom-1227248",
+      "mpn": "WUH722424ALE604",
+      "attributes": 7
+    },
+    {
+      "id": "xcom-1212700",
+      "mpn": "WD122KFBX",
+      "attributes": 16
+    },
+    {
+      "id": "xcom-814255",
+      "mpn": "HDWT720UZSVA",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-998570",
+      "mpn": "WD221KRYZ",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1105629",
+      "mpn": "ST2000VN003",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-749186",
+      "mpn": "WUS721010ALE6L4",
+      "attributes": 10
+    },
+    {
+      "id": "xcom-1035026",
+      "mpn": "ST10000NT001",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-705892",
+      "mpn": "ST12000VN0008",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-1243912",
+      "mpn": "ST12000NM002H",
+      "attributes": 8
+    },
+    {
+      "id": "xcom-1212701",
+      "mpn": "WD103KFBX",
+      "attributes": 17
+    },
+    {
+      "id": "xcom-734844",
+      "mpn": "ST14000NM001G",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-919328",
+      "mpn": "ST10000VN000",
+      "attributes": 10
+    },
+    {
+      "id": "xcom-1243913",
+      "mpn": "WUH722422ALE604",
+      "attributes": 8
+    },
+    {
+      "id": "xcom-1059593",
+      "mpn": "WD60EZAX",
+      "attributes": 16
+    },
+    {
+      "id": "xcom-1218992",
+      "mpn": "WD103KRYZ",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1114120",
+      "mpn": "ST4000NT001",
+      "attributes": 19
+    },
+    {
+      "id": "xcom-749190",
+      "mpn": "WD141KRYZ",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-1103877",
+      "mpn": "WD142KFGX",
+      "attributes": 17
+    },
+    {
+      "id": "xcom-1099021",
+      "mpn": "ST8000NT001",
+      "attributes": 18
+    },
+    {
+      "id": "xcom-640039",
+      "mpn": "HUS726T4TALE6L4",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-833916",
+      "mpn": "WD181KFGX",
+      "attributes": 11
+    },
+    {
+      "id": "xcom-1045603",
+      "mpn": "ST6000VN006",
+      "attributes": 10
+    },
+    {
+      "id": "xcom-1305439",
+      "mpn": "WD241PURP",
+      "attributes": 7
+    },
+    {
+      "id": "xcom-1279319",
+      "mpn": "ST12000VE003",
+      "attributes": 9
+    },
+    {
+      "id": "xcom-1212695",
+      "mpn": "MG10ADA800E",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1101274",
+      "mpn": "ST2000VX016",
+      "attributes": 19
+    },
+    {
+      "id": "xcom-875642",
+      "mpn": "ST2000NM000A",
+      "attributes": 10
+    },
+    {
+      "id": "xcom-652010",
+      "mpn": "HUS728T8TALE6L4",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-1023379",
+      "mpn": "ST22000NM001E",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-1196979",
+      "mpn": "WD122KRYZ",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-1103881",
+      "mpn": "WD8005FRYZ",
+      "attributes": 17
+    },
+    {
+      "id": "xcom-1114123",
+      "mpn": "WD241KRYZ",
+      "attributes": 8
+    },
+    {
+      "id": "xcom-1168130",
+      "mpn": "MG10ADA10TE",
+      "attributes": 8
+    },
+    {
+      "id": "xcom-640002",
+      "mpn": "HDWL110UZSVA",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-618975",
+      "mpn": "ST1000LM049",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-798695",
+      "mpn": "WUH721818ALE6L4",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-1329991",
+      "mpn": "ST8000VN002",
+      "attributes": 8
+    },
+    {
+      "id": "xcom-1225970",
+      "mpn": "MG10ADA400E",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-654175",
+      "mpn": "42D0788",
+      "attributes": 6
+    },
+    {
+      "id": "xcom-535629",
+      "mpn": "ST6000NM0115",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-1213115",
+      "mpn": "ST6000NT001",
+      "attributes": 20
+    },
+    {
+      "id": "xcom-1134070",
+      "mpn": "WD142KRYZ",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-598781",
+      "mpn": "HUH721010ALN604",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-640003",
+      "mpn": "HDWL120UZSVA",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-986654",
+      "mpn": "1503TA0UN0",
+      "attributes": 4
+    },
+    {
+      "id": "xcom-512206",
+      "mpn": "601778-001",
+      "attributes": 9
+    },
+    {
+      "id": "xcom-859915",
+      "mpn": "HDWT860UZSVA",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-658119",
+      "mpn": "628183-001",
+      "attributes": 9
+    },
+    {
+      "id": "xcom-884922",
+      "mpn": "ST18000NM003D",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1375345",
+      "mpn": "WUS721206BLE6L4",
+      "attributes": 7
+    },
+    {
+      "id": "xcom-1349867",
+      "mpn": "WUS721204BLE6L4",
+      "attributes": 7
+    },
+    {
+      "id": "xcom-1323796",
+      "mpn": "WUH722624ALE6L4",
+      "attributes": 22
+    },
+    {
+      "id": "xcom-658108",
+      "mpn": "397553-001",
+      "attributes": 7
+    },
+    {
+      "id": "xcom-1210633",
+      "mpn": "ACFRE00180A",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-805433",
+      "mpn": "WD181KRYZ",
+      "attributes": 12
+    },
+    {
+      "id": "xcom-1210634",
+      "mpn": "ACFRE00184A",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1196178",
+      "mpn": "LE360 V2",
+      "attributes": 30
+    },
+    {
+      "id": "xcom-1222883",
+      "mpn": "ACFRE00181A",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1266541",
+      "mpn": "LE360 V2 Zero Dark",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1237878",
+      "mpn": "LM360",
+      "attributes": 29
+    },
+    {
+      "id": "xcom-1222816",
+      "mpn": "ACFRE00178A",
+      "attributes": 22
+    },
+    {
+      "id": "xcom-1222884",
+      "mpn": "ACFRE00185A",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1210635",
+      "mpn": "ACFRE00188A",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1212505",
+      "mpn": "EX298720RUS",
+      "attributes": 31
+    },
+    {
+      "id": "xcom-1016115",
+      "mpn": "DASHFLOW 360 BASIC WHITE",
+      "attributes": 21
+    },
+    {
+      "id": "xcom-1222881",
+      "mpn": "ACFRE00179A",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1118356",
+      "mpn": "FX240 PRO",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1250150",
+      "mpn": "ACFRE00186A",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1249961",
+      "mpn": "GP-AORUS WATERFORCE X II 360",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1244480",
+      "mpn": "ACFRE00189A",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1186293",
+      "mpn": "306-7ZWAA11-L80",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1107799",
+      "mpn": "90RC00N0-M0UAY0",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-1296628",
+      "mpn": "Spartacus 420",
+      "attributes": 23
+    },
+    {
+      "id": "xcom-1272373",
+      "mpn": "90RC0151-B0EAY0",
+      "attributes": 23
+    },
+    {
+      "id": "xcom-1268041",
+      "mpn": "Sigma L24 WH ARGB",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-1259404",
+      "mpn": "LQ360 ULTRA ARGB",
+      "attributes": 29
+    },
+    {
+      "id": "xcom-1222880",
+      "mpn": "ACFRE00182A",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1138611",
+      "mpn": "306-7ZW7A11-C24",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-1185588",
+      "mpn": "90RC0131-M0EAY0",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-1187061",
+      "mpn": "ALPHA2 DS A36 Black",
+      "attributes": 29
+    },
+    {
+      "id": "xcom-1187060",
+      "mpn": "ALPHA2 DS A24 White",
+      "attributes": 29
+    },
+    {
+      "id": "xcom-1127159",
+      "mpn": "Iota-L24-BK",
+      "attributes": 29
+    },
+    {
+      "id": "xcom-983228",
+      "mpn": "F-MAGIC-360-SC-V2",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-1052989",
+      "mpn": "SL240 WHITE",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1342892",
+      "mpn": "CW-9061031-WW",
+      "attributes": 18
+    },
+    {
+      "id": "xcom-1315914",
+      "mpn": "TX-360 Black",
+      "attributes": 21
+    },
+    {
+      "id": "xcom-1315597",
+      "mpn": "ACFRE00167A",
+      "attributes": 22
+    },
+    {
+      "id": "xcom-1315598",
+      "mpn": "ACFRE00169A",
+      "attributes": 23
+    },
+    {
+      "id": "xcom-1299596",
+      "mpn": "G53XE360PD00020",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1296627",
+      "mpn": "LM420",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-1285833",
+      "mpn": "LC-11-ARGB360-BK",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-1280756",
+      "mpn": "SPARTACUS 360",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1279361",
+      "mpn": "306-7ZWGA21-L80",
+      "attributes": 23
+    },
+    {
+      "id": "xcom-1273069",
+      "mpn": "LE360 V2 PURE WHITE",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1271652",
+      "mpn": "TRPV240AB",
+      "attributes": 17
+    },
+    {
+      "id": "xcom-1268043",
+      "mpn": "Sigma L36 WH ARGB",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1268042",
+      "mpn": "Sigma L36 BK ARGB",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1268038",
+      "mpn": "Cryo Wing Digi 240 WH",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1266827",
+      "mpn": "TRRV360TAB",
+      "attributes": 21
+    },
+    {
+      "id": "xcom-1266820",
+      "mpn": "TRFH360DAB",
+      "attributes": 21
+    },
+    {
+      "id": "xcom-1263986",
+      "mpn": "TRAE360V6AB",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1262392",
+      "mpn": "TRMV360UBPROAB",
+      "attributes": 23
+    },
+    {
+      "id": "xcom-1251355",
+      "mpn": "LE240 PRO",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1250151",
+      "mpn": "ACFRE00187A",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1157626",
+      "mpn": "C-VISION-360-BL-ARGB",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1244479",
+      "mpn": "306-7ZWGA11-L80",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1241798",
+      "mpn": "G53XE360SP50020",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1232864",
+      "mpn": "Sigma L36 PRO BK",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1232842",
+      "mpn": "Delta L36 WH ARGB V2",
+      "attributes": 30
+    },
+    {
+      "id": "xcom-1222882",
+      "mpn": "ACFRE00183A",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1220090",
+      "mpn": "CW-9061016-WW",
+      "attributes": 22
+    },
+    {
+      "id": "xcom-1220092",
+      "mpn": "CW-9061022-WW",
+      "attributes": 23
+    },
+    {
+      "id": "xcom-1212504",
+      "mpn": "EX298708RUS",
+      "attributes": 31
+    },
+    {
+      "id": "xcom-1203153",
+      "mpn": "C-MATRIX-240-BL",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1203158",
+      "mpn": "F-MAGIC-240-WH-ARGB-V2",
+      "attributes": 18
+    },
+    {
+      "id": "xcom-1203159",
+      "mpn": "F-MAGIC-360-WH-ARGB-V2",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1186292",
+      "mpn": "306-7ZW9A11-L80",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1186295",
+      "mpn": "306-7ZWDA11-L80",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1187058",
+      "mpn": "ALPHA2 DS A24 Black",
+      "attributes": 29
+    },
+    {
+      "id": "xcom-1158770",
+      "mpn": "306-7ZW6E51-C24",
+      "attributes": 17
+    },
+    {
+      "id": "xcom-1161139",
+      "mpn": "F-WFRAME-420-WH-ARGB",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1085951",
+      "mpn": "ACFRE00151A",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-1037371",
+      "mpn": "F-PRISM-240-BL",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-1108589",
+      "mpn": "ALPHA2 A36 BLACK",
+      "attributes": 29
+    },
+    {
+      "id": "xcom-1083463",
+      "mpn": "A-ELITE-BL-360-ARGB-V3",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-1375915",
+      "mpn": "GP-GIGABYTE EAGLE 360",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1375916",
+      "mpn": "GP-GIGABYTE EAGLE 360I",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1375917",
+      "mpn": "GP-GIGABYTE GME 360",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1375790",
+      "mpn": "Delta L36 Elite BK ARGB Digital",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1375792",
+      "mpn": "Delta L36 Elite WH ARGB Digital",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1374372",
+      "mpn": "90RC0111-B0EAY0",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-1354359",
+      "mpn": "GP-AORUS ELITE 360I",
+      "attributes": 18
+    },
+    {
+      "id": "xcom-1354358",
+      "mpn": "GP-AORUS ELITE 360",
+      "attributes": 18
+    },
+    {
+      "id": "xcom-1354357",
+      "mpn": "GP-AORUS ELITE 240I",
+      "attributes": 18
+    },
+    {
+      "id": "xcom-1354356",
+      "mpn": "GP-AORUS ELITE 240",
+      "attributes": 18
+    },
+    {
+      "id": "xcom-1344880",
+      "mpn": "EX301477RUS",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1344881",
+      "mpn": "EX301478RUS",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1344879",
+      "mpn": "EX301476RUS",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1344882",
+      "mpn": "EX301483RUS",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-1344883",
+      "mpn": "EX301485RUS",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1344878",
+      "mpn": "EX301475RUS",
+      "attributes": 25
+    },
+    {
+      "id": "xcom-1344944",
+      "mpn": "TRITONII360SE-BKCWW",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1342890",
+      "mpn": "CW-9061018-WW",
+      "attributes": 16
+    },
+    {
+      "id": "xcom-1342893",
+      "mpn": "CW-9061032-WW",
+      "attributes": 19
+    },
+    {
+      "id": "xcom-1336940",
+      "mpn": "ICE JET GLOW 240 BK",
+      "attributes": 19
+    },
+    {
+      "id": "xcom-1336938",
+      "mpn": "CL-W453-PL12SW-A",
+      "attributes": 23
+    },
+    {
+      "id": "xcom-1334140",
+      "mpn": "L70-WHWAYX02-G",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1334139",
+      "mpn": "L70-BKWAYX02-G",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1334138",
+      "mpn": "L50-WHWAYX02-G",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1334137",
+      "mpn": "L50-BKWAYX02-G",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1334136",
+      "mpn": "DT360 Max ARGB Display BK",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1334135",
+      "mpn": "DS360 Pro Digital WH",
+      "attributes": 29
+    },
+    {
+      "id": "xcom-1334134",
+      "mpn": "DE360 WH",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1334133",
+      "mpn": "DE360 BK",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1334132",
+      "mpn": "DC360 Pro ARGB Display WH",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1334130",
+      "mpn": "Sigma L36 EX WH ARGB",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1334129",
+      "mpn": "Sigma L36 EX BK ARGB",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1334128",
+      "mpn": "Sigma L24 EX WH ARGB",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1334127",
+      "mpn": "Sigma L24 EX BK ARGB",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1317342",
+      "mpn": "DA240 V2 ARGB BK",
+      "attributes": 21
+    },
+    {
+      "id": "xcom-1315538",
+      "mpn": "90RC01N2-B0EAY0",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1315536",
+      "mpn": "90RC01J2-B0EAY0",
+      "attributes": 22
+    },
+    {
+      "id": "xcom-1315537",
+      "mpn": "90RC01N1-B0EAY0",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1315534",
+      "mpn": "90RC01G1-B0EAY0",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1306006",
+      "mpn": "LT360 VISION ARGB",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1306167",
+      "mpn": "GP-GIGABYTE EAGLE 360I",
+      "attributes": 22
+    },
+    {
+      "id": "xcom-1299505",
+      "mpn": "306-7ZWCA11-L80",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1299590",
+      "mpn": "DS360 Display ARGB WH",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1299592",
+      "mpn": "GT360M Display ARGB WH",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1299504",
+      "mpn": "90RC01K0-M0EAY0",
+      "attributes": 22
+    },
+    {
+      "id": "xcom-1299503",
+      "mpn": "90RC01J1-B0EAY0",
+      "attributes": 20
+    },
+    {
+      "id": "xcom-1290096",
+      "mpn": "TRLV360AW",
+      "attributes": 29
+    },
+    {
+      "id": "xcom-1290095",
+      "mpn": "TRLV360AB",
+      "attributes": 29
+    },
+    {
+      "id": "xcom-1290099",
+      "mpn": "TRMQ360AW",
+      "attributes": 30
+    },
+    {
+      "id": "xcom-1288065",
+      "mpn": "TRMQ360AB",
+      "attributes": 30
+    },
+    {
+      "id": "xcom-1282042",
+      "mpn": "306-7ZW8E21-C24",
+      "attributes": 20
+    },
+    {
+      "id": "xcom-1273138",
+      "mpn": "MPG CORELIQUID P13 360 WHITE",
+      "attributes": 14
+    },
+    {
+      "id": "xcom-1276591",
+      "mpn": "ICE JET GLOW 360 WH",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1273137",
+      "mpn": "MAG CORELIQUID E240",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-1272374",
+      "mpn": "90RC0152-B0EAY0",
+      "attributes": 23
+    },
+    {
+      "id": "xcom-1272013",
+      "mpn": "GT360M ARGB Display BK",
+      "attributes": 23
+    },
+    {
+      "id": "xcom-1272010",
+      "mpn": "DE360 Pro WH",
+      "attributes": 20
+    },
+    {
+      "id": "xcom-1272009",
+      "mpn": "DE360 Pro BK",
+      "attributes": 20
+    },
+    {
+      "id": "xcom-1188056",
+      "mpn": "EX298224RUS",
+      "attributes": 22
+    },
+    {
+      "id": "xcom-1128794",
+      "mpn": "EX297325RUS",
+      "attributes": 23
+    },
+    {
+      "id": "xcom-1202632",
+      "mpn": "90RC0132-M0EAY0",
+      "attributes": 23
+    },
+    {
+      "id": "xcom-1078458",
+      "mpn": "90RC00K2-M0UAY0",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1185587",
+      "mpn": "90RC0120-M0UAY0",
+      "attributes": 24
+    },
+    {
+      "id": "xcom-1078457",
+      "mpn": "90RC00K1-M0UAY0",
+      "attributes": 26
+    },
+    {
+      "id": "xcom-1107800",
+      "mpn": "90RC00T1-M0UAY0",
+      "attributes": 13
+    },
+    {
+      "id": "xcom-1107801",
+      "mpn": "90RC00T2-M0UAY0",
+      "attributes": 15
+    },
+    {
+      "id": "xcom-1148748",
+      "mpn": "G89.GA2ALCD36INB.R0",
+      "attributes": 28
+    },
+    {
+      "id": "xcom-1122873",
+      "mpn": "90RC00T0-M0UAY0",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1262776",
+      "mpn": "TF3-360SCW",
+      "attributes": 27
+    },
+    {
+      "id": "xcom-1262775",
+      "mpn": "TF3-360SCB",
+      "attributes": 27
+    }
+  ]
+}

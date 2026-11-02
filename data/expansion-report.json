@@ -1,0 +1,510 @@
+{
+  "checkedAt": "2026-11-01T21:36:07.726Z",
+  "report": [
+    {
+      "category": "cpu",
+      "page": 1,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "cpu",
+      "page": 2,
+      "sort": "",
+      "count": 22
+    },
+    {
+      "category": "cpu",
+      "page": 3,
+      "sort": "",
+      "count": 21
+    },
+    {
+      "category": "cpu",
+      "page": 4,
+      "sort": "",
+      "count": 20
+    },
+    {
+      "category": "cpu",
+      "page": 5,
+      "sort": "",
+      "count": 16
+    },
+    {
+      "category": "cpu",
+      "page": 6,
+      "sort": "",
+      "count": 2
+    },
+    {
+      "category": "cpu",
+      "page": 1,
+      "sort": "asc",
+      "count": 18
+    },
+    {
+      "category": "cpu",
+      "page": 1,
+      "sort": "desc",
+      "count": 14
+    },
+    {
+      "category": "motherboard",
+      "page": 1,
+      "sort": "",
+      "count": 22
+    },
+    {
+      "category": "motherboard",
+      "page": 2,
+      "sort": "",
+      "count": 22
+    },
+    {
+      "category": "motherboard",
+      "page": 3,
+      "sort": "",
+      "count": 23
+    },
+    {
+      "category": "motherboard",
+      "page": 4,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "motherboard",
+      "page": 5,
+      "sort": "",
+      "count": 23
+    },
+    {
+      "category": "motherboard",
+      "page": 6,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "motherboard",
+      "page": 1,
+      "sort": "asc",
+      "count": 20
+    },
+    {
+      "category": "motherboard",
+      "page": 1,
+      "sort": "desc",
+      "count": 23
+    },
+    {
+      "category": "gpu",
+      "page": 1,
+      "sort": "",
+      "count": 23
+    },
+    {
+      "category": "gpu",
+      "page": 2,
+      "sort": "",
+      "count": 23
+    },
+    {
+      "category": "gpu",
+      "page": 3,
+      "sort": "",
+      "count": 23
+    },
+    {
+      "category": "gpu",
+      "page": 4,
+      "sort": "",
+      "count": 23
+    },
+    {
+      "category": "gpu",
+      "page": 5,
+      "sort": "",
+      "count": 21
+    },
+    {
+      "category": "gpu",
+      "page": 6,
+      "sort": "",
+      "count": 22
+    },
+    {
+      "category": "gpu",
+      "page": 1,
+      "sort": "asc",
+      "count": 12
+    },
+    {
+      "category": "gpu",
+      "page": 1,
+      "sort": "desc",
+      "count": 23
+    },
+    {
+      "category": "ram",
+      "page": 1,
+      "sort": "",
+      "count": 20
+    },
+    {
+      "category": "ram",
+      "page": 2,
+      "sort": "",
+      "count": 18
+    },
+    {
+      "category": "ram",
+      "page": 3,
+      "sort": "",
+      "count": 12
+    },
+    {
+      "category": "ram",
+      "page": 4,
+      "sort": "",
+      "count": 14
+    },
+    {
+      "category": "ram",
+      "page": 5,
+      "sort": "",
+      "count": 13
+    },
+    {
+      "category": "ram",
+      "page": 6,
+      "sort": "",
+      "count": 20
+    },
+    {
+      "category": "ram",
+      "page": 1,
+      "sort": "asc",
+      "count": 4
+    },
+    {
+      "category": "ram",
+      "page": 1,
+      "sort": "desc",
+      "count": 19
+    },
+    {
+      "category": "ssd",
+      "page": 1,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "ssd",
+      "page": 2,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "ssd",
+      "page": 3,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "ssd",
+      "page": 4,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "ssd",
+      "page": 5,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "ssd",
+      "page": 6,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "ssd",
+      "page": 1,
+      "sort": "asc",
+      "count": 24
+    },
+    {
+      "category": "ssd",
+      "page": 1,
+      "sort": "desc",
+      "count": 24
+    },
+    {
+      "category": "psu",
+      "page": 1,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "psu",
+      "page": 2,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "psu",
+      "page": 3,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "psu",
+      "page": 4,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "psu",
+      "page": 5,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "psu",
+      "page": 6,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "psu",
+      "page": 1,
+      "sort": "asc",
+      "count": 24
+    },
+    {
+      "category": "psu",
+      "page": 1,
+      "sort": "desc",
+      "count": 24
+    },
+    {
+      "category": "cooler",
+      "page": 1,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "cooler",
+      "page": 2,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "cooler",
+      "page": 3,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "cooler",
+      "page": 4,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "cooler",
+      "page": 5,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "cooler",
+      "page": 6,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "cooler",
+      "page": 1,
+      "sort": "asc",
+      "count": 24
+    },
+    {
+      "category": "cooler",
+      "page": 1,
+      "sort": "desc",
+      "count": 24
+    },
+    {
+      "category": "case",
+      "page": 1,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "case",
+      "page": 2,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "case",
+      "page": 3,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "case",
+      "page": 4,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "case",
+      "page": 5,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "case",
+      "page": 6,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "case",
+      "page": 1,
+      "sort": "asc",
+      "count": 24
+    },
+    {
+      "category": "case",
+      "page": 1,
+      "sort": "desc",
+      "count": 24
+    },
+    {
+      "category": "hdd",
+      "page": 1,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "hdd",
+      "page": 2,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "hdd",
+      "page": 3,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "hdd",
+      "page": 4,
+      "sort": "",
+      "count": 21
+    },
+    {
+      "category": "hdd",
+      "page": 5,
+      "sort": "",
+      "count": 18
+    },
+    {
+      "category": "hdd",
+      "page": 6,
+      "sort": "",
+      "count": 18
+    },
+    {
+      "category": "hdd",
+      "page": 1,
+      "sort": "asc",
+      "count": 22
+    },
+    {
+      "category": "hdd",
+      "page": 1,
+      "sort": "desc",
+      "count": 22
+    },
+    {
+      "category": "aio",
+      "page": 1,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "aio",
+      "page": 2,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "aio",
+      "page": 3,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "aio",
+      "page": 4,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "aio",
+      "page": 5,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "aio",
+      "page": 6,
+      "sort": "",
+      "count": 24
+    },
+    {
+      "category": "aio",
+      "page": 1,
+      "sort": "asc",
+      "count": 24
+    },
+    {
+      "category": "aio",
+      "page": 1,
+      "sort": "desc",
+      "count": 24
+    }
+  ],
+  "counts": {
+    "cpu": 105,
+    "motherboard": 166,
+    "gpu": 144,
+    "ram": 115,
+    "ssd": 189,
+    "psu": 184,
+    "cooler": 183,
+    "case": 189,
+    "hdd": 139,
+    "aio": 158
+  },
+  "finalCounts": {
+    "cpu": 105,
+    "motherboard": 166,
+    "gpu": 144,
+    "ram": 115,
+    "ssd": 189,
+    "psu": 184,
+    "cooler": 183,
+    "case": 189,
+    "hdd": 122,
+    "aio": 141
+  },
+  "removedAccessories": true
+}
