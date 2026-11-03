@@ -5,6 +5,5 @@
   "compatibility_date": "2026-05-15",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
-  "d1_databases": [{ "binding": "DB", "database_name": "dz-lab", "migrations_dir": "drizzle" }],
   "vars": { "TRUST_OAI_HEADERS": "0", "MIN_SWEEP_INTERVAL_MINUTES": "660", "AI_MAX_PRODUCTS_PER_RUN": "50" }
 }

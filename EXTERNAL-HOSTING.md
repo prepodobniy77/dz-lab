@@ -8,7 +8,7 @@ Node.js 24, pnpm 11.25.0 из package.json. Установка: pnpm install --f
 
 Workers Builds: репозиторий prepodobniy77/dz-lab, ветка main, build command pnpm run build:cloudflare, deploy command pnpm exec wrangler deploy --config dist/server/wrangler.json. Переменная сборки NODE_VERSION=24.22.2. Секреты не нужны для публичного каталога.
 
-wrangler.jsonc задаёт Worker dz-lab и новую D1 dz-lab. Wrangler может создать базу при первой публикации. После создания нужно закрепить возвращённый database_id и применить миграции из drizzle к новой базе. Пока таблицы не созданы, каталог работает из data/catalog.json и честно показывает этот режим. Рабочие данные исходной D1 Sites этим способом не переносятся.
+wrangler.jsonc задаёт Worker dz-lab без D1: для выбранного первого запуска база не нужна. Страница и /api/catalog используют data/catalog.json, сборки хранятся только в браузере. Мутации цен закрыты, публичный отчёт не заявляет об автообновлении. Для будущего подключения обновлений потребуется отдельная D1, её миграции и серверные секреты. Рабочие данные исходной D1 Sites этим способом не переносятся.
 
 ## Обновление цен
 
