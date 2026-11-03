@@ -6,9 +6,9 @@
 
 Node.js 24, pnpm 11.25.0 из package.json. Установка: pnpm install --frozen-lockfile. Проверка: pnpm exec tsc --noEmit и node --test tests/*.test.mts. Сборка: pnpm run build:cloudflare. Публикация: pnpm run deploy:cloudflare. Локально: pnpm run dev:cloudflare.
 
-Workers Builds: репозиторий prepodobniy77/dz-lab, ветка main, build command pnpm run build:cloudflare, deploy command pnpm exec wrangler deploy --config dist/server/wrangler.json. Переменная сборки NODE_VERSION=24.22.2. Секреты не нужны для публичного каталога.
+Workers Builds: репозиторий prepodobniy77/dz-lab, ветка main, build command pnpm run build:cloudflare, deploy command pnpm run deploy:cloudflare. Переменная сборки NODE_VERSION=24.22.2. Секреты не нужны для публичного каталога.
 
-wrangler.jsonc задаёт Worker dz-lab без D1: для выбранного первого запуска база не нужна. Страница и /api/catalog используют data/catalog.json, сборки хранятся только в браузере. Мутации цен закрыты, публичный отчёт не заявляет об автообновлении. Для будущего подключения обновлений потребуется отдельная D1, её миграции и серверные секреты. Рабочие данные исходной D1 Sites этим способом не переносятся.
+wrangler.static.jsonc публикует статическую React SPA на Cloudflare без серверного рендеринга и без D1: для выбранного первого запуска база не нужна. Страница и /api/catalog используют data/catalog.json, сборки хранятся только в браузере. Мутации цен закрыты, публичный отчёт не заявляет об автообновлении. Для будущего подключения обновлений потребуется отдельная D1, её миграции и серверные секреты. Рабочие данные исходной D1 Sites этим способом не переносятся.
 
 ## Обновление цен
 
@@ -16,6 +16,6 @@ wrangler.jsonc задаёт Worker dz-lab без D1: для выбранного
 
 ## Совместная работа с Claude Code и Codex
 
-Код хранится в GitHub. Перед задачей обновляйте main, используйте отдельные ветки и pull requests. Сохранены исходные команды Sites; для внешнего Cloudflare используйте команды с суффиксом :cloudflare. При внешней сборке Sites preview-плагины отключены. Входящие заголовки oai-authenticated-user-* удаляются до обработки запроса. TRUST_OAI_HEADERS остаётся 0.
+Код хранится в GitHub. Перед задачей обновляйте main, используйте отдельные ветки и pull requests. Сохранены исходные команды Sites; для внешнего Cloudflare используйте команды с суффиксом :cloudflare. Внешняя сборка использует Vite + React и выдачу статических файлов, без Sites и без серверных функций. Она не принимает заголовки идентичности и не содержит механизмов платного обновления. Сохранён и прежний серверный вариант (build:cloudflare-ssr), но он не используется: внешний SSR каталога превысил лимит CPU Workers (ошибка 1102).
 
-Проверки при подготовке: TypeScript и 77 тестов прошли; внешняя production-сборка проходит. Успешную публикацию проверять отдельно по фактическому URL.
+Проверки при подготовке: TypeScript и 77 тестов прошли; внешняя production-сборка проходит. Статическая сборка заменяет SSR после обнаружения ошибки 1102 на внешнем адресе. Успешную публикацию проверять отдельно по фактическому URL.
