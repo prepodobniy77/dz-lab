@@ -44,6 +44,16 @@
           "status": "ok",
           "identity": "mpn",
           "transport": "html-snapshot"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/6d7a8c58afebed20/processor-amd-ryzen-5-5600-oem/",
+          "price": 11499,
+          "checkedAt": "2026-11-05T19:51:44.769Z",
+          "availability": "in-stock",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "mpn"
         }
       ],
       "attributes": {
@@ -189,6 +199,16 @@
           "status": "ok",
           "identity": "mpn",
           "transport": "html-snapshot"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/4b4450decf2bd582/processor-amd-ryzen-9-9950x3d-oem/",
+          "price": 65499,
+          "checkedAt": "2026-11-05T19:52:28.763Z",
+          "availability": "in-stock",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "mpn"
         }
       ],
       "attributes": {
@@ -530,17 +550,6 @@
           "transport": "html-snapshot"
         },
         {
-          "store": "DNS",
-          "url": "https://www.dns-shop.ru/product/d4bde9994d11ed20/processor-amd-ryzen-5-7500f-oem/",
-          "price": null,
-          "availability": "unknown",
-          "status": "error",
-          "checkedAt": "2026-11-01T20:10:51.786Z",
-          "identity": "verified-reference",
-          "error": "Источник ограничил серверный доступ. Цена не подтверждена.",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "CITILINK",
           "url": "https://www.citilink.ru/product/processor-amd-ryzen-5-7500f-am5-oem-100-000000597-2005596/",
           "price": null,
@@ -601,6 +610,16 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/d4bde9994d11ed20/processor-amd-ryzen-5-7500f-oem/",
+          "price": 12799,
+          "checkedAt": "2026-11-05T19:48:18.162Z",
+          "availability": "in-stock",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "verified-reference"
         }
       ],
       "attributes": {
@@ -1075,17 +1094,6 @@
           "transport": "html-snapshot"
         },
         {
-          "store": "DNS",
-          "url": "https://www.dns-shop.ru/product/163592727233ed20/processor-intel-core-i5-14600kf-oem/",
-          "price": null,
-          "availability": "unknown",
-          "status": "error",
-          "checkedAt": "2026-11-01T20:10:51.773Z",
-          "identity": "verified-reference",
-          "error": "Источник ограничил серверный доступ. Цена не подтверждена.",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "CITILINK",
           "url": "https://www.citilink.ru/product/processor-intel-core-i5-14600kf-lga-1700-oem-cm8071504821014-srn42-1985476/",
           "price": null,
@@ -1126,6 +1134,16 @@
           "availability": "out-of-stock",
           "identity": "mpn",
           "transport": "html-snapshot"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/163592727233ed20/processor-intel-core-i5-14600kf-oem/",
+          "price": 24799,
+          "checkedAt": "2026-11-05T19:48:53.397Z",
+          "availability": "in-stock",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "verified-reference"
         }
       ],
       "attributes": {
@@ -1902,6 +1920,16 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/3ecad0b7a46fed20/processor-amd-ryzen-7-7800x3d-oem/",
+          "price": 27999,
+          "checkedAt": "2026-11-05T19:51:24.516Z",
+          "availability": "in-stock",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "mpn"
         }
       ],
       "attributes": {
@@ -2121,6 +2149,16 @@
           "price": 23709,
           "availability": "in-stock",
           "checkedAt": "2026-11-05T18:23:15.223Z",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "mpn"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/2791553c24a5d582/processor-amd-ryzen-7-9700x-oem/",
+          "price": 24499,
+          "checkedAt": "2026-11-05T19:53:30.050Z",
+          "availability": "in-stock",
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
@@ -2780,6 +2818,16 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/de177556e959ed20/processor-amd-ryzen-7-7700-oem/",
+          "price": 18499,
+          "checkedAt": "2026-11-05T19:52:14.088Z",
+          "availability": "in-stock",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "mpn"
         }
       ],
       "attributes": {
@@ -3067,6 +3115,16 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/96054164afeaed20/processor-amd-ryzen-7-5700x-oem/",
+          "price": 14999,
+          "checkedAt": "2026-11-05T19:50:02.348Z",
+          "availability": "in-stock",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "mpn"
         }
       ],
       "attributes": {
@@ -3212,6 +3270,16 @@
           "price": 17461,
           "availability": "in-stock",
           "checkedAt": "2026-11-05T18:23:15.223Z",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "mpn"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/89737ee324a6d9cb/processor-amd-ryzen-5-9600x-oem/",
+          "price": 17799,
+          "checkedAt": "2026-11-05T19:53:10.087Z",
+          "availability": "in-stock",
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
@@ -8258,17 +8326,6 @@
           "transport": "html-snapshot"
         },
         {
-          "store": "DNS",
-          "url": "https://www.dns-shop.ru/product/17e2942c3953ed20/operativnaa-pamat-kingston-fury-beast-black-kf556c36bbek2-32-32-gb/",
-          "price": null,
-          "availability": "unknown",
-          "status": "error",
-          "checkedAt": "2026-11-01T20:10:51.773Z",
-          "identity": "verified-reference",
-          "error": "Источник ограничил серверный доступ. Цена не подтверждена.",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "CITILINK",
           "url": "https://www.citilink.ru/product/pamyat-ddr5-2x16gb-5600mhz-kingston-kf556c36bbek2-32-fury-beast-expo-r-2017943/",
           "price": null,
@@ -8285,6 +8342,16 @@
           "price": 62624,
           "availability": "in-stock",
           "checkedAt": "2026-11-05T18:23:26.661Z",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "mpn"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/17e2942c3953ed20/operativnaa-pamat-ddr5-udimm-kingston-fury-beast-black-kf556c36bbek2-32-32-gb/",
+          "price": 51999,
+          "checkedAt": "2026-11-05T19:49:19.041Z",
+          "availability": "in-stock",
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
@@ -9905,17 +9972,6 @@
           "transport": "html-snapshot"
         },
         {
-          "store": "DNS",
-          "url": "https://www.dns-shop.ru/product/39779619c38e0fd2/1000-gb-m2-nvme-nakopitel-samsung-990-pro-mz-v9p1t0bw/",
-          "price": null,
-          "availability": "unknown",
-          "status": "error",
-          "checkedAt": "2026-11-01T20:10:51.773Z",
-          "identity": "verified-reference",
-          "error": "Источник ограничил серверный доступ. Цена не подтверждена.",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "CITILINK",
           "url": "https://www.citilink.ru/product/ssd-nakopitel-samsung-990-pro-mz-v9p1t0bw-1tb-m-2-2280-pcie-4-0-x4-nvm-1896626/",
           "price": null,
@@ -9943,6 +9999,16 @@
           "checkedAt": "2026-11-05T18:30:51.205Z",
           "status": "ok",
           "availability": "out-of-stock",
+          "transport": "html-snapshot",
+          "identity": "mpn"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/39779619c38e0fd2/1000-gb-m2-nvme-nakopitel-samsung-990-pro-mz-v9p1t0bw/",
+          "price": 24599,
+          "checkedAt": "2026-11-05T19:49:28.864Z",
+          "availability": "in-stock",
+          "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
         }
@@ -20136,6 +20202,16 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/11bdd2d9b1d9002c/processor-amd-ryzen-5-5600x-oem/",
+          "price": 12299,
+          "checkedAt": "2026-11-05T19:52:26.698Z",
+          "availability": "in-stock",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "mpn"
         }
       ]
     },
@@ -20427,6 +20503,16 @@
           "price": 9651,
           "availability": "in-stock",
           "checkedAt": "2026-11-05T18:23:16.549Z",
+          "status": "ok",
+          "transport": "html-snapshot",
+          "identity": "mpn"
+        },
+        {
+          "store": "DNS",
+          "url": "https://www.dns-shop.ru/product/2779e1d6afeced20/processor-amd-ryzen-5-5500-oem/",
+          "price": 9299,
+          "checkedAt": "2026-11-05T19:53:29.690Z",
+          "availability": "in-stock",
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
@@ -56541,9 +56627,9 @@
     {
       "name": "DNS",
       "url": "https://www.dns-shop.ru/",
-      "checkedAt": "2026-11-05T18:30:51.224Z",
-      "status": "limited",
-      "note": "Проверено запросов: 1; обновлено цен: 0; требуется проверка: 0. Магазин ограничил доступ: HTTP 401"
+      "checkedAt": "2026-11-05T19:54:57.188Z",
+      "status": "partial",
+      "note": "Москва. Проверены цены 13 товаров. Охват неполный."
     },
     {
       "name": "CITILINK",
