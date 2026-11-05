@@ -578,9 +578,9 @@
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_5_7500f_1077819.html",
-          "price": 12545,
-          "availability": "in-stock",
-          "checkedAt": "2026-11-01T21:34:21.584Z",
+          "price": 12487,
+          "availability": "unknown",
+          "checkedAt": "2026-11-05T18:18:38Z",
           "status": "ok",
           "transport": "html-snapshot"
         }
