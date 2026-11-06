@@ -1,0 +1,119 @@
+[
+  {
+    "category": "cpu",
+    "title": "Процессоры",
+    "id": "17a899cd16404e77",
+    "expected": 441,
+    "loaded": 441,
+    "priced": 441,
+    "complete": true
+  },
+  {
+    "category": "motherboard",
+    "title": "Материнские платы",
+    "id": "17a89a0416404e77",
+    "expected": 880,
+    "loaded": 880,
+    "priced": 880,
+    "complete": true
+  },
+  {
+    "category": "gpu",
+    "title": "Видеокарты",
+    "id": "17a89aab16404e77",
+    "expected": 523,
+    "loaded": 523,
+    "priced": 523,
+    "complete": true
+  },
+  {
+    "category": "ram",
+    "title": "Оперативная память DIMM",
+    "id": "17a89a3916404e77",
+    "expected": 976,
+    "loaded": 976,
+    "priced": 976,
+    "complete": true
+  },
+  {
+    "category": "ram",
+    "title": "Оперативная память SO-DIMM",
+    "id": "17a9b91b16404e77",
+    "expected": 146,
+    "loaded": 146,
+    "priced": 146,
+    "complete": true
+  },
+  {
+    "category": "ssd",
+    "title": "SSD накопители",
+    "id": "8a9ddfba20724e77",
+    "expected": 209,
+    "loaded": 209,
+    "priced": 209,
+    "complete": true
+  },
+  {
+    "category": "ssd",
+    "title": "SSD M.2 накопители",
+    "id": "dd58148920724e77",
+    "expected": 504,
+    "loaded": 504,
+    "priced": 504,
+    "complete": true
+  },
+  {
+    "category": "hdd",
+    "title": "Жесткие диски 3.5",
+    "id": "17a8914916404e77",
+    "expected": 179,
+    "loaded": 179,
+    "priced": 179,
+    "complete": true
+  },
+  {
+    "category": "hdd",
+    "title": "Жесткие диски 2.5",
+    "id": "f09d15560cdd4e77",
+    "expected": 17,
+    "loaded": 17,
+    "priced": 17,
+    "complete": true
+  },
+  {
+    "category": "psu",
+    "title": "Блоки питания",
+    "id": "17a89c2216404e77",
+    "expected": 1164,
+    "loaded": 1164,
+    "priced": 1164,
+    "complete": true
+  },
+  {
+    "category": "case",
+    "title": "Корпуса",
+    "id": "17a89c5616404e77",
+    "expected": 1723,
+    "loaded": 1723,
+    "priced": 1723,
+    "complete": true
+  },
+  {
+    "category": "cooler",
+    "title": "Кулеры для процессоров",
+    "id": "17a9cc2d16404e77",
+    "expected": 792,
+    "loaded": 792,
+    "priced": 792,
+    "complete": true
+  },
+  {
+    "category": "aio",
+    "title": "Системы жидкостного охлаждения",
+    "id": "17a9cc9816404e77",
+    "expected": 736,
+    "loaded": 736,
+    "priced": 736,
+    "complete": true
+  }
+]
