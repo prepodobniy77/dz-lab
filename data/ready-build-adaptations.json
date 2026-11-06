@@ -80,7 +80,7 @@
       "psu": "xcom-1220743",
       "cooler": "xcom-970979",
       "cpu": "xcom-1129308",
-      "motherboard": "dns-ca2efb5ac35bd582",
+      "motherboard": "dns-69e396154e03ed20",
       "ram": "xcom-1052933",
       "gpu": "dns-bc6903cc02d4d9cb",
       "case": "xcom-1108847"
@@ -99,7 +99,7 @@
       "changes": [
         "Сохранены сочетание Ryzen 5 9600X + RTX 5070, плата класса B650M и SSD около 1 ТБ.",
         "Память увеличена с 16 до 32 ГБ; выбраны конкретные ADATA XPG 2×16 ГБ DDR5-5600.",
-        "Выбраны MSI RTX 5070 VENTUS 2X OC, MSI B650M BOMBER WIFI, кулер ID-Cooling SE-224-XTS и корпус Zalman P30.",
+        "Выбраны MSI RTX 5070 VENTUS 2X OC, MSI MAG B650M MORTAR WIFI, кулер ID-Cooling SE-224-XTS и корпус Zalman P30.",
         "БП увеличен с 650 до 850 Вт; Windows, фирменная гарантия и услуги магазина в расчёт не входят."
       ]
     }

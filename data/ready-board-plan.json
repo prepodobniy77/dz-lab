@@ -1,0 +1,202 @@
+[
+  {
+    "buildId": "office-am4",
+    "productId": "xcom-827202",
+    "role": "basic",
+    "rationale": "Сохранена для AMD Ryzen 5 5600GT. Сокет, тип памяти и формат платы проверяются вместе с остальным составом; обновление BIOS остаётся отдельной проверкой.",
+    "sourceUrls": [
+      "https://www.xcom-shop.ru/msi_b550m-a_pro_827202.html"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "study-intel",
+    "productId": "xcom-1004244",
+    "role": "basic",
+    "rationale": "Сохранена для Intel Core i5-12400. Сокет, тип памяти и формат платы проверяются вместе с остальным составом; обновление BIOS остаётся отдельной проверкой.",
+    "sourceUrls": [
+      "https://www.xcom-shop.ru/msi_pro_b760m-e_ddr4_1004244.html"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "home-am4",
+    "productId": "xcom-827202",
+    "role": "basic",
+    "rationale": "Сохранена для AMD Ryzen 7 5700G. Сокет, тип памяти и формат платы проверяются вместе с остальным составом; обновление BIOS остаётся отдельной проверкой.",
+    "sourceUrls": [
+      "https://www.xcom-shop.ru/msi_b550m-a_pro_827202.html"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "start-am5",
+    "productId": "xcom-1092923",
+    "role": "basic",
+    "rationale": "B650M-R оставлена только в начальной AM5-сборке с Ryzen 5 8600G. Два DIMM заняты комплектом 2×16 ГБ; дальнейшее увеличение памяти потребует замены модулей.",
+    "sourceUrls": [
+      "https://www.asus.com/motherboards-components/motherboards/prime/prime-b650m-r/techspec/"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "dzlab-start",
+    "productId": "xcom-827202",
+    "role": "basic",
+    "rationale": "Сохранена для AMD Ryzen 5 5600. Сокет, тип памяти и формат платы проверяются вместе с остальным составом; обновление BIOS остаётся отдельной проверкой.",
+    "sourceUrls": [
+      "https://www.xcom-shop.ru/msi_b550m-a_pro_827202.html"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "entry-intel",
+    "productId": "xcom-1004244",
+    "role": "basic",
+    "rationale": "Сохранена для Intel Core i3-12100F. Сокет, тип памяти и формат платы проверяются вместе с остальным составом; обновление BIOS остаётся отдельной проверкой.",
+    "sourceUrls": [
+      "https://www.xcom-shop.ru/msi_pro_b760m-e_ddr4_1004244.html"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "classic-am4",
+    "productId": "xcom-827202",
+    "role": "basic",
+    "rationale": "Сохранена для AMD Ryzen 5 5600. Сокет, тип памяти и формат платы проверяются вместе с остальным составом; обновление BIOS остаётся отдельной проверкой.",
+    "sourceUrls": [
+      "https://www.xcom-shop.ru/msi_b550m-a_pro_827202.html"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "dzlab-balance",
+    "productId": "dns-ca2efb5ac35bd582",
+    "role": "gaming",
+    "rationale": "Сохранена для AMD Ryzen 5 7500F. Сокет, тип памяти и формат платы проверяются вместе с остальным составом; обновление BIOS остаётся отдельной проверкой.",
+    "sourceUrls": [
+      "https://www.dns-shop.ru/product/ca2efb5ac35bd582/materinskaa-plata-msi-b650m-bomber-wifi/"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "am5-5060",
+    "productId": "dns-090c477cf389ed20",
+    "role": "gaming",
+    "rationale": "Ryzen 5 7500F: ASRock B650M Pro RS с 4 слотами DDR5 и тремя M.2; без переплаты за X870.",
+    "sourceUrls": [
+      "https://www.asrock.com/mb/AMD/B650M%20Pro%20RS/index.asp"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "intel-ti",
+    "productId": "xcom-1020155",
+    "role": "sustained",
+    "rationale": "Для i5-14600KF выбрана PRO B760M-A WIFI DDR4 с радиаторами питания и четырьмя DIMM вместо базовой B760M-E; память DDR4 сохранена. Разгон CPU не заявлен.",
+    "sourceUrls": [
+      "https://www.msi.com/Motherboard/PRO-B760M-A-WIFI-DDR4"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "radeon-9060",
+    "productId": "dns-090c477cf389ed20",
+    "role": "gaming",
+    "rationale": "Тот же Ryzen 5 7500F: та же обоснованная плата Pro RS. Другая видеокарта не требует случайной смены платы.",
+    "sourceUrls": [
+      "https://www.asrock.com/mb/AMD/B650M%20Pro%20RS/index.asp"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "dzlab-pro",
+    "productId": "dns-69e396154e03ed20",
+    "role": "gaming",
+    "rationale": "Для Ryzen 5 9600X в корпусе mATX выбрана MORTAR WIFI: 12+2+1, SPS 80 А, радиаторы VRM, четыре DIMM. Нужно проверить BIOS под Ryzen 9000.",
+    "sourceUrls": [
+      "https://www.msi.com/Motherboard/MAG-B650M-MORTAR-WIFI"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "radeon-9070",
+    "productId": "dns-414e9c60e254ed20",
+    "role": "gaming",
+    "rationale": "Для AM5 с Ryzen 7 9700X выбрана B650 GAMING PLUS WIFI с радиаторами питания, четырьмя DIMM и Wi-Fi; BIOS под Ryzen 9000 нужно проверить.",
+    "sourceUrls": [
+      "https://www.msi.com/Motherboard/B650-GAMING-PLUS-WIFI"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "ultra-ti",
+    "productId": "xcom-1126022",
+    "role": "gaming",
+    "rationale": "Сохранена для Intel Core Ultra 5 245K. Сокет, тип памяти и формат платы проверяются вместе с остальным составом; обновление BIOS остаётся отдельной проверкой.",
+    "sourceUrls": [
+      "https://www.xcom-shop.ru/asus_prime_z890m-plus_wifi_1126022.html"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "x3d-ti",
+    "productId": "dns-0e99e58235ead582",
+    "role": "gaming",
+    "rationale": "Ryzen 7 9800X3D: TOMAHAWK MAX с 14+2+1 силовыми каскадами 80 А, радиаторами VRM и интерфейсами B850. Это запас оснащения, а не обещание прироста FPS.",
+    "sourceUrls": [
+      "https://www.msi.com/Motherboard/MAG-B850-TOMAHAWK-MAX-WIFI"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "dzlab-ultra",
+    "productId": "dns-0e99e58235ead582",
+    "role": "gaming",
+    "rationale": "Сохранена для AMD Ryzen 7 9800X3D. Сокет, тип памяти и формат платы проверяются вместе с остальным составом; обновление BIOS остаётся отдельной проверкой.",
+    "sourceUrls": [
+      "https://www.dns-shop.ru/product/0e99e58235ead582/materinskaa-plata-msi-mag-b850-tomahawk-max-wifi/"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "flagship-5090",
+    "productId": "dns-ce5a649f8089d21a",
+    "role": "sustained",
+    "rationale": "Ryzen 9 9950X3D: TUF X870-PLUS с 16+2+1 каскадами 80 А, крупными радиаторами VRM и USB4. Разделение линий PCIe/M.2 проверяется по инструкции.",
+    "sourceUrls": [
+      "https://www.asus.com/motherboards-components/motherboards/all-series/tuf-gaming-x870-plus-wifi/"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "creator-ryzen",
+    "productId": "dns-2cdf930070b4d582",
+    "role": "sustained",
+    "rationale": "Рабочая станция Ryzen 9 9900X: X870E AORUS ELITE, охлаждение VRM, четыре DIMM, четыре M.2 и USB4. При добавлении накопителей нужно проверить разделение линий.",
+    "sourceUrls": [
+      "https://www.gigabyte.com/Motherboard/X870E-AORUS-ELITE-WIFI7-rev-10-11"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "creator-intel",
+    "productId": "xcom-1098969",
+    "role": "sustained",
+    "rationale": "Сохранена для Intel Core i7-14700K. Сокет, тип памяти и формат платы проверяются вместе с остальным составом; обновление BIOS остаётся отдельной проверкой.",
+    "sourceUrls": [
+      "https://www.xcom-shop.ru/gigabyte_z790_eagle_ax_1098969.html"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  },
+  {
+    "buildId": "home-archive",
+    "productId": "xcom-827202",
+    "role": "gaming",
+    "rationale": "Сохранена для AMD Ryzen 7 5700G. Сокет, тип памяти и формат платы проверяются вместе с остальным составом; обновление BIOS остаётся отдельной проверкой.",
+    "sourceUrls": [
+      "https://www.xcom-shop.ru/msi_b550m-a_pro_827202.html"
+    ],
+    "reviewedAt": "2026-11-06T19:39:47.026238Z"
+  }
+]

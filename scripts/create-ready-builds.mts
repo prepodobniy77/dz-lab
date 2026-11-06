@@ -1,4 +1,6 @@
 import {readFile,writeFile} from 'node:fs/promises';
+import {readyMotherboard,type ReadyBoardChoice} from '../lib/ready-motherboards.mts';
+import type {ReadyBuild} from '../lib/ready-builds.ts';
 import {bestOffer,checkCompatibility} from '../lib/catalog.ts';
 import type {Product,Category,Selection} from '../lib/catalog-types';
 const products:Product[]=JSON.parse(await readFile('data/catalog.json','utf8')).products;
@@ -26,11 +28,20 @@ const setups:[string,string,string,string,RegExp,RegExp|null,number,number,numbe
  ['creator-intel','Creator / Core i7','work','Core i7-14700K, RTX 5080, 64 ГБ памяти и СЖО 360 мм.',/i7-14700K$/,/RTX 5080,/,64,2000,1000,true],
  ['home-archive','Home / Storage','work','Домашняя рабочая основа: SSD 1 ТБ и HDD 8 ТБ. HDD не заменяет резервную копию.',/Ryzen 7 5700G$/,null,32,1000,650,false,8000],
 ];
-const adaptations=JSON.parse(await readFile('data/ready-build-adaptations.json','utf8'));
-const ready=[];
+const boardPlan:ReadyBoardChoice[]=JSON.parse(await readFile('data/ready-board-plan.json','utf8'));
+const adaptations:ReadyBuild[]=JSON.parse(await readFile('data/ready-build-adaptations.json','utf8'));
+const ready:ReadyBuild[]=[];
 for(const [id,name,group,description,cpuRe,gpuRe,ramGb,ssdGb,watts,water,hddGb] of setups){
+ const adaptation=adaptations.find(b=>b.adaptation?.replaces===id);
+ if(adaptation){
+  const board=readyMotherboard(adaptation.id,products,boardPlan);
+  if(adaptation.selection.motherboard!==board.id)throw Error('Adaptation board review mismatch '+id);
+  const errors=checkCompatibility(adaptation.selection,products).filter(i=>i.level==='error');if(errors.length)throw Error(id+JSON.stringify(errors));
+  ready.push(adaptation);continue;
+ }
  const cpu=exact('cpu',cpuRe);const memory=cpu.specs.socket==='AM4'||cpu.specs.socket==='LGA1700'&&!['creator-intel'].includes(id)?'DDR4':'DDR5';
- const board=pool('motherboard').filter(p=>p.specs.socket===cpu.specs.socket&&p.specs.memory===memory).find(p=>/MSI|GIGABYTE|ASUS/.test(p.name)&&(cpu.specs.socket==='AM4'?/B550/i:/^(?:premium|work)$/.test(group)?/X870|B650|Z790|Z890/i:/B550|B650|B850|B760|Z890/i).test(p.name));if(!board)throw new Error('Missing board '+id);
+ const board=readyMotherboard(id,products,boardPlan);
+ if(board.specs.socket!==cpu.specs.socket||board.specs.memory!==memory)throw Error('Reviewed motherboard platform mismatch '+id);
  const ram=pool('ram').find(p=>p.specs.memory===memory&&p.specs.capacity===ramGb&&p.specs.moduleType==='UDIMM'&&/Kingston|G.Skill|ADATA|Patriot|Corsair|Team|Crucial/i.test(p.name)&&/2[×xх]/i.test(p.name));if(!ram)throw new Error('Missing ram '+id);
  const ssd=pool('ssd').find(p=>(p.specs.capacity||0)>=ssdGb&&(p.specs.capacity||0)<=ssdGb*1.05&&p.specs.interface==='NVMe'&&/Samsung|Kingston|Western Digital|WD |ADATA|Crucial|Lexar/i.test(p.name)&&!/U\.2|2\.5|Solidigm|Micron/i.test(p.name));if(!ssd)throw new Error('Missing SSD '+id);
  const gpu=gpuRe?exact('gpu',gpuRe):undefined;const needed=Math.max(watts,gpu?.specs.recommendedPsu||0);const psu=pool('psu').find(p=>p.specs.watts===needed&&/Deepcool.*(?:PF650|PQ850G|PQ1000G|PQ1200G)/i.test(p.name));if(!psu)throw new Error('Missing PSU '+id);
@@ -40,4 +51,4 @@ for(const [id,name,group,description,cpuRe,gpuRe,ramGb,ssdGb,watts,water,hddGb] 
  const selection:Selection=Object.fromEntries(parts.map(p=>[p.category,p.id]));const errors=checkCompatibility(selection,products).filter(x=>x.level==='error');if(errors.length)throw new Error(id+JSON.stringify(errors));
  ready.push({id,name,group,description,integratedGraphics:!gpu,selection});console.log(id,parts.length,parts.reduce((s,p)=>s+bestOffer(p)!.price!,0));
 }
-await writeFile('data/ready-builds.json',JSON.stringify(ready.map(build=>adaptations.find((pc:any)=>pc.adaptation.replaces===build.id)||build),null,2));
+await writeFile('data/ready-builds.json',JSON.stringify(ready,null,2));

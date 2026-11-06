@@ -1,12 +1,15 @@
 /** Apply researched configurations using catalog parts, not a vendor's bundle price. */
 import {readFile,writeFile,rename} from 'node:fs/promises';
+import {readyMotherboard,type ReadyBoardChoice} from '../lib/ready-motherboards.mts';
 import {bestOffer,checkCompatibility} from '../lib/catalog.ts';
 import {readyBuildOverview,type ReadyBuild} from '../lib/ready-builds.ts';
 import type {Product} from '../lib/catalog-types';
 const products:Product[]=JSON.parse(await readFile('data/catalog.json','utf8')).products;
 const recipes:ReadyBuild[]=JSON.parse(await readFile('data/ready-build-adaptations.json','utf8'));
+const boardPlan:ReadyBoardChoice[]=JSON.parse(await readFile('data/ready-board-plan.json','utf8'));
 const builds:ReadyBuild[]=JSON.parse(await readFile('data/ready-builds.json','utf8'));
 for(const recipe of recipes){
+ if(recipe.selection.motherboard!==readyMotherboard(recipe.id,products,boardPlan).id)throw Error('Adaptation requires motherboard review '+recipe.id);
  if(!recipe.adaptation||recipe.retail||!recipe.name.startsWith('DZ LAB '))throw Error('Invalid adaptation');
  for(const [slot,id] of Object.entries(recipe.selection)){
   const part=products.find(p=>p.id===id&&p.category===slot);

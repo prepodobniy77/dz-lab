@@ -175,7 +175,7 @@
     "integratedGraphics": false,
     "selection": {
       "cpu": "xcom-1077819",
-      "motherboard": "xcom-1092923",
+      "motherboard": "dns-090c477cf389ed20",
       "ram": "xcom-1052933",
       "ssd": "xcom-1125486",
       "psu": "xcom-1290355",
@@ -192,7 +192,7 @@
     "integratedGraphics": false,
     "selection": {
       "cpu": "xcom-1057035",
-      "motherboard": "xcom-1004244",
+      "motherboard": "xcom-1020155",
       "ram": "xcom-1236237",
       "ssd": "xcom-1125486",
       "psu": "xcom-1220743",
@@ -209,7 +209,7 @@
     "integratedGraphics": false,
     "selection": {
       "cpu": "xcom-1077819",
-      "motherboard": "xcom-1092923",
+      "motherboard": "dns-090c477cf389ed20",
       "ram": "xcom-1052933",
       "ssd": "xcom-1125486",
       "psu": "xcom-1290355",
@@ -229,7 +229,7 @@
       "psu": "xcom-1220743",
       "cooler": "xcom-970979",
       "cpu": "xcom-1129308",
-      "motherboard": "dns-ca2efb5ac35bd582",
+      "motherboard": "dns-69e396154e03ed20",
       "ram": "xcom-1052933",
       "gpu": "dns-bc6903cc02d4d9cb",
       "case": "xcom-1108847"
@@ -248,7 +248,7 @@
       "changes": [
         "Сохранены сочетание Ryzen 5 9600X + RTX 5070, плата класса B650M и SSD около 1 ТБ.",
         "Память увеличена с 16 до 32 ГБ; выбраны конкретные ADATA XPG 2×16 ГБ DDR5-5600.",
-        "Выбраны MSI RTX 5070 VENTUS 2X OC, MSI B650M BOMBER WIFI, кулер ID-Cooling SE-224-XTS и корпус Zalman P30.",
+        "Выбраны MSI RTX 5070 VENTUS 2X OC, MSI MAG B650M MORTAR WIFI, кулер ID-Cooling SE-224-XTS и корпус Zalman P30.",
         "БП увеличен с 650 до 850 Вт; Windows, фирменная гарантия и услуги магазина в расчёт не входят."
       ]
     }
@@ -261,7 +261,7 @@
     "integratedGraphics": false,
     "selection": {
       "cpu": "xcom-1129307",
-      "motherboard": "xcom-1092923",
+      "motherboard": "dns-414e9c60e254ed20",
       "ram": "xcom-1052933",
       "ssd": "xcom-1125487",
       "psu": "xcom-1220743",
@@ -295,7 +295,7 @@
     "integratedGraphics": false,
     "selection": {
       "cpu": "xcom-1157449",
-      "motherboard": "xcom-1092923",
+      "motherboard": "dns-0e99e58235ead582",
       "ram": "xcom-1052933",
       "ssd": "xcom-1125487",
       "psu": "xcom-1220743",
@@ -346,7 +346,7 @@
     "integratedGraphics": false,
     "selection": {
       "cpu": "xcom-1196278",
-      "motherboard": "xcom-1092923",
+      "motherboard": "dns-ce5a649f8089d21a",
       "ram": "xcom-1222740",
       "ssd": "xcom-1068015",
       "psu": "xcom-1220740",
@@ -363,7 +363,7 @@
     "integratedGraphics": false,
     "selection": {
       "cpu": "xcom-1137706",
-      "motherboard": "xcom-1092923",
+      "motherboard": "dns-2cdf930070b4d582",
       "ram": "xcom-1222740",
       "ssd": "xcom-1125487",
       "psu": "xcom-1220743",
