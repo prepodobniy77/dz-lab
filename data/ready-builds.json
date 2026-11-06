@@ -64,33 +64,39 @@
     }
   },
   {
-    "id": "dns-ardor-neo-m305",
-    "name": "ARDOR GAMING NEO M305",
+    "id": "dzlab-start",
+    "name": "DZ LAB Start",
     "group": "budget",
-    "description": "Готовый ПК с Ryzen 5 5600, RTX 3050 8 ГБ и SSD 1 ТБ. Без операционной системы.",
+    "description": "Ryzen 5 5600, RTX 5060 8 ГБ и 16 ГБ двухканальной DDR4. SSD 1 ТБ и воздушное охлаждение.",
     "integratedGraphics": false,
-    "selection": {},
-    "retail": {
-      "store": "DNS",
+    "selection": {
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1290355",
+      "cooler": "xcom-956862",
+      "cpu": "xcom-1004058",
+      "motherboard": "xcom-827202",
+      "ram": "xcom-858580",
+      "gpu": "xcom-1329763",
+      "case": "xcom-816977"
+    },
+    "adaptation": {
       "replaces": "entry-1650",
-      "url": "https://www.dns-shop.ru/product/6ebac42d5271d9cb/pk-ardor-gaming-neo-m305/",
-      "price": 89799,
-      "currency": "RUB",
-      "image": "https://c.dns-shop.ru/thumb/st1/fit/200/200/39898e03c0312bb5fa4a710a5baad9b1/d900b985608aed17335ec852899ed44f1c3b3d48d608c4ad429f0626dd1b0c11.jpg",
-      "checkedAt": "2026-11-06T19:15:36.524Z",
-      "region": "Москва",
-      "availability": "Доставим на дом от 10 ноября",
-      "specs": {
-        "Процессор": "AMD Ryzen 5 5600",
-        "Видеокарта": "GeForce RTX 3050 8 ГБ",
-        "ОЗУ": "16 ГБ DDR4",
-        "SSD": "1 ТБ M.2 PCIe",
-        "Чипсет": "AMD A520",
-        "Блок питания": "500 Вт",
-        "ОС": "Без ОС"
+      "source": "PCS",
+      "url": "https://pcs.moscow/p/igrovoy-komp-yuter-rtx-5060-8-gb-ryzen-5600-16gb-1-tb-ssd",
+      "checkedAt": "2026-11-06T19:28:18.018199Z",
+      "basis": {
+        "cpu": "Ryzen 5 5600",
+        "gpu": "RTX 5060 8 ГБ",
+        "ramGb": 16,
+        "ssdGb": 1000
       },
-      "sourceTitle": "ПК ARDOR GAMING NEO M305",
-      "rawSnippet": "89 799 ₽"
+      "changes": [
+        "Сохранены процессор Ryzen 5 5600, класс RTX 5060, 16 ГБ памяти и SSD около 1 ТБ.",
+        "Плата заменена с A520 на MSI B550M-A PRO; выбрана память Kingston 2×8 ГБ.",
+        "Вместо Palit DUAL выбрана MSI GeForce RTX 5060 8 ГБ из каталога.",
+        "Используются SSD Kingston NV3, БП Deepcool 650 Вт, кулер AG400 и корпус Zalman S3 TG.",
+        "Windows и услуги сборки в расчёт не включены."
+      ]
     }
   },
   {
@@ -128,33 +134,37 @@
     }
   },
   {
-    "id": "dns-ardor-neo-m276",
-    "name": "ARDOR GAMING NEO M276",
+    "id": "dzlab-balance",
+    "name": "DZ LAB Balance",
     "group": "gaming",
-    "description": "Готовый ПК на Intel Core i5 с RTX 5060 8 ГБ и SSD 1 ТБ. Без операционной системы.",
+    "description": "Платформа AM5 с Ryzen 5 7500F, RTX 5060 8 ГБ и 32 ГБ DDR5-6000. Wi-Fi на плате, SSD 1 ТБ.",
     "integratedGraphics": false,
-    "selection": {},
-    "retail": {
-      "store": "DNS",
+    "selection": {
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1220743",
+      "cooler": "xcom-956862",
+      "cpu": "xcom-1077819",
+      "motherboard": "dns-ca2efb5ac35bd582",
+      "ram": "xcom-1102217",
+      "gpu": "dns-d85735c72199d582",
+      "case": "xcom-1242004"
+    },
+    "adaptation": {
       "replaces": "intel-5060",
-      "url": "https://www.dns-shop.ru/product/dbfccbc904ead582/pk-ardor-gaming-neo-m276/",
-      "price": 101999,
-      "currency": "RUB",
-      "image": "https://c.dns-shop.ru/thumb/st1/fit/200/200/f096437ce672ebb9f1e621f2daf94836/17f07351a44217f3d8e9795f6f9ffc533e39e47d420dc26ac4976a54c84659db.jpg",
-      "checkedAt": "2026-11-06T19:15:36.525Z",
-      "region": "Москва",
-      "availability": "Доставим на дом от 10 ноября",
-      "specs": {
-        "Процессор": "Intel Core i5-12400F",
-        "Видеокарта": "GeForce RTX 5060 8 ГБ",
-        "ОЗУ": "16 ГБ DDR4",
-        "SSD": "1 ТБ M.2 PCIe",
-        "Чипсет": "Intel H610",
-        "Блок питания": "600 Вт",
-        "ОС": "Без ОС"
+      "source": "Точка ПК",
+      "url": "https://tochkapc.ru/noutbuki/kompyutery-i-monobloki/igrovoy-pk-ryzen-5-7500f-ddr5-32gb-rtx-5060-8gb/",
+      "checkedAt": "2026-11-06T19:28:18.018199Z",
+      "basis": {
+        "cpu": "Ryzen 5 7500F",
+        "gpu": "RTX 5060 8 ГБ",
+        "ramGb": 32,
+        "ssdGb": 1000
       },
-      "sourceTitle": "ПК ARDOR GAMING NEO M276",
-      "rawSnippet": "101 999 ₽"
+      "changes": [
+        "Сохранены Ryzen 5 7500F, GIGABYTE RTX 5060 WINDFORCE OC, 32 ГБ DDR5-6000 и Kingston NV3.",
+        "Вместо Gigabyte B650M GAMING WIFI6E выбрана MSI B650M BOMBER WIFI; память — Kingston 2×16 ГБ.",
+        "БП заменён на Deepcool PQ850G 850 Вт, корпус — на Ocypus Gamma C50; охлаждение — AG400."
+      ]
     }
   },
   {
@@ -209,34 +219,38 @@
     }
   },
   {
-    "id": "dns-ardor-rage-h486",
-    "name": "ARDOR GAMING RAGE H486",
+    "id": "dzlab-pro",
+    "name": "DZ LAB Pro",
     "group": "gaming",
-    "description": "Готовый ПК на AM5: RTX 5070 12 ГБ, 32 ГБ DDR5, Wi-Fi и Bluetooth. Без ОС.",
+    "description": "Ryzen 5 9600X и RTX 5070 12 ГБ, 32 ГБ DDR5 и SSD 1 ТБ. Воздушное охлаждение, БП 850 Вт.",
     "integratedGraphics": false,
-    "selection": {},
-    "retail": {
-      "store": "DNS",
+    "selection": {
+      "ssd": "xcom-1125486",
+      "psu": "xcom-1220743",
+      "cooler": "xcom-970979",
+      "cpu": "xcom-1129308",
+      "motherboard": "dns-ca2efb5ac35bd582",
+      "ram": "xcom-1052933",
+      "gpu": "dns-bc6903cc02d4d9cb",
+      "case": "xcom-1108847"
+    },
+    "adaptation": {
       "replaces": "ryzen-5070",
-      "url": "https://www.dns-shop.ru/product/1e0ce7787434d9cb/pk-ardor-gaming-rage-h486/",
-      "price": 214999,
-      "currency": "RUB",
-      "image": "https://c.dns-shop.ru/thumb/st1/fit/200/200/06c3c28b92d4f32e10cff79a285d27bf/26d3fcc76e0557762801c1ff548ff090f7c1a021abc9880f57531236d432b2f4.jpg",
-      "checkedAt": "2026-11-06T19:16:12.188Z",
-      "region": "Москва",
-      "availability": "В наличии в 14 магазинах. Доставим на дом завтра",
-      "specs": {
-        "Процессор": "AMD Ryzen 5 7500F",
-        "Видеокарта": "GeForce RTX 5070 12 ГБ",
-        "ОЗУ": "32 ГБ DDR5",
-        "SSD": "1 ТБ M.2 PCIe",
-        "Чипсет": "AMD B850",
-        "Блок питания": "650 Вт",
-        "Связь": "Wi-Fi, Bluetooth",
-        "ОС": "Без ОС"
+      "source": "DigitalRazor",
+      "url": "https://digital-razor.ru/game-computers/detail/?id=180116",
+      "checkedAt": "2026-11-06T19:28:18.018199Z",
+      "basis": {
+        "cpu": "Ryzen 5 9600X",
+        "gpu": "RTX 5070 12 ГБ",
+        "ramGb": 16,
+        "ssdGb": 1000
       },
-      "sourceTitle": "ПК ARDOR GAMING RAGE H486",
-      "rawSnippet": "214 999 ₽"
+      "changes": [
+        "Сохранены сочетание Ryzen 5 9600X + RTX 5070, плата класса B650M и SSD около 1 ТБ.",
+        "Память увеличена с 16 до 32 ГБ; выбраны конкретные ADATA XPG 2×16 ГБ DDR5-5600.",
+        "Выбраны MSI RTX 5070 VENTUS 2X OC, MSI B650M BOMBER WIFI, кулер ID-Cooling SE-224-XTS и корпус Zalman P30.",
+        "БП увеличен с 650 до 850 Вт; Windows, фирменная гарантия и услуги магазина в расчёт не входят."
+      ]
     }
   },
   {
@@ -291,34 +305,37 @@
     }
   },
   {
-    "id": "dns-ardor-evo-x146",
-    "name": "ARDOR GAMING EVO X146",
+    "id": "dzlab-ultra",
+    "name": "DZ LAB Ultra",
     "group": "premium",
-    "description": "Готовый ПК с Ryzen 7 9800X3D, RTX 5080 16 ГБ, 64 ГБ DDR5 и SSD 2 ТБ. Без ОС.",
+    "description": "Ryzen 7 9800X3D, Palit RTX 5080 16 ГБ и 32 ГБ DDR5-6000. SSD 2 ТБ, СЖО 360 мм и БП 1000 Вт.",
     "integratedGraphics": false,
-    "selection": {},
-    "retail": {
-      "store": "DNS",
+    "selection": {
+      "cpu": "xcom-1157449",
+      "motherboard": "dns-0e99e58235ead582",
+      "ram": "xcom-1102217",
+      "gpu": "dns-ffeedbf2d499d9cb",
+      "ssd": "dns-dc1c9d4c26d6ed20",
+      "psu": "xcom-1220739",
+      "aio": "xcom-1210633",
+      "case": "xcom-1047374"
+    },
+    "adaptation": {
       "replaces": "x3d-5080",
-      "url": "https://www.dns-shop.ru/product/20cca3b820dad9cb/pk-ardor-gaming-evo-x146/",
-      "price": 450999,
-      "currency": "RUB",
-      "image": "https://c.dns-shop.ru/thumb/st1/fit/200/200/e809349dc06c01a0a824f6c906d63bf8/52d79ca16e4cf11bda711c52c291288ed1d56fab33b0b5e7472de927b39ddc42.jpg",
-      "checkedAt": "2026-11-06T19:16:44.993Z",
-      "region": "Москва",
-      "availability": "В наличии в 1 магазине. Доставим на дом завтра",
-      "specs": {
-        "Процессор": "AMD Ryzen 7 9800X3D",
-        "Видеокарта": "GeForce RTX 5080 16 ГБ",
-        "ОЗУ": "64 ГБ DDR5",
-        "SSD": "2 ТБ M.2 PCIe",
-        "Чипсет": "AMD B850",
-        "Блок питания": "1000 Вт",
-        "Связь": "Wi-Fi, Bluetooth",
-        "ОС": "Без ОС"
+      "source": "BIT COMP",
+      "url": "https://www.bit-comp.ru/igrovoy-pk-bit-comp-bs2-ryzen-7-9800x3d-b850-2tb-32gb-ddr5-6000-5080-oc-1000w/",
+      "checkedAt": "2026-11-06T19:28:18.018199Z",
+      "basis": {
+        "cpu": "Ryzen 7 9800X3D",
+        "gpu": "RTX 5080 16 ГБ",
+        "ramGb": 32,
+        "ssdGb": 2000
       },
-      "sourceTitle": "ПК ARDOR GAMING EVO X146",
-      "rawSnippet": "450 999 ₽"
+      "changes": [
+        "Сохранены Ryzen 7 9800X3D, MSI MAG B850 TOMAHAWK MAX WIFI, Palit RTX 5080 GamingPro OC и MSI SPATIUM M480 PRO 2 ТБ.",
+        "Сохранены класс памяти 32 ГБ DDR5-6000, СЖО 360 мм и Deepcool PQ1000G; выбраны память Kingston и ARCTIC Liquid Freezer III Pro.",
+        "Корпус заменён на Deepcool CH560; услуги сборки и гарантия магазина не включены."
+      ]
     }
   },
   {

@@ -6,10 +6,11 @@ export type RetailPc={
  checkedAt:string;region:'Москва';availability:string;specs:Record<string,string>;
  sourceTitle:string;rawSnippet:string;
 };
-export type ReadyBuild={id:string;name:string;group:string;description:string;integratedGraphics:boolean;selection:Selection;retail?:RetailPc};
+export type BuildAdaptation={replaces:string;source:string;url:string;checkedAt:string;basis:{cpu:string;gpu:string;ramGb:number;ssdGb:number};changes:string[]};
+export type ReadyBuild={id:string;name:string;group:string;description:string;integratedGraphics:boolean;selection:Selection;retail?:RetailPc;adaptation?:BuildAdaptation};
 export function buildOverview(selection:Selection,products:Product[]){
  const parts=categories.flatMap(c=>{const p=products.find(p=>p.id===selection[c.id]&&p.category===c.id);return p?[p]:[]});
- const offers=parts.map(bestOffer);
+ const offers=parts.map(part=>bestOffer(part));
  return {parts,total:offers.reduce((sum,o)=>sum+(o?.price||0),0),missing:offers.filter(o=>!o).length,unresolved:Object.keys(selection).length-parts.length,checkedAt:offers.filter(o=>!!o).map(o=>o!.checkedAt).sort()[0]};
 }
 /** Whole-PC retail prices must never be added to individual component prices. */
