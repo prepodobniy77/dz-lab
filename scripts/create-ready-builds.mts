@@ -26,6 +26,7 @@ const setups:[string,string,string,string,RegExp,RegExp|null,number,number,numbe
  ['creator-intel','Creator / Core i7','work','Core i7-14700K, RTX 5080, 64 ГБ памяти и СЖО 360 мм.',/i7-14700K$/,/RTX 5080,/,64,2000,1000,true],
  ['home-archive','Home / Storage','work','Домашняя рабочая основа: SSD 1 ТБ и HDD 8 ТБ. HDD не заменяет резервную копию.',/Ryzen 7 5700G$/,null,32,1000,650,false,8000],
 ];
+const storePcs=JSON.parse(await readFile('data/ready-builds.json','utf8')).filter((build:any)=>build.retail);
 const ready=[];
 for(const [id,name,group,description,cpuRe,gpuRe,ramGb,ssdGb,watts,water,hddGb] of setups){
  const cpu=exact('cpu',cpuRe);const memory=cpu.specs.socket==='AM4'||cpu.specs.socket==='LGA1700'&&!['creator-intel'].includes(id)?'DDR4':'DDR5';
@@ -39,4 +40,4 @@ for(const [id,name,group,description,cpuRe,gpuRe,ramGb,ssdGb,watts,water,hddGb] 
  const selection:Selection=Object.fromEntries(parts.map(p=>[p.category,p.id]));const errors=checkCompatibility(selection,products).filter(x=>x.level==='error');if(errors.length)throw new Error(id+JSON.stringify(errors));
  ready.push({id,name,group,description,integratedGraphics:!gpu,selection});console.log(id,parts.length,parts.reduce((s,p)=>s+bestOffer(p)!.price!,0));
 }
-await writeFile('data/ready-builds.json',JSON.stringify(ready,null,2));
+await writeFile('data/ready-builds.json',JSON.stringify(ready.map(build=>storePcs.find((pc:any)=>pc.retail.replaces===build.id)||build),null,2));

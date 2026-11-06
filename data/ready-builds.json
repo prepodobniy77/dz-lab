@@ -64,20 +64,33 @@
     }
   },
   {
-    "id": "entry-1650",
-    "name": "Entry / GTX 1650",
+    "id": "dns-ardor-neo-m305",
+    "name": "ARDOR GAMING NEO M305",
     "group": "budget",
-    "description": "Недорогая основа с отдельной видеокартой. Настройки игр выбираются под нагрузку.",
+    "description": "Готовый ПК с Ryzen 5 5600, RTX 3050 8 ГБ и SSD 1 ТБ. Без операционной системы.",
     "integratedGraphics": false,
-    "selection": {
-      "cpu": "xcom-952253",
-      "motherboard": "xcom-827202",
-      "ram": "xcom-1336934",
-      "ssd": "xcom-1104019",
-      "psu": "xcom-1290355",
-      "cooler": "xcom-970979",
-      "case": "xcom-1047374",
-      "gpu": "xcom-1203030"
+    "selection": {},
+    "retail": {
+      "store": "DNS",
+      "replaces": "entry-1650",
+      "url": "https://www.dns-shop.ru/product/6ebac42d5271d9cb/pk-ardor-gaming-neo-m305/",
+      "price": 89799,
+      "currency": "RUB",
+      "image": "https://c.dns-shop.ru/thumb/st1/fit/200/200/39898e03c0312bb5fa4a710a5baad9b1/d900b985608aed17335ec852899ed44f1c3b3d48d608c4ad429f0626dd1b0c11.jpg",
+      "checkedAt": "2026-11-06T19:15:36.524Z",
+      "region": "Москва",
+      "availability": "Доставим на дом от 10 ноября",
+      "specs": {
+        "Процессор": "AMD Ryzen 5 5600",
+        "Видеокарта": "GeForce RTX 3050 8 ГБ",
+        "ОЗУ": "16 ГБ DDR4",
+        "SSD": "1 ТБ M.2 PCIe",
+        "Чипсет": "AMD A520",
+        "Блок питания": "500 Вт",
+        "ОС": "Без ОС"
+      },
+      "sourceTitle": "ПК ARDOR GAMING NEO M305",
+      "rawSnippet": "89 799 ₽"
     }
   },
   {
@@ -115,20 +128,33 @@
     }
   },
   {
-    "id": "intel-5060",
-    "name": "Intel / RTX 5060",
+    "id": "dns-ardor-neo-m276",
+    "name": "ARDOR GAMING NEO M276",
     "group": "gaming",
-    "description": "Игровая основа Intel с 32 ГБ DDR4 и RTX 5060.",
+    "description": "Готовый ПК на Intel Core i5 с RTX 5060 8 ГБ и SSD 1 ТБ. Без операционной системы.",
     "integratedGraphics": false,
-    "selection": {
-      "cpu": "xcom-886588",
-      "motherboard": "xcom-1004244",
-      "ram": "xcom-1236237",
-      "ssd": "xcom-1125486",
-      "psu": "xcom-1290355",
-      "cooler": "xcom-970979",
-      "case": "xcom-1047374",
-      "gpu": "xcom-1329763"
+    "selection": {},
+    "retail": {
+      "store": "DNS",
+      "replaces": "intel-5060",
+      "url": "https://www.dns-shop.ru/product/dbfccbc904ead582/pk-ardor-gaming-neo-m276/",
+      "price": 101999,
+      "currency": "RUB",
+      "image": "https://c.dns-shop.ru/thumb/st1/fit/200/200/f096437ce672ebb9f1e621f2daf94836/17f07351a44217f3d8e9795f6f9ffc533e39e47d420dc26ac4976a54c84659db.jpg",
+      "checkedAt": "2026-11-06T19:15:36.525Z",
+      "region": "Москва",
+      "availability": "Доставим на дом от 10 ноября",
+      "specs": {
+        "Процессор": "Intel Core i5-12400F",
+        "Видеокарта": "GeForce RTX 5060 8 ГБ",
+        "ОЗУ": "16 ГБ DDR4",
+        "SSD": "1 ТБ M.2 PCIe",
+        "Чипсет": "Intel H610",
+        "Блок питания": "600 Вт",
+        "ОС": "Без ОС"
+      },
+      "sourceTitle": "ПК ARDOR GAMING NEO M276",
+      "rawSnippet": "101 999 ₽"
     }
   },
   {
@@ -183,20 +209,34 @@
     }
   },
   {
-    "id": "ryzen-5070",
-    "name": "Ryzen / RTX 5070",
+    "id": "dns-ardor-rage-h486",
+    "name": "ARDOR GAMING RAGE H486",
     "group": "gaming",
-    "description": "Ryzen 5 9600X, RTX 5070 и накопитель 2 ТБ.",
+    "description": "Готовый ПК на AM5: RTX 5070 12 ГБ, 32 ГБ DDR5, Wi-Fi и Bluetooth. Без ОС.",
     "integratedGraphics": false,
-    "selection": {
-      "cpu": "xcom-1129308",
-      "motherboard": "xcom-1092923",
-      "ram": "xcom-1052933",
-      "ssd": "xcom-1125487",
-      "psu": "xcom-1220743",
-      "cooler": "xcom-970979",
-      "case": "xcom-1047374",
-      "gpu": "xcom-1187968"
+    "selection": {},
+    "retail": {
+      "store": "DNS",
+      "replaces": "ryzen-5070",
+      "url": "https://www.dns-shop.ru/product/1e0ce7787434d9cb/pk-ardor-gaming-rage-h486/",
+      "price": 214999,
+      "currency": "RUB",
+      "image": "https://c.dns-shop.ru/thumb/st1/fit/200/200/06c3c28b92d4f32e10cff79a285d27bf/26d3fcc76e0557762801c1ff548ff090f7c1a021abc9880f57531236d432b2f4.jpg",
+      "checkedAt": "2026-11-06T19:16:12.188Z",
+      "region": "Москва",
+      "availability": "В наличии в 14 магазинах. Доставим на дом завтра",
+      "specs": {
+        "Процессор": "AMD Ryzen 5 7500F",
+        "Видеокарта": "GeForce RTX 5070 12 ГБ",
+        "ОЗУ": "32 ГБ DDR5",
+        "SSD": "1 ТБ M.2 PCIe",
+        "Чипсет": "AMD B850",
+        "Блок питания": "650 Вт",
+        "Связь": "Wi-Fi, Bluetooth",
+        "ОС": "Без ОС"
+      },
+      "sourceTitle": "ПК ARDOR GAMING RAGE H486",
+      "rawSnippet": "214 999 ₽"
     }
   },
   {
@@ -251,20 +291,34 @@
     }
   },
   {
-    "id": "x3d-5080",
-    "name": "X3D / RTX 5080",
+    "id": "dns-ardor-evo-x146",
+    "name": "ARDOR GAMING EVO X146",
     "group": "premium",
-    "description": "Ryzen 7 9800X3D, RTX 5080, 64 ГБ DDR5 и СЖО 360 мм.",
+    "description": "Готовый ПК с Ryzen 7 9800X3D, RTX 5080 16 ГБ, 64 ГБ DDR5 и SSD 2 ТБ. Без ОС.",
     "integratedGraphics": false,
-    "selection": {
-      "cpu": "xcom-1157449",
-      "motherboard": "xcom-1092923",
-      "ram": "xcom-1222740",
-      "ssd": "xcom-1125487",
-      "psu": "xcom-1220739",
-      "aio": "xcom-1210633",
-      "case": "xcom-1047374",
-      "gpu": "xcom-1217669"
+    "selection": {},
+    "retail": {
+      "store": "DNS",
+      "replaces": "x3d-5080",
+      "url": "https://www.dns-shop.ru/product/20cca3b820dad9cb/pk-ardor-gaming-evo-x146/",
+      "price": 450999,
+      "currency": "RUB",
+      "image": "https://c.dns-shop.ru/thumb/st1/fit/200/200/e809349dc06c01a0a824f6c906d63bf8/52d79ca16e4cf11bda711c52c291288ed1d56fab33b0b5e7472de927b39ddc42.jpg",
+      "checkedAt": "2026-11-06T19:16:44.993Z",
+      "region": "Москва",
+      "availability": "В наличии в 1 магазине. Доставим на дом завтра",
+      "specs": {
+        "Процессор": "AMD Ryzen 7 9800X3D",
+        "Видеокарта": "GeForce RTX 5080 16 ГБ",
+        "ОЗУ": "64 ГБ DDR5",
+        "SSD": "2 ТБ M.2 PCIe",
+        "Чипсет": "AMD B850",
+        "Блок питания": "1000 Вт",
+        "Связь": "Wi-Fi, Bluetooth",
+        "ОС": "Без ОС"
+      },
+      "sourceTitle": "ПК ARDOR GAMING EVO X146",
+      "rawSnippet": "450 999 ₽"
     }
   },
   {
