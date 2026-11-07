@@ -9,7 +9,7 @@
     "install:ci": "bash scripts/install-pnpm.sh",
     "dev:cloudflare": "vite --config vite.static.config.ts",
     "build:cloudflare": "vite build --config vite.static.config.ts",
-    "deploy:cloudflare": "wrangler deploy --config wrangler.static.jsonc",
+    "deploy:cloudflare": "wrangler deploy --config wrangler.jsonc",
     "dev": "node scripts/run-framework.mjs dev",
     "build": "node scripts/run-framework.mjs build",
     "start": "node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",

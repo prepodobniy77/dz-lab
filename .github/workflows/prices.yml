@@ -1,11 +1,8 @@
-name: Обновление цен DZ LAB
+name: Резервное обновление цен DZ LAB
 on:
   schedule:
-    - cron: '0 3,15 * * *'
+    - cron: '20 3,15 * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/prices.yml']
 permissions:
   contents: read
 concurrency:
@@ -17,54 +14,14 @@ jobs:
     if: github.repository == 'prepodobniy77/dz-lab' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 35
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '24'
           package-manager-cache: false
-      - name: Проверить и опубликовать цены
-        shell: bash
+      - name: Проверить состояние и при необходимости продолжить цикл
         env:
-          CITILINK_MOSCOW_YML_URL: ${{ secrets.CITILINK_MOSCOW_YML_URL }}
-        run: |
-          set -euo pipefail
-          branch=refs/heads/price-snapshots
-          feed="$RUNNER_TEMP/price-feed.json"
-          parent=()
-          if git ls-remote --exit-code origin "$branch" > /dev/null; then
-            git fetch --depth=1 origin "$branch"
-            previous=$(git rev-parse FETCH_HEAD)
-            git show "$previous:price-feed.json" > "$feed"
-            parent=(-p "$previous")
-          else
-            result=$?
-            if [[ "$result" != 2 ]]; then exit "$result"; fi
-          fi
-
-          node scripts/refresh-store-prices.mts --feed="$feed"
-
-          # Use a separate index and a tree containing only the public data file.
-          export GIT_INDEX_FILE="$RUNNER_TEMP/price-feed.index"
-          git read-tree --empty
-          blob=$(git hash-object -w "$feed")
-          git update-index --add --cacheinfo "100644,$blob,price-feed.json"
-          tree=$(git write-tree)
-          commit=$(git -c user.name='github-actions[bot]' \
-            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
-            commit-tree "$tree" "${parent[@]}" -m 'Publish checked DZ LAB prices')
-          git push origin "$commit:$branch"
-
-          node --input-type=module - "$feed" <<'JS' >> "$GITHUB_STEP_SUMMARY"
-          import {readFileSync} from 'node:fs';
-          const feed = JSON.parse(readFileSync(process.argv[2], 'utf8'));
-          console.log('Подтверждено предложений за цикл: ' + feed.report.updated);
-          console.log('');
-          for (const store of feed.stores) {
-            console.log('- ' + store.store + ': ' + store.updated + ' обновлено, ' +
-              store.failures + ' ошибок' + (store.blocked ? ' · ' + store.blocked : ''));
-          }
-          if (feed.report.updated === 0) process.exitCode = 1;
-          JS
+          SITE_URL: ${{ vars.SITE_URL }}
+          PRICE_JOB_TOKEN: ${{ secrets.PRICE_JOB_TOKEN }}
+        run: node scripts/run-price-update.mts

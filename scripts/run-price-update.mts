@@ -1,15 +1,57 @@
-// Запуск на постоянном сервере. Секрет передаётся только через окружение.
-const origin=process.env.SITE_URL?.replace(/\/$/,'');
-const key=process.env.PRICE_JOB_TOKEN;
-if(!origin||!key)throw new Error('Нужны SITE_URL и PRICE_JOB_TOKEN; запрос не отправлен');
-const url=new URL(origin);if(url.protocol!=='https:'||url.username||url.password||url.search||url.hash)throw new Error('SITE_URL должен быть адресом HTTPS без учётных данных и параметров');
-let complete=false;
-for(let attempt=1;attempt<=40;attempt++){
- const response=await fetch(origin+'/api/prices/sweep',{method:'POST',headers:{Authorization:'Bearer '+key},redirect:'manual',signal:AbortSignal.timeout(150000)});
- if(!response.ok){console.error('Обновитель вернул HTTP',response.status);process.exitCode=1;break}
- const result=await response.json() as {done?:boolean;processed?:number;report?:{status?:string}};
- if(typeof result.done!=='boolean')throw new Error('Ответ не содержит признак завершения');
- console.log('Порция',attempt,'обработано',result.processed||0,'завершено',result.done);
- if(result.done){complete=true;break}if(attempt<40)await new Promise(resolve=>setTimeout(resolve,5000));
+import {appendFile} from 'node:fs/promises';
+import type {CycleResult} from '../lib/price-cycle.ts';
+import type {PublicSweepReport} from '../lib/price-status.ts';
+
+const origin = process.env.SITE_URL;
+const token = process.env.PRICE_JOB_TOKEN;
+if (!origin || !token) throw new Error('Задай SITE_URL и PRICE_JOB_TOKEN.');
+const url = new URL(origin);
+if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || url.pathname !== '/') {
+  throw new Error('SITE_URL должен быть адресом сайта HTTPS без пути и параметров.');
 }
-if(!complete){console.error('Цикл не завершён; курсор сохранён. Проверь отчёт.');process.exitCode=1}
+
+const endpoint = new URL('/api/prices/sweep', url);
+const statusResponse = await fetch(endpoint, {redirect: 'error', signal: AbortSignal.timeout(15_000)});
+if (!statusResponse.ok) throw new Error('Статус недоступен, HTTP ' + statusResponse.status);
+const {report} = await statusResponse.json() as {report?: PublicSweepReport | null};
+if (report === undefined) throw new Error('Worker вернул неизвестный формат статуса.');
+
+async function summary(message: string) {
+  console.log(message);
+  if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, message + '\n');
+}
+
+const successfulAt = Date.parse(report?.lastSuccessfulAt ?? '');
+const age = Date.now() - successfulAt;
+if (age >= 0 && age < 6 * 3600_000) {
+  await summary('Запуск пропущен. Последний успешный цикл — ' + report!.lastSuccessfulAt);
+} else {
+  let done = false;
+  for (let i = 1; i <= 40; i++) {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {Authorization: 'Bearer ' + token, 'X-DZ-Price-Trigger': 'github'},
+      redirect: 'error',
+      signal: AbortSignal.timeout(150_000),
+    });
+    if (response.status === 429) {
+      await response.body?.cancel();
+      await summary('Цикл выполняется или действует защитный интервал. Worker вернул HTTP 429.');
+      done = true;
+      break;
+    }
+    const result = await response.json() as Partial<CycleResult>;
+    if (typeof result.done !== 'boolean') throw new Error('Обновитель вернул HTTP ' + response.status);
+    console.log('Порция', i, 'обработано', result.processed ?? 0, 'завершено', result.done);
+    if (result.done && result.report) {
+      const run = result.report;
+      await summary('Цикл ' + (run.cycleId ?? 'без ID') + ' · ' + run.status + ' · обновлено цен ' + (run.updatedOffers ?? run.updated) +
+        ' · ' + (run.finishedAt ?? run.checkedAt) + (result.skipped ? ' · запуск пропущен' : ''));
+      if (!result.skipped && (!response.ok || !run.cycleCompleted || !run.updated)) process.exitCode = 1;
+      done = true;
+      break;
+    }
+    if (!response.ok) throw new Error('Обновитель вернул HTTP ' + response.status);
+  }
+  if (!done) throw new Error('Цикл не завершился за 40 порций. Курсор сохранён.');
+}

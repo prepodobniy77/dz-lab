@@ -30,7 +30,19 @@ export default defineConfig({
       const out=resolve(root,'dist/static');
       await mkdir(resolve(out,'api/prices'),{recursive:true});
       const raw=JSON.parse(await readFile(resolve(root,'data/catalog.json'),'utf8'));
-      await writeFile(resolve(out,'api/catalog'),JSON.stringify({...desktopCatalog(raw),storage:'snapshot'}));
+      const {products,...metadata}=desktopCatalog(raw);
+      const prefix=JSON.stringify({...metadata,storage:'connected'}).slice(0,-1)+',"products":[';
+      let offset=Buffer.byteLength(prefix);
+      const layout:Record<string,[number,number]>={};
+      const rows=products.map(product=>{
+        const json=JSON.stringify(product);
+        const end=offset+Buffer.byteLength(json);
+        layout[product.id]=[offset,end];
+        offset=end+1;
+        return json;
+      });
+      await writeFile(resolve(out,'api/catalog'),prefix+rows.join(',')+']}');
+      await writeFile(resolve(out,'api/catalog-layout.json'),JSON.stringify(layout));
       await writeFile(resolve(out,'api/prices/sweep'),JSON.stringify({report:null}));
       await writeFile(resolve(out,'_headers'),'/api/*\n  Content-Type: application/json; charset=utf-8\n  Cache-Control: no-cache\n');
     },
