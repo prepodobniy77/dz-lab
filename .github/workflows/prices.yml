@@ -25,14 +25,6 @@ jobs:
         with:
           node-version: '24'
           package-manager-cache: false
-      - name: Подготовить браузер DNS и Ситилинка
-        continue-on-error: true
-        shell: bash
-        run: |
-          set -euo pipefail
-          command -v google-chrome >/dev/null
-          npm install --ignore-scripts --no-audit --no-fund --prefix "$RUNNER_TEMP/dz-browser" playwright-core@1.65.0
-          printf 'DZ_PLAYWRIGHT_MODULE=%s\nDZ_CHROME_CHANNEL=chrome\n' "$RUNNER_TEMP/dz-browser/node_modules/playwright-core/index.mjs" >> "$GITHUB_ENV"
       - name: Проверить и опубликовать цены
         shell: bash
         env:
