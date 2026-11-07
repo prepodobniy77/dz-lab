@@ -3,7 +3,15 @@
   "name": "dz-lab",
   "main": "worker/external.ts",
   "compatibility_date": "2026-05-15",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "workers_dev": true,
-  "vars": { "TRUST_OAI_HEADERS": "0", "MIN_SWEEP_INTERVAL_MINUTES": "660", "AI_MAX_PRODUCTS_PER_RUN": "50" }
+  "triggers": { "crons": ["0 3,15 * * *"] },
+  "d1_databases": [{ "binding": "DB", "database_name": "dz-lab-db", "database_id": "ffedd233-c3c5-4799-9aa8-6cce42adc4d3", "migrations_dir": "drizzle" }],
+  "assets": {
+    "directory": "dist/static",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/catalog", "/api/prices/*", "/api/builds", "/api/builds/*", "/mcp", "/signin-with-chatgpt", "/signout-with-chatgpt", "/callback"],
+    "not_found_handling": "single-page-application"
+  },
+  "vars": { "TRUST_OAI_HEADERS": "0", "MIN_SWEEP_INTERVAL_MINUTES": "660", "AI_MAX_PRODUCTS_PER_RUN": "50", "PRICE_WORKER_ORIGIN": "https://dz-lab.dimkaaistov.workers.dev", "PRICE_PORTION_REQUESTS": "3" }
 }

@@ -15,6 +15,13 @@
       "when": 1793564103390,
       "tag": "0001_classy_sugar_man",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1794075011143,
+      "tag": "0002_price_catalog_seed",
+      "breakpoints": true
     }
   ]
 }

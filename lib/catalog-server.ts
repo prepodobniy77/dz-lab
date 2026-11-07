@@ -6,7 +6,8 @@ import raw from '../data/catalog.json';
 import type {CatalogData,Product,Offer} from './catalog-types';
 import {desktopCatalog} from './catalog-scope';
 export const snapshot=desktopCatalog(raw as unknown as CatalogData);
-export function database(){if(!env.DB)throw new Error('База данных недоступна');return env.DB}
+export const snapshotById = new Map(snapshot.products.map(product => [product.id, product]));
+export function database(bindings: Cloudflare.Env = env){if(!bindings.DB)throw new Error('База данных недоступна');return bindings.DB}
 export async function getCatalog(){
  const products:Product[]=snapshot.products.map(p=>({...p,offers:p.offers.map(o=>({...o}))}));
  const rows=await database().prepare('SELECT product_id,store,data FROM price_offers LIMIT 10000').all<{product_id:string;store:string;data:string}>();
