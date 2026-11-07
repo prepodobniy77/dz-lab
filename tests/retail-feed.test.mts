@@ -1,0 +1,120 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {createRequire} from 'node:module';
+import {test} from 'node:test';
+import type {Product} from '../lib/catalog-types';
+import {
+  commitFeedImport, publicFeedImports, readFeedImport, reserveFeedImport, stageFeedRows, startFeedImport,
+} from '../lib/feed-import-store.ts';
+import {indexFeedCatalog, parseRetailFeed, readFeedBody, type FeedRow} from '../lib/retail-feed.ts';
+
+const baseline = '2026-01-01T00:00:00.000Z';
+const date = '2026-01-02T00:00:00.000Z';
+const now = Date.parse('2026-01-04T00:00:00Z');
+const products: Product[] = Array.from({length:5},(_,i) => ({
+  id:'p'+i, category:'cpu', name:'Same name', brand:'', mpn:'PART-'+i, image:'', specs:{}, description:'',
+  offers:[{
+    store:'DNS', url:'https://www.dns-shop.ru/product/'+String(i).padStart(16,'0')+'/part/',
+    sku:'retail-'+i, price:1000, availability:'in-stock', checkedAt:baseline, status:'ok',
+  }],
+}));
+const index = indexFeedCatalog(products,'DNS');
+const row = (i: number, price = 1200): FeedRow => ({
+  mpn:'PART-'+i, sku:'', url:'', price, availability:'in-stock',
+});
+
+test('MPN, SKU and store URL identify a product without name matching', () => {
+  assert.equal(index.match({...row(2),mpn:' part-2 '})?.product.id,'p2');
+  assert.equal(index.match({...row(1),mpn:'',sku:'retail-1'})?.product.id,'p1');
+  assert.equal(index.match({...row(2),mpn:'',sku:'0000000000000002'})?.product.id,'p2');
+  assert.equal(index.match({...row(3),mpn:'',url:products[3].offers[0].url})?.product.id,'p3');
+  assert.equal(index.match({...row(0),mpn:'Same name'}),null);
+  assert.equal(index.match({...row(0),sku:'retail-1'}),null);
+  assert.equal(index.match({...row(0),url:products[1].offers[0].url}),null);
+  assert.equal(index.match({...row(0),url:'https://other.example/product/0000000000000000/part/'}),null);
+});
+
+test('CSV, YML and XML normalize dates and availability and reject invalid prices', () => {
+  const csv = 'mpn;price;available;date\nPART-1;"1,25";true;2026-01-02 03:00\nPART-2;0;true;2026-01-02 03:00\nPART-3;-1;true;2026-01-02 03:00\nPART-4;oops;true;2026-01-02 03:00';
+  const parsed = parseRetailFeed(csv,undefined,now);
+  assert.equal(parsed.checkedAt,date);
+  assert.deepEqual(parsed.rows,[row(1,1.25)]);
+  const yml = '<!DOCTYPE yml_catalog SYSTEM "shops.dtd"><yml_catalog date="2026-01-02 03:00"><shop><offers>' +
+    '<offer id="retail-2" available="false"><vendorCode>PART-2</vendorCode><price>1000</price><currencyId>RUB</currencyId></offer>' +
+    '<offer id="retail-3"><price>NaN</price></offer></offers></shop></yml_catalog>';
+  assert.deepEqual(parseRetailFeed(yml,undefined,now).rows,[
+    {...row(2,1000),sku:'retail-2',availability:'out-of-stock'},
+  ]);
+  assert.equal(parseRetailFeed('<offers date="'+date+'"><offer mpn="PART-2"><price>1000</price></offer></offers>',undefined,now).rows.length,1);
+  assert.throws(() => parseRetailFeed('<!DOCTYPE yml_catalog [<!ENTITY x SYSTEM "file:///etc/passwd">]>'+yml,undefined,now),/DTD/);
+  assert.throws(() => parseRetailFeed(csv.replace('2026-01-02 03:00','2026-02-31 03:00'),undefined,now),/Дата/);
+  assert.throws(() => parseRetailFeed(csv.replaceAll('2026-01-02 03:00','2026-01-05 03:00'),undefined,now),/будущем/);
+  assert.throws(() => parseRetailFeed(csv,date.replace('02T','03T'),now),/разным выгрузкам/);
+  for (const price of [0,-1,NaN,Infinity]) assert.equal(index.match(row(0,price)),null);
+});
+
+test('the streaming size guard rejects missing and falsified content length', async () => {
+  const body = () => new Response('1234').body as ReadableStream<Uint8Array>;
+  await assert.rejects(readFeedBody(body(),null,3),/размер/);
+  await assert.rejects(readFeedBody(body(),'2',3),/размер/);
+  assert.equal(await readFeedBody(body(),null,4),'1234');
+});
+
+test('D1 checks 80% before publishing, preserves old dates and stages large jumps', async () => {
+  const require = createRequire(import.meta.url);
+  const {Miniflare} = createRequire(require.resolve('wrangler/package.json'))('miniflare');
+  const runtime = new Miniflare({modules:true,script:'export default {fetch(){return new Response()}}',d1Databases:['DB']});
+  try {
+    const db = await runtime.getD1Database('DB') as D1Database;
+    for (const migration of ['0000_mushy_albert_cleary','0001_classy_sugar_man','0002_price_catalog_seed','0003_price_feed_imports']) {
+      const statements = readFileSync('drizzle/'+migration+'.sql','utf8').split('--> statement-breakpoint').filter(sql=>sql.trim());
+      await db.batch(statements.map(sql=>db.prepare(sql)));
+    }
+    await db.batch(products.map(product => db.prepare(
+      'INSERT INTO price_offers(key,product_id,store,data,attempt_at,is_seed) VALUES (?,?,?,?,?,1)',
+    ).bind(product.id+':DNS',product.id,'DNS',JSON.stringify(product.offers[0]),baseline)));
+    assert.equal(await reserveFeedImport(db,now),true);
+    assert.equal(await reserveFeedImport(db,now+10_000),false);
+    assert.equal(await reserveFeedImport(db,now+60_000),true);
+    const history = async () => (await db.prepare('SELECT COUNT(*) AS n FROM price_history').first<{n:number}>())!.n;
+    const importRows = async (rows: FeedRow[], checkedAt = date) => {
+      const id = await startFeedImport(db,'DNS',checkedAt,index.expected,1);
+      const batch = await readFeedImport(db,id);
+      await assert.rejects(commitFeedImport(db,batch),/не все порции/);
+      await stageFeedRows(db,batch,0,rows,index);
+      return commitFeedImport(db,await readFeedImport(db,id));
+    };
+
+    const rejected = await importRows([row(0),row(1),row(2),row(2),row(3,0)]);
+    assert.equal(rejected.matched,3);
+    assert.equal(rejected.status,'rejected');
+    assert.equal(await history(),0);
+
+    const conflict = await importRows([row(0),row(1),row(2),row(3),row(3,1201)]);
+    assert.equal(conflict.matched,3);
+    assert.equal(conflict.status,'rejected');
+
+    const accepted = await importRows([row(0,1500),row(1,1501),row(2),row(3)]);
+    assert.equal(accepted.status,'published');
+    assert.equal(accepted.matched,4);
+    assert.equal(accepted.updated,3);
+    assert.equal(accepted.pendingReview,1);
+    assert.equal(await history(),3);
+    const offers = await db.prepare('SELECT product_id,attempt_at FROM price_offers ORDER BY product_id')
+      .all<{product_id:string;attempt_at:string}>();
+    assert.deepEqual(offers.results.map(offer=>offer.attempt_at),[date,baseline,date,date,baseline]);
+    assert.ok(await db.prepare("SELECT 1 FROM source_health WHERE store='PRICE_REVIEW:p1:DNS'").first());
+
+    const repeated = await importRows([row(0),row(1),row(2),row(3)]);
+    assert.equal(repeated.updated,0);
+    assert.equal(repeated.pendingReview,0);
+    const older = await importRows([row(0),row(1),row(2),row(3)],baseline);
+    assert.equal(older.updated,0);
+    assert.equal(await history(),3);
+    assert.equal((await publicFeedImports(db))[0].store,'DNS');
+    await db.prepare('DELETE FROM price_offers').run();
+    assert.deepEqual(await publicFeedImports(db),[]);
+  } finally {
+    await runtime.dispose();
+  }
+});
