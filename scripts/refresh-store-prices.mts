@@ -4,6 +4,8 @@ import {CATALOG_URLS, parseXcomCatalog, parseOffer, matchesMpn, primaryJsonLdPro
 import {robotsPolicy} from '../lib/robots-policy.ts';
 import {stores, isAllowedStoreUrl, type StoreId} from '../lib/stores.ts';
 import {parseRegardListing, regardCategories, regardListUrl} from '../lib/regard-listing.mts';
+import {refreshCitilinkFeed} from './refresh-citilink-provider.mts';
+import {refreshDns, refreshDnsAnysite} from './refresh-dns-provider.mts';
 import {desktopCatalog} from '../lib/catalog-scope.ts';
 import {knownPriceObservations, applyPriceFeed, parsePriceFeed, type PriceFeed, type PriceObservation, type StoreRefresh} from '../lib/price-feed.ts';
 import type {CatalogData, Offer, Product, Category} from '../lib/catalog-types.ts';
@@ -16,6 +18,13 @@ type SourceReport=StoreRefresh;
 type State={startedAt:string;finishedAt?:string;observations:Observation[];reports:SourceReport[]};
 type Discovery={productId:string;store:StoreId;result?:{url:string|null;price:number|null;confidence:number;needs_manual_review:boolean};error?:string};
 const discoveryOnly=process.argv.includes('--discovery-only');
+const onlyStore=process.argv.find(arg=>arg.startsWith('--only-store='))?.slice('--only-store='.length);
+if(onlyStore&&!stores.some(store=>store.id===onlyStore))throw Error('Unknown store filter');
+const reefKey=process.env.REEF_API_KEY;
+const reefPageBudget=Number(process.env.REEF_DNS_PAGES_PER_RUN||0);
+const anysiteKey=process.env.ANYSITE_API_KEY;
+const anysiteSectionBudget=Number(process.env.ANYSITE_DNS_SECTIONS_PER_RUN||0);
+const citilinkFeed=process.env.CITILINK_MOSCOW_YML_URL;
 const base:CatalogData=desktopCatalog(JSON.parse(await readFile('data/catalog.json','utf8')));
 const feedPath=process.argv.find(arg=>arg.startsWith('--feed='))?.slice('--feed='.length);
 if(feedPath&&(discoveryOnly||process.argv.includes('--apply')||process.argv.includes('--resume')))throw Error('Feed runs have a separate checkpoint');
@@ -84,10 +93,25 @@ async function runStore(store:typeof stores[number]){
   if(feedPath&&(!old||old.url!==offer.url))return;
   if(!offer.price||old?.price&&Math.abs(offer.price-old.price)/old.price>0.5){r.review++;return}
   const {error:oldError,requiresReview:oldReview,...previous}=old||{};
-  state.observations.push({productId:p.id,offer:{...previous,...offer,transport:'html-snapshot',identity:p.mpn?'mpn':'verified-reference'}});
+  state.observations.push({productId:p.id,offer:{...previous,...offer,transport:offer.transport??'html-snapshot',identity:offer.identity??(p.mpn?'mpn':'verified-reference')}});
   completed.add(p.id+':'+store.id);r.updated++;
  };
  try{
+  if(feedPath&&store.id==='DNS'&&(anysiteKey&&anysiteSectionBudget||reefKey&&reefPageBudget)){
+   const previous=previousFeed?.stores.find(item=>item?.store==='DNS');
+   const deadline=Date.parse(state.startedAt)+25*60_000;
+   if(anysiteKey&&anysiteSectionBudget)await refreshDnsAnysite(data,anysiteKey,anysiteSectionBudget,previous,r,record,deadline);
+   else if(reefKey)await refreshDns(data,reefKey,reefPageBudget,previous,r,record,deadline);
+   r.finished=true;
+   console.log('FINISHED',JSON.stringify(r));
+   return;
+  }
+  if(feedPath&&store.id==='CITILINK'&&citilinkFeed){
+   await refreshCitilinkFeed(data,citilinkFeed,r,record);
+   r.finished=true;
+   console.log('FINISHED',JSON.stringify(r));
+   return;
+  }
   const robots=await fetch(new URL('/robots.txt',store.url),{headers:{'User-Agent':ua},redirect:'manual',signal:AbortSignal.timeout(15000)});
   if(robots.status===404){await robots.body?.cancel();policy=robotsPolicy('')}
   else if(robots.ok)policy=robotsPolicy(await responseText(robots));
@@ -181,7 +205,7 @@ async function runStore(store:typeof stores[number]){
  r.finished=true;await save();console.log('FINISHED',JSON.stringify(r));
 }
 try{
-await Promise.all(stores.map(runStore));
+await Promise.all(stores.filter(store=>!onlyStore||store.id===onlyStore).map(runStore));
 state.finishedAt=new Date().toISOString();await save();
 if(feedPath){
  const checkedAt=state.finishedAt;
@@ -193,7 +217,7 @@ if(feedPath){
   lastSuccessfulAt:state.observations.length?checkedAt:previousFeed?.report.lastSuccessfulAt??null,
  };
  const feed:PriceFeed={
-  version:1,region:'Москва',report,stores:state.reports,
+  version:1,region:'Москва',report,stores:[...(previousFeed?.stores??[]).filter(s=>!state.reports.some(r=>r.store===s.store)),...state.reports],
   observations:[...(previousFeed?.observations??[]),...state.observations],
  };
  feed.observations=knownPriceObservations(base,feed);

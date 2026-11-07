@@ -27,6 +27,12 @@ jobs:
           package-manager-cache: false
       - name: Проверить и опубликовать цены
         shell: bash
+        env:
+          REEF_API_KEY: ${{ secrets.REEF_API_KEY }}
+          REEF_DNS_PAGES_PER_RUN: ${{ vars.REEF_DNS_PAGES_PER_RUN }}
+          ANYSITE_API_KEY: ${{ secrets.ANYSITE_API_KEY }}
+          ANYSITE_DNS_SECTIONS_PER_RUN: ${{ vars.ANYSITE_DNS_SECTIONS_PER_RUN }}
+          CITILINK_MOSCOW_YML_URL: ${{ secrets.CITILINK_MOSCOW_YML_URL }}
         run: |
           set -euo pipefail
           branch=refs/heads/price-snapshots

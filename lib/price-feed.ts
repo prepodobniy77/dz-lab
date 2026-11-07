@@ -11,6 +11,7 @@ export type StoreRefresh = {
   review: number;
   blocked?: string;
   finished?: boolean;
+  provider?: 'reefapi'|'anysite'|'citilink-yml';
   cursor?: number;
   listingPages?: Record<string, number>;
 };
@@ -98,7 +99,7 @@ export function applyPriceFeed<T extends CatalogData>(catalog: T, feed: PriceFee
         if (!current) return offer;
         const {error, requiresReview, ...base} = offer;
         return {...base, price: current.price, checkedAt: current.checkedAt, status: current.status,
-          availability: current.availability, transport: 'html-snapshot' as const};
+          availability: current.availability, transport: current.transport === 'api' ? 'api' as const : 'html-snapshot' as const};
       }),
     };
   });
