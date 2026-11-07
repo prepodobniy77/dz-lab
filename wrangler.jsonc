@@ -13,5 +13,5 @@
     "run_worker_first": ["/api/catalog", "/api/prices/*", "/api/builds", "/api/builds/*", "/mcp", "/signin-with-chatgpt", "/signout-with-chatgpt", "/callback"],
     "not_found_handling": "single-page-application"
   },
-  "vars": { "TRUST_OAI_HEADERS": "0", "MIN_SWEEP_INTERVAL_MINUTES": "660", "AI_MAX_PRODUCTS_PER_RUN": "50", "PRICE_WORKER_ORIGIN": "https://dz-lab.dimkaaistov.workers.dev", "PRICE_PORTION_REQUESTS": "3" }
+  "vars": { "TRUST_OAI_HEADERS": "0", "MIN_SWEEP_INTERVAL_MINUTES": "660", "AI_MAX_PRODUCTS_PER_RUN": "50", "PRICE_WORKER_ORIGIN": "https://dz-lab.dimkaaistov.workers.dev", "PRICE_PORTION_REQUESTS": "3", "PRICE_DETAIL_PORTION_REQUESTS": "1", "PRICE_PUBLISH_PORTION_SIZE": "120" }
 }

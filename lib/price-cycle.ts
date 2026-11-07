@@ -49,7 +49,8 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
   let matchListing: ReturnType<typeof indexXcomProducts> | undefined;
   let productsById: Map<string,Product> | undefined;
   const requestLimit=Math.min(15,Math.max(1,Number(config.PRICE_PORTION_REQUESTS)||15));
-  while((state.phase==='scan'||state.phase==='details')&&requests<requestLimit&&now()+1500<deadline){
+  const detailLimit=Math.min(requestLimit,Math.max(1,Number(config.PRICE_DETAIL_PORTION_REQUESTS)||requestLimit));
+  while((state.phase==='scan'||state.phase==='details')&&requests<(state.phase==='details'?detailLimit:requestLimit)&&now()+1500<deadline){
    if(state.phase==='scan'&&state.index>=jobs.length){state.phase='details';state.index=0;state.missing=products.filter(p=>p.offers.some(o=>o.store==='XCOM')&&!state!.seen.includes(p.id)).map(p=>p.id);continue}
    if(state.phase==='details'&&state.index>=state.missing.length){if(!coverageAccepted(state.seen.length,state.expected)){await finalise('failed',`Охват XCOM ${state.seen.length} из ${state.expected}, ниже 80%. Предложения не опубликованы.`)}else{state.phase='publish';state.index=0}break}
    const job=jobs[state.index],product=state.phase==='details'?(productsById??=new Map(products.map(p=>[p.id,p]))).get(state.missing[state.index]):undefined;const url=state.phase==='scan'?job.url:product?.offers.find(o=>o.store==='XCOM')?.url;
@@ -61,14 +62,15 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
    }
    state.index++;processed++;
   }
+  let publication:D1PreparedStatement[]|undefined;
   if(state.phase==='publish'&&now()+30000<deadline){
-   const entries=Object.values(state.staged),chunk=entries.slice(state.publishOffset,state.publishOffset+500);const published=chunk.filter(v=>!v.review),review=chunk.filter(v=>v.review);state.publishOffset+=chunk.length;
+   const entries=Object.values(state.staged),batchSize=Math.min(500,Math.max(1,Number(config.PRICE_PUBLISH_PORTION_SIZE)||500));const chunk=entries.slice(state.publishOffset,state.publishOffset+batchSize);const published=chunk.filter(v=>!v.review),review=chunk.filter(v=>v.review);state.publishOffset+=chunk.length;
    for(const v of published)if(!state.updatedIds.includes(v.productId))state.updatedIds.push(v.productId);state.pendingReviews+=review.length;
    const writes=services.offerStatements(published);for(const v of published)writes.push(db.prepare('DELETE FROM source_health WHERE store=?').bind('PRICE_REVIEW:'+v.productId+':'+v.offer.store));for(const v of review)writes.push(db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error').bind('PRICE_REVIEW:'+v.productId+':'+v.offer.store,v.offer.checkedAt,JSON.stringify(v)));
    state.report.updatedOffers+=published.length;
-   await saveState(writes);processed+=chunk.length;if(state.publishOffset>=entries.length)state.phase='ai';
+   publication=writes;processed+=chunk.length;if(state.publishOffset>=entries.length)state.phase='ai';
   }
-  if(state.phase==='ai'){
+  if(state.phase==='ai'&&!publication){
    const freshStaged=new Set(Object.values(state.staged).filter(v=>!v.review&&hasFreshPrice([v.offer],now())).map(v=>v.productId));
    const candidates=services.search?products.filter(p=>!freshStaged.has(p.id)&&!hasFreshPrice(p.offers,now())):[];if(candidates.every(p=>state!.aiVisited.includes(p.id)))state.aiVisited=[];
    const remaining=aiProductLimit(config.AI_MAX_PRODUCTS_PER_RUN)-state.aiAttempted.length;const selected=oldestPriceSelection(candidates,aiProductLimit(config.AI_MAX_PRODUCTS_PER_RUN),state.aiVisited).filter(p=>!state!.aiAttempted.includes(p.id)).slice(0,Math.min(10,remaining));
@@ -87,7 +89,7 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
    if(attemptedIds.has(product.id))count.attempted++;
    if(updatedIds.has(product.id))count.updated++;
   }
-  if(state.phase==='done'&&!state.report.finishedAt)state.report.finishedAt=new Date(now()).toISOString();await saveState();await services.onReport(state.report,state.phase==='done');
+  if(state.phase==='done'&&!state.report.finishedAt)state.report.finishedAt=new Date(now()).toISOString();await saveState(publication);await services.onReport(state.report,state.phase==='done');
   dbRequests++;await db.batch([db.prepare("INSERT INTO source_health(store,checked_at,error) VALUES('PRICE_SWEEP_SELECTION',?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error").bind(new Date(now()).toISOString(),JSON.stringify({attemptedIds:state.aiVisited}))]);
   console.info('Порция обновления цен',JSON.stringify({cycleId:state.id,portion:state.portions,durationMs:state.report.durationMs,totalDurationMs:state.report.totalDurationMs,processed,httpRequests}));
   return{done:state.phase==='done',cursor:currentCursor(),processed,report:state.report};

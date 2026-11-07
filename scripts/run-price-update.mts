@@ -26,7 +26,7 @@ const age = Date.now() - successfulAt;
 if (age >= 0 && age < 6 * 3600_000) {
   await summary('Запуск пропущен. Последний успешный цикл — ' + report!.lastSuccessfulAt);
 } else {
-  const maxPortions = 240;
+  const maxPortions = 600;
   const deadline = Date.now() + 32 * 60_000;
   let done = false;
   let failedRequests = 0;
