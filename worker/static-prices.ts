@@ -11,7 +11,7 @@ export default {
       // A cached 404 from before the first publication must expire as the branch appears.
       const window = Math.floor(Date.now() / 120_000);
       const upstream = await fetch(feedUrl + '?window=' + window, {
-        redirect: 'error',
+        redirect: 'manual',
         signal: AbortSignal.timeout(5000),
         cf: {cacheEverything: true, cacheTtlByStatus: {'200': 120, '404': 15, '500-599': 0}},
       });
