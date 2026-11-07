@@ -26,8 +26,10 @@ const age = Date.now() - successfulAt;
 if (age >= 0 && age < 6 * 3600_000) {
   await summary('Запуск пропущен. Последний успешный цикл — ' + report!.lastSuccessfulAt);
 } else {
+  const maxPortions = 240;
+  const deadline = Date.now() + 32 * 60_000;
   let done = false;
-  for (let i = 1; i <= 40; i++) {
+  for (let i = 1; i <= maxPortions && Date.now() + 150_000 < deadline; i++) {
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {Authorization: 'Bearer ' + token, 'X-DZ-Price-Trigger': 'github'},
@@ -53,5 +55,5 @@ if (age >= 0 && age < 6 * 3600_000) {
     }
     if (!response.ok) throw new Error('Обновитель вернул HTTP ' + response.status);
   }
-  if (!done) throw new Error('Цикл не завершился за 40 порций. Курсор сохранён.');
+  if (!done) throw new Error('Исчерпан лимит времени или порций. Курсор сохранён для следующего запуска.');
 }
