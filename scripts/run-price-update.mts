@@ -29,6 +29,7 @@ if (age >= 0 && age < 6 * 3600_000) {
   const maxPortions = 240;
   const deadline = Date.now() + 32 * 60_000;
   let done = false;
+  let failedRequests = 0;
   for (let i = 1; i <= maxPortions && Date.now() + 150_000 < deadline; i++) {
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -37,13 +38,31 @@ if (age >= 0 && age < 6 * 3600_000) {
       signal: AbortSignal.timeout(150_000),
     });
     if (response.status === 429) {
-      await response.body?.cancel();
-      await summary('Цикл выполняется или действует защитный интервал. Worker вернул HTTP 429.');
+      const limit = await response.json() as {reason?: string; retryAfter?: number};
+      if (limit.reason === 'active_portion' && typeof limit.retryAfter === 'number') {
+        const delay = Math.min(180, Math.max(1, limit.retryAfter));
+        await summary('Порция занята. Повтор через ' + delay + ' с.');
+        await new Promise(resolve => setTimeout(resolve, delay * 1000 + 500));
+        continue;
+      }
+      await summary('Действует защитный интервал. Worker вернул HTTP 429.');
       done = true;
       break;
     }
-    const result = await response.json() as Partial<CycleResult>;
-    if (typeof result.done !== 'boolean') throw new Error('Обновитель вернул HTTP ' + response.status);
+    const body = await response.text();
+    let result: Partial<CycleResult> | null = null;
+    try { result = JSON.parse(body); } catch {}
+    if (typeof result?.done !== 'boolean') {
+      const ray = response.headers.get('cf-ray');
+      const error = 'Обновитель вернул HTTP ' + response.status + (ray ? ' · CF-Ray ' + ray : '');
+      if (response.status >= 500 && ++failedRequests <= 3) {
+        console.error(error + '. Повтор через 5 с.');
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        continue;
+      }
+      throw new Error(error);
+    }
+    failedRequests = 0;
     console.log('Порция', i, 'обработано', result.processed ?? 0, 'завершено', result.done);
     if (result.done && result.report) {
       const run = result.report;

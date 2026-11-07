@@ -1,10 +1,11 @@
 import type {Offer, Product} from './catalog-types';
+import type {StoreId} from './stores';
 import type {PriceObservation} from './price-feed';
 
-export async function readCatalogPriceDelta(db: D1Database): Promise<PriceObservation[]> {
-  const {results} = await db.prepare(
-    'SELECT product_id, data FROM price_offers WHERE is_seed = 0',
-  ).all<{product_id: string; data: string}>();
+export async function readCatalogPriceDelta(db: D1Database, store?: StoreId): Promise<PriceObservation[]> {
+  const sql = 'SELECT product_id, data FROM price_offers WHERE is_seed = 0';
+  const query = store ? db.prepare(sql + ' AND store = ?').bind(store) : db.prepare(sql);
+  const {results} = await query.all<{product_id: string; data: string}>();
   return results.map(row => ({productId: row.product_id, offer: JSON.parse(row.data) as Offer}));
 }
 

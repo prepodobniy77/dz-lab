@@ -1,4 +1,13 @@
-export class SweepIntervalError extends Error{retryAfter:number;constructor(retryAfter=660*60){super('Обновление уже запускалось. Дождись окончания защитного интервала.');this.retryAfter=Math.max(1,Math.ceil(retryAfter))}}
+export class SweepIntervalError extends Error {
+ readonly retryAfter: number;
+ readonly reason?: 'active_portion';
+
+ constructor(retryAfter = 660 * 60, reason?: 'active_portion') {
+  super('Обновление уже запускалось. Дождись окончания защитного интервала.');
+  this.retryAfter = Math.max(1, Math.ceil(retryAfter));
+  this.reason = reason;
+ }
+}
 export class ScheduledSweepError extends Error {}
 export function sweepErrorStatus(error:unknown){return error instanceof SweepIntervalError?429:503}
 

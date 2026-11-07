@@ -66,7 +66,7 @@ async function servePrices(request: Request, path: string, env: Cloudflare.Env) 
     return json(result, result.report.status === 'blocked' || result.report.status === 'failed' ? 503 : 200);
   } catch (error) {
     if (error instanceof SweepIntervalError) {
-      return json({error: error.message, retryAfter: error.retryAfter}, 429, {'Retry-After': String(error.retryAfter)});
+      return json({error: error.message, retryAfter: error.retryAfter, reason: error.reason}, 429, {'Retry-After': String(error.retryAfter)});
     }
     if (trigger !== 'cron') await logSweepFailure(error, env, trigger);
     return json({error: 'Сервер обновления недоступен'}, 503);
