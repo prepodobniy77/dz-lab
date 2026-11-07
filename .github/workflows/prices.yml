@@ -3,51 +3,66 @@ on:
   schedule:
     - cron: '0 3,15 * * *'
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/prices.yml']
 permissions:
   contents: read
 concurrency:
   group: dz-lab-prices
   cancel-in-progress: false
+
 jobs:
   update:
+    if: github.repository == 'prepodobniy77/dz-lab' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 110
-    env:
-      SITE_URL: ${{ vars.SITE_URL }}
-      PRICE_JOB_TOKEN: ${{ secrets.PRICE_JOB_TOKEN }}
+    timeout-minutes: 35
+    permissions:
+      contents: write
     steps:
-      - name: Запустить защищённое обновление
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Проверить и опубликовать цены
         shell: bash
         run: |
           set -euo pipefail
-          if [[ -z "$PRICE_JOB_TOKEN" || -z "$SITE_URL" ]]; then
-            echo '::error::Нужны секрет PRICE_JOB_TOKEN и переменная SITE_URL'
-            exit 1
+          branch=refs/heads/price-snapshots
+          feed="$RUNNER_TEMP/price-feed.json"
+          parent=()
+          if git ls-remote --exit-code origin "$branch" > /dev/null; then
+            git fetch --depth=1 origin "$branch"
+            previous=$(git rev-parse FETCH_HEAD)
+            git show "$previous:price-feed.json" > "$feed"
+            parent=(-p "$previous")
+          else
+            result=$?
+            if [[ "$result" != 2 ]]; then exit "$result"; fi
           fi
-          python3 - <<'PY'
-          import os, urllib.parse
-          u=urllib.parse.urlsplit(os.environ['SITE_URL'])
-          if u.scheme!='https' or not u.hostname or u.username or u.password or u.query or u.fragment:
-              raise SystemExit('SITE_URL должен быть адресом HTTPS без учётных данных и параметров')
-          PY
-          for attempt in $(seq 1 40); do
-            code=$(printf 'Authorization: Bearer %s\n' "$PRICE_JOB_TOKEN" | curl --silent --show-error --proto '=https' --connect-timeout 10 --max-time 150 --request POST --header @- --header 'X-DZ-Price-Trigger: github' --output "$RUNNER_TEMP/dz-prices-response.json" --write-out '%{http_code}' "${SITE_URL%/}/api/prices/sweep")
-            if [[ "$code" != 2?? ]]; then
-              echo "::error::Обновитель вернул HTTP $code"
-              exit 1
-            fi
-            done_flag=$(python3 - <<'PY'
-          import json, os
-          with open(os.path.join(os.environ['RUNNER_TEMP'],'dz-prices-response.json')) as f:
-              result=json.load(f)
-          if not isinstance(result.get('done'), bool):
-              raise SystemExit('Ответ обновителя не содержит done')
-          print('true' if result['done'] else 'false')
-          PY
-            )
-            echo "Порция $attempt выполнена; завершение: $done_flag"
-            if [[ "$done_flag" == true ]]; then exit 0; fi
-            if [[ "$attempt" != 40 ]]; then sleep 5; fi
-          done
-          echo '::error::Цикл не завершился за 40 порций. Курсор сохранён; проверь отчёт'
-          exit 1
+
+          node scripts/refresh-store-prices.mts --feed="$feed"
+
+          # Use a separate index and a tree containing only the public data file.
+          export GIT_INDEX_FILE="$RUNNER_TEMP/price-feed.index"
+          git read-tree --empty
+          blob=$(git hash-object -w "$feed")
+          git update-index --add --cacheinfo "100644,$blob,price-feed.json"
+          tree=$(git write-tree)
+          commit=$(git -c user.name='github-actions[bot]' \
+            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit-tree "$tree" "${parent[@]}" -m 'Publish checked DZ LAB prices')
+          git push origin "$commit:$branch"
+
+          node --input-type=module - "$feed" <<'JS' >> "$GITHUB_STEP_SUMMARY"
+          import {readFileSync} from 'node:fs';
+          const feed = JSON.parse(readFileSync(process.argv[2], 'utf8'));
+          console.log('Подтверждено предложений за цикл: ' + feed.report.updated);
+          console.log('');
+          for (const store of feed.stores) {
+            console.log('- ' + store.store + ': ' + store.updated + ' обновлено, ' +
+              store.failures + ' ошибок' + (store.blocked ? ' · ' + store.blocked : ''));
+          }
+          if (feed.report.updated === 0) process.exitCode = 1;
+          JS
