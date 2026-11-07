@@ -6,6 +6,7 @@ import {stores, isAllowedStoreUrl, type StoreId} from '../lib/stores.ts';
 import {parseRegardListing, regardCategories, regardListUrl} from '../lib/regard-listing.mts';
 import {refreshCitilinkFeed} from './refresh-citilink-provider.mts';
 import {refreshDns, refreshDnsAnysite} from './refresh-dns-provider.mts';
+import {refreshPublicBrowser} from './refresh-public-browser-prices.mts';
 import {desktopCatalog} from '../lib/catalog-scope.ts';
 import {knownPriceObservations, applyPriceFeed, parsePriceFeed, type PriceFeed, type PriceObservation, type StoreRefresh} from '../lib/price-feed.ts';
 import type {CatalogData, Offer, Product, Category} from '../lib/catalog-types.ts';
@@ -108,6 +109,17 @@ async function runStore(store:typeof stores[number]){
   }
   if(feedPath&&store.id==='CITILINK'&&citilinkFeed){
    await refreshCitilinkFeed(data,citilinkFeed,r,record);
+   r.finished=true;
+   console.log('FINISHED',JSON.stringify(r));
+   return;
+  }
+  if(feedPath&&process.env.DZ_PLAYWRIGHT_MODULE&&(store.id==='DNS'||store.id==='CITILINK')){
+   try{
+    await refreshPublicBrowser(store.id,data,r,previousFeed?.stores.find(item=>item?.store===store.id),record);
+   }catch(error){
+    r.failures++;
+    r.blocked=error instanceof Error?error.message:'Ошибка браузерной проверки';
+   }
    r.finished=true;
    console.log('FINISHED',JSON.stringify(r));
    return;

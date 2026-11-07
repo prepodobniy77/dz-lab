@@ -11,7 +11,7 @@ export type StoreRefresh = {
   review: number;
   blocked?: string;
   finished?: boolean;
-  provider?: 'reefapi'|'anysite'|'citilink-yml';
+  provider?: 'reefapi'|'anysite'|'citilink-yml'|'public-browser';
   cursor?: number;
   listingPages?: Record<string, number>;
 };
