@@ -6,6 +6,7 @@ import raw from '../data/catalog.json';
 import type {CatalogData,Product,Offer} from './catalog-types';
 import {desktopCatalog} from './catalog-scope';
 export const snapshot=desktopCatalog(raw as unknown as CatalogData);
+export const snapshotIndexById = new Map(snapshot.products.map((product,index) => [product.id,index]));
 export const snapshotById = new Map(snapshot.products.map(product => [product.id, product]));
 export function database(bindings: Cloudflare.Env = env){if(!bindings.DB)throw new Error('База данных недоступна');return bindings.DB}
 export async function getCatalog(){

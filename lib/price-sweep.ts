@@ -1,9 +1,9 @@
 import {env} from 'cloudflare:workers';
-import {getCatalog,database,offerWriteStatements,snapshot,snapshotById} from './catalog-server';
+import {getCatalog,database,offerWriteStatements,snapshot,snapshotById,snapshotIndexById} from './catalog-server';
 import {readCatalogPriceDelta,mergeCatalogOffers} from './catalog-price-delta';
 import type {Offer} from './catalog-types';
 import type {StoreId} from './stores';
-import {runPricePortion} from './price-cycle';
+import {runPricePortion,type CycleState} from './price-cycle';
 import {fetchHtml} from './providers.mts';
 import {findRouterAIPriceLinks} from './routerai-price-search.mts';
 import {findPriceLinks} from './ai-price-search.mts';
@@ -22,11 +22,25 @@ async function externalSweepProducts(db: D1Database, store?: StoreId) {
  if(!updates.size)return snapshot.products;
  return snapshot.products.map(product=>updates.has(product.id)?mergeCatalogOffers(product,updates.get(product.id)!):product);
 }
+async function prepareXcomSweepProducts(db:D1Database,state:CycleState|undefined) {
+ if(!state||state.phase==='scan')return externalSweepProducts(db,'XCOM');
+ if(state.phase!=='details')return snapshot.products;
+ const id=state.missing[state.index],position=snapshotIndexById.get(id);
+ if(position===undefined)return snapshot.products;
+ const row=await db.prepare('SELECT data FROM price_offers WHERE key=?').bind(id+':XCOM').first<{data:string}>();
+ if(!row)return snapshot.products;
+ const products=snapshot.products.slice();
+ products[position]=mergeCatalogOffers(products[position],[JSON.parse(row.data) as Offer]);
+ return products;
+}
 export async function runPriceSweep(trigger:SweepReport['trigger']='manual',bindings?:Cloudflare.Env){
  const db=database(bindings),config=(bindings??env) as unknown as Record<string,string|undefined>;
  const allStores=!!(config.ROUTERAI_API_KEY||config.PERPLEXITY_API_KEY||config.DELECT_API_KEY&&config.DELECT_DISTRIBUTOR);
- const products=bindings?await externalSweepProducts(db,allStores?undefined:'XCOM'):(await getCatalog()).products;
- return runPricePortion({db,products,config,read:fetchHtml,offerStatements:values=>offerWriteStatements(db,values),onReport:(report,final)=>saveSweepReport(db,report,final,config),
+ const xcomOnly=!!bindings&&!allStores&&Number(config.PRICE_DETAIL_PORTION_REQUESTS)===1;
+ const products=bindings?(xcomOnly?snapshot.products:await externalSweepProducts(db)):(await getCatalog()).products;
+ return runPricePortion({db,products,config,read:fetchHtml,
+  ...(bindings?{productIndices:snapshotIndexById}:{}),
+  ...(xcomOnly?{prepareProducts:(state:CycleState|undefined)=>prepareXcomSweepProducts(db,state)}:{}),offerStatements:values=>offerWriteStatements(db,values),onReport:(report,final)=>saveSweepReport(db,report,final,config),
   ...(config.DELECT_API_KEY&&config.DELECT_DISTRIBUTOR?{bulk:async()=>apiOffers(products,await fetchPriceExport(config.DELECT_API_KEY!,config.DELECT_DISTRIBUTOR!),config.DELECT_DISTRIBUTOR!).map(v=>({productId:v.id,offer:v.offer}))}:{}),
   ...(config.ROUTERAI_API_KEY?{search:(products,timeoutMs)=>findRouterAIPriceLinks(products,config.ROUTERAI_API_KEY!,config.ROUTERAI_MODEL,fetch,timeoutMs)}:config.PERPLEXITY_API_KEY?{search:(products,timeoutMs)=>findPriceLinks(products,config.PERPLEXITY_API_KEY!,config.PRICE_AI_MODEL,fetch,timeoutMs)}:{})
  },trigger);

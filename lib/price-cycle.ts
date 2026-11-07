@@ -11,11 +11,12 @@ import {categories} from './catalog.ts';
 import type {PriceLink} from './ai-price-search.mts';
 export type CycleState={id:string;startedAt:string;phase:'scan'|'details'|'publish'|'ai'|'done';index:number;publishOffset:number;expected:number;staged:Record<string,StagedPrice>;seen:string[];missing:string[];robots?:{text:string;at:number};lastRequestAt:number;hostRules?:Record<string,{text:string;at:number;lastAt:number}>;aiAttempted:string[];aiVisited:string[];bulkDone:boolean;updatedIds:string[];attemptedIds:string[];pendingReviews:number;portions:number;activeDurationMs:number;report:SweepReport};
 export type CycleResult={done:boolean;cursor:{cycleId:string;phase:string;category?:string;page?:number;index:number}|null;processed:number;skipped?:boolean;reason?:string;report:SweepReport};
-export type CycleServices={db:D1Database;products:Product[];config:Record<string,string|undefined>;read:(url:string,timeoutMs:number)=>Promise<string>;bulk?:()=>Promise<{productId:string;offer:Offer}[]>;search?:(products:Product[],timeoutMs:number)=>Promise<PriceLink[]>;offerStatements:(values:{productId:string;offer:Offer}[])=>D1PreparedStatement[];now?:()=>number;pause?:(ms:number)=>Promise<void>;onReport:(report:SweepReport,final:boolean)=>Promise<void>};
+export type CycleServices={db:D1Database;products:Product[];productIndices?:ReadonlyMap<string,number>;prepareProducts?:(state:CycleState|undefined)=>Promise<Product[]>;config:Record<string,string|undefined>;read:(url:string,timeoutMs:number)=>Promise<string>;bulk?:()=>Promise<{productId:string;offer:Offer}[]>;search?:(products:Product[],timeoutMs:number)=>Promise<PriceLink[]>;offerStatements:(values:{productId:string;offer:Offer}[])=>D1PreparedStatement[];now?:()=>number;pause?:(ms:number)=>Promise<void>;onReport:(report:SweepReport,final:boolean)=>Promise<void>};
 const jobs=xcomJobs();
 const STATE='PRICE_CYCLE_STATE',LEASE='PRICE_CYCLE_LEASE',SUCCESS='PRICE_SWEEP_SUCCESS';
 export async function runPricePortion(services:CycleServices,trigger:SweepReport['trigger']='manual'):Promise<CycleResult>{
- const {db,products,config}=services,now=services.now||Date.now,pause=services.pause||((ms:number)=>new Promise<void>(resolve=>setTimeout(resolve,ms)));const start=now(),deadline=start+115000;let dbRequests=0,httpRequests=0;
+ let {products}=services;
+ const {db,config}=services,now=services.now||Date.now,pause=services.pause||((ms:number)=>new Promise<void>(resolve=>setTimeout(resolve,ms)));const start=now(),deadline=start+115000;let dbRequests=0,httpRequests=0;
  const row=async(key:string)=>{dbRequests++;return db.prepare('SELECT error,blocked_until FROM source_health WHERE store=?').bind(key).first<{error:string|null;blocked_until:string|null}>()};
  const leaseToken=crypto.randomUUID();dbRequests++;const acquired=await db.batch([db.prepare("INSERT INTO source_health(store,checked_at,blocked_until,error) VALUES(?,?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,blocked_until=excluded.blocked_until,error=excluded.error WHERE source_health.blocked_until IS NULL OR source_health.blocked_until<=excluded.checked_at").bind(LEASE,new Date(start).toISOString(),new Date(start+3*60000).toISOString(),leaseToken)]);
  if(!acquired[0].meta.changes){const busy=await row(LEASE);throw new SweepIntervalError(Math.max(1,(Date.parse(busy?.blocked_until||'')-start)/1000)||180,'active_portion')}
@@ -34,6 +35,7 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
    await services.onReport(state.report,true);
    return{done:true,cursor:null,processed:0,report:state.report};
   }
+  if(services.prepareProducts && (!state||state.phase!=='done'))products=await services.prepareProducts(state);
   if(!state||state.phase==='done'){
    const success=await row(SUCCESS);const last=success?.error?JSON.parse(success.error) as SweepReport:null;const lastSuccessTime=Date.parse(last?.finishedAt||last?.checkedAt||'');const completedTime=state?.report.cycleCompleted?Date.parse(state.report.finishedAt||''):NaN;const lastTime=Number.isFinite(completedTime)?Math.max(completedTime,Number.isFinite(lastSuccessTime)?lastSuccessTime:0):lastSuccessTime;
    if(Number.isFinite(lastSuccessTime)&&start-lastSuccessTime<6*3600000)return{done:true,cursor:null,processed:0,skipped:true,reason:'recent_success',report:last!};
@@ -41,6 +43,7 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
    const legacy=await row('PRICE_SWEEP_LOCK');if(legacy?.blocked_until&&Date.parse(legacy.blocked_until)>start)throw new SweepIntervalError((Date.parse(legacy.blocked_until)-start)/1000);
    const block=await row('XCOM');if(block?.blocked_until&&Date.parse(block.blocked_until)>start)throw new SweepIntervalError((Date.parse(block.blocked_until)-start)/1000);
    const visited=await row('PRICE_SWEEP_SELECTION');let aiVisited:string[]=[];try{aiVisited=visited?.error?JSON.parse(visited.error).attemptedIds:[]}catch{};if(!Array.isArray(aiVisited))aiVisited=[];
+   if(state&&services.prepareProducts)products=await services.prepareProducts(undefined);
    state={id:crypto.randomUUID(),startedAt:new Date(start).toISOString(),phase:'scan',index:0,publishOffset:0,expected:products.filter(p=>p.offers.some(o=>o.store==='XCOM')).length,staged:{},seen:[],missing:[],lastRequestAt:0,aiAttempted:[],aiVisited,bulkDone:false,updatedIds:[],attemptedIds:[],pendingReviews:0,portions:0,activeDurationMs:0,report:{checkedAt:new Date(start).toISOString(),cycleId:'',status:'partial',trigger,attempted:0,updated:0,skipped:0,categories:Object.fromEntries(categories.map(c=>[c.id,{attempted:0,updated:0}])),message:'Идёт проверка; данные ещё не опубликованы.'}};state.report.cycleId=state.id;await saveState();
   }
   state.report.updatedOffers??=state.updatedIds.length;
@@ -48,12 +51,15 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
   let requests=0;
   let matchListing: ReturnType<typeof indexXcomProducts> | undefined;
   let productsById: Map<string,Product> | undefined;
+  const findProduct=(id:string)=>services.productIndices
+   ?products[services.productIndices.get(id)??-1]
+   :(productsById??=new Map(products.map(p=>[p.id,p]))).get(id);
   const requestLimit=Math.min(15,Math.max(1,Number(config.PRICE_PORTION_REQUESTS)||15));
   const detailLimit=Math.min(requestLimit,Math.max(1,Number(config.PRICE_DETAIL_PORTION_REQUESTS)||requestLimit));
   while((state.phase==='scan'||state.phase==='details')&&requests<(state.phase==='details'?detailLimit:requestLimit)&&now()+1500<deadline){
    if(state.phase==='scan'&&state.index>=jobs.length){state.phase='details';state.index=0;state.missing=products.filter(p=>p.offers.some(o=>o.store==='XCOM')&&!state!.seen.includes(p.id)).map(p=>p.id);continue}
    if(state.phase==='details'&&state.index>=state.missing.length){if(!coverageAccepted(state.seen.length,state.expected)){await finalise('failed',`Охват XCOM ${state.seen.length} из ${state.expected}, ниже 80%. Предложения не опубликованы.`)}else{state.phase='publish';state.index=0}break}
-   const job=jobs[state.index],product=state.phase==='details'?(productsById??=new Map(products.map(p=>[p.id,p]))).get(state.missing[state.index]):undefined;const url=state.phase==='scan'?job.url:product?.offers.find(o=>o.store==='XCOM')?.url;
+   const job=jobs[state.index],product=state.phase==='details'?findProduct(state.missing[state.index]):undefined;const url=state.phase==='scan'?job.url:product?.offers.find(o=>o.store==='XCOM')?.url;
    if(!url){state.index++;continue}let html:string|null|undefined;
    try{html=await read(url);requests++}catch(error){if(/HTTP (401|403|429)/.test(String(error))){dbRequests++;await db.batch([db.prepare("INSERT INTO source_health(store,checked_at,blocked_until,error) VALUES('XCOM',?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,blocked_until=excluded.blocked_until,error=excluded.error").bind(new Date(now()).toISOString(),new Date(now()+6*3600000).toISOString(),'Источник ограничил серверный доступ')]);await finalise('partial','Источник ограничил доступ. Обход остановлен; старые цены сохранены.');break}if(/правила источника/.test(String(error))){await finalise('blocked','Не удалось проверить robots.txt. Обход не запускался.');break}state.index++;continue}
    if(html===undefined)break;
@@ -82,12 +88,14 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
    if(state.phase==='ai'&&(!services.search||!selected.length||state.aiAttempted.length>=aiProductLimit(config.AI_MAX_PRODUCTS_PER_RUN)))await finalise(state.updatedIds.length===products.length?'complete':'partial',`Обновлено ${state.updatedIds.length} из ${products.length}. Требуют проверки: ${state.pendingReviews}. Остальные даты сохранены.`);
   }
   state.portions++;state.activeDurationMs+=now()-start;state.report.attempted=state.attemptedIds.length;state.report.updated=state.updatedIds.length;state.report.skipped=Math.max(0,state.report.attempted-state.report.updated);state.report.done=state.phase==='done';state.report.cycleCompleted=state.phase==='done'&&coverageAccepted(state.seen.length,state.expected)&&state.publishOffset>=Object.keys(state.staged).length;state.report.durationMs=now()-start;state.report.totalDurationMs=now()-Date.parse(state.startedAt);state.report.activeDurationMs=state.activeDurationMs;state.report.portions=state.portions;state.report.pendingReviews=state.pendingReviews;state.report.aiProducts=state.aiAttempted.length;state.report.httpRequests=httpRequests;state.report.d1Requests=dbRequests+6;
-  const attemptedIds=new Set(state.attemptedIds),updatedIds=new Set(state.updatedIds);
   state.report.categories=Object.fromEntries(categories.map(c=>[c.id,{attempted:0,updated:0}]));
-  for(const product of products){
-   const count=state.report.categories[product.category];
-   if(attemptedIds.has(product.id))count.attempted++;
-   if(updatedIds.has(product.id))count.updated++;
+  for(const id of state.attemptedIds){
+   const product=findProduct(id);
+   if(product)state.report.categories[product.category].attempted++;
+  }
+  for(const id of state.updatedIds){
+   const product=findProduct(id);
+   if(product)state.report.categories[product.category].updated++;
   }
   if(state.phase==='done'&&!state.report.finishedAt)state.report.finishedAt=new Date(now()).toISOString();await saveState(publication);await services.onReport(state.report,state.phase==='done');
   dbRequests++;await db.batch([db.prepare("INSERT INTO source_health(store,checked_at,error) VALUES('PRICE_SWEEP_SELECTION',?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error").bind(new Date(now()).toISOString(),JSON.stringify({attemptedIds:state.aiVisited}))]);
