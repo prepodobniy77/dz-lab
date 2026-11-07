@@ -1,5 +1,6 @@
 import {readFile, readdir, writeFile, rename, mkdir, open, unlink} from 'node:fs/promises';
 import {resolve} from 'node:path';
+import {isSodimm} from '../lib/catalog-scope.ts';
 import {readSpecs} from '../lib/providers.mts';
 import {isAllowedStoreUrl} from '../lib/stores.ts';
 import {categories} from '../lib/catalog.ts';
@@ -22,9 +23,10 @@ const lockPath = '.sites-runtime/all-stores-prices.lock';
 const lock = await open(lockPath,'wx');
 try {
   const coverage=await readFile(resolve(directory,'../dns-coverage.json'),'utf8').then(JSON.parse).catch(()=>null);
-  const complete=Array.isArray(coverage)&&coverage.length===13&&coverage.every((r:any)=>r.complete&&r.priced===r.expected);
-  if(apply&&directory.endsWith('dns-normalized')&&!complete)throw Error('Full DNS import requires complete validated coverage for all 13 sections');
+  const complete=Array.isArray(coverage)&&coverage.length===12&&coverage.every((r:any)=>r.complete&&r.priced===r.expected);
+  if(apply&&directory.endsWith('dns-normalized')&&!complete)throw Error('Full DNS import requires complete validated coverage for all 12 desktop catalog sections');
   const data:CatalogData = JSON.parse(await readFile('data/catalog.json','utf8'));
+  data.products=data.products.filter(p=>!isSodimm(p));
   const previousIds = new Set(data.products.map(p=>p.id));
   const byCode = new Map<string,Product>();
   const code = (url:string) => new URL(url).pathname.match(/^\/product\/([a-f0-9]{16})\//)?.[1];
@@ -47,12 +49,14 @@ try {
   for (const file of (await readdir(directory)).filter(f=>f.endsWith('.json')).sort()) {
     const snapshot:Snapshot=JSON.parse(await readFile(resolve(directory,file),'utf8'));
     if(!['public-browser-catalog','validated-dns-catalog'].includes(snapshot.source)||snapshot.region!=='Москва'||!categories.some(c=>c.id===snapshot.category))throw new Error('Invalid category snapshot: '+file);
+    if(snapshot.category==='ram'&&(/17a9b91b16404e77/.test(snapshot.url)||isSodimm({category:'ram',name:snapshot.title})))continue;
     const checked=Date.parse(snapshot.checkedAt);
     if(!Number.isFinite(checked)||checked>Date.now()+300000||Date.now()-checked>86400000)throw new Error('Stale snapshot: '+file);
     if(!isAllowedStoreUrl(snapshot.url,'DNS')||!Array.isArray(snapshot.items))throw new Error('Invalid snapshot source: '+file);
     const entry={category:snapshot.category,items:0,priced:0,unpriced:0,added:0,updated:0,sections:snapshot.sections};
     for (const row of snapshot.items) {
       if(!row||typeof row.name!=='string'||!row.name.trim()||!isAllowedStoreUrl(row.url,'DNS'))throw new Error('Invalid product in '+file);
+      if(isSodimm({...row,category:snapshot.category}))continue;
       const id=code(row.url); if(!id)throw new Error('Missing DNS product ID');
       if(observed.has(id))continue;
       observed.add(id);entry.items++;

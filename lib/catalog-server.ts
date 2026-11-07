@@ -4,7 +4,8 @@ export {offerWriteStatements} from './offer-storage';
 import {env} from 'cloudflare:workers';
 import raw from '../data/catalog.json';
 import type {CatalogData,Product,Offer} from './catalog-types';
-export const snapshot=raw as unknown as CatalogData;
+import {desktopCatalog} from './catalog-scope';
+export const snapshot=desktopCatalog(raw as unknown as CatalogData);
 export function database(){if(!env.DB)throw new Error('База данных недоступна');return env.DB}
 export async function getCatalog(){
  const products:Product[]=snapshot.products.map(p=>({...p,offers:p.offers.map(o=>({...o}))}));

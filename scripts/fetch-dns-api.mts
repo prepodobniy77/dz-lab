@@ -12,7 +12,6 @@ const sources=[
  ['motherboard','Материнские платы','17a89a0416404e77'],
  ['gpu','Видеокарты','17a89aab16404e77'],
  ['ram','Оперативная память DIMM','17a89a3916404e77'],
- ['ram','Оперативная память SO-DIMM','17a9b91b16404e77'],
  ['ssd','SSD накопители','8a9ddfba20724e77'],
  ['ssd','SSD M.2 накопители','dd58148920724e77'],
  ['hdd','Жесткие диски 3.5','17a8914916404e77'],
@@ -32,7 +31,7 @@ const lock=await open(lockPath,'wx');
 await lock.writeFile(String(process.pid));
 process.on('exit',()=>{try{unlinkSync(lockPath)}catch{}});
 const plan=JSON.parse(await readFile(folder+'/active-plan.json','utf8'));
-const wanted=(j:Job)=>j.page<=Math.ceil(plan.activeCounts[j.categoryId]/24)&&!(plan.browserPages[j.categoryId]||[]).includes(j.page);
+const wanted=(j:Job)=>sources.some(([, ,id])=>id===j.categoryId)&&j.page<=Math.ceil(plan.activeCounts[j.categoryId]/24)&&!(plan.browserPages[j.categoryId]||[]).includes(j.page);
 let state:State;
 try{state=JSON.parse(await readFile(statePath,'utf8'))}catch(error:any){
  if(error.code!=='ENOENT')throw error;

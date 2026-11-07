@@ -4,6 +4,8 @@ import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
 
+import {desktopCatalog} from './lib/catalog-scope';
+
 const root=fileURLToPath(new URL('.',import.meta.url));
 export default defineConfig({
   root:resolve(root,'standalone'),
@@ -20,7 +22,7 @@ export default defineConfig({
         if(req.method!=='GET'||!['/api/catalog','/api/prices/sweep'].includes(url))return next();
         res.setHeader('Content-Type','application/json; charset=utf-8');
         if(url==='/api/prices/sweep')return res.end(JSON.stringify({report:null}));
-        try{const raw=JSON.parse(await readFile(resolve(root,'data/catalog.json'),'utf8'));res.end(JSON.stringify({...raw,storage:'snapshot'}))}
+        try{const raw=JSON.parse(await readFile(resolve(root,'data/catalog.json'),'utf8'));res.end(JSON.stringify({...desktopCatalog(raw),storage:'snapshot'}))}
         catch{res.statusCode=500;res.end(JSON.stringify({error:'Каталог недоступен'}))}
       });
     },
@@ -28,7 +30,7 @@ export default defineConfig({
       const out=resolve(root,'dist/static');
       await mkdir(resolve(out,'api/prices'),{recursive:true});
       const raw=JSON.parse(await readFile(resolve(root,'data/catalog.json'),'utf8'));
-      await writeFile(resolve(out,'api/catalog'),JSON.stringify({...raw,storage:'snapshot'}));
+      await writeFile(resolve(out,'api/catalog'),JSON.stringify({...desktopCatalog(raw),storage:'snapshot'}));
       await writeFile(resolve(out,'api/prices/sweep'),JSON.stringify({report:null}));
       await writeFile(resolve(out,'_headers'),'/api/*\n  Content-Type: application/json; charset=utf-8\n  Cache-Control: no-cache\n');
     },

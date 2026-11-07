@@ -1,4 +1,5 @@
 import {isAllowedStoreUrl,type StoreId} from './stores.ts';
+import {isSodimm} from './catalog-scope.ts';
 import type {Category,Product,Specs,Offer} from './catalog-types';
 export const CATALOG_URLS:Record<Category,string> = Object.fromEntries(Object.entries({cpu:'protsessory',motherboard:'materinskie_platy',gpu:'videokarty',ram:'operativnaya_pamyat',ssd:'ssd_nakopiteli',psu:'bloki_pitaniya_dlya_pk',cooler:'ohlazhdenie_kompyutera/vozdyshnye_kylery_dlya_protsessorov',case:'korpysa',hdd:'zhestkie_diski',aio:'ohlazhdenie_kompyutera/sistemy_zhidkostnogo_ohlazhdeniya'}).map(([k,v])=>[k,`https://www.xcom-shop.ru/catalog/komplektyyuschie_dlya_pk_i_noytbykov/${v}/`])) as Record<Category,string>;
 export function decode(s:string){return s.replace(/&quot;/g,'"').replace(/&#039;|&apos;/g,"'").replace(/&amp;/g,'&').replace(/&nbsp;|&#160;/g,' ').replace(/&#(\d+);/g,(_,n)=>String.fromCharCode(Number(n))).replace(/&lt;/g,'<').replace(/&gt;/g,'>')}
@@ -36,7 +37,7 @@ export function parseXcomCatalog(html:string,category:Category,checkedAt=new Dat
   const imageTag=block.match(/<img\s+[^>]*class="catalog_item__image[^>]*>/i)?.[0]||'';
   const mpn=fullName.match(/\[([^\]]+)\]\s*$/)?.[1]||'';
   const name=fullName.replace(/\s*\[[^\]]+\]\s*$/,'').replace(/^(Процессор|Материнская плата|Видеокарта|Оперативная память|SSD накопитель|Блок питания|Кулер|Корпус)\s+/i,'').replace(/,\s*(?:AM[45]|LGA\d+)(?:,.*)?$/,'');
-  if(!name||url.includes('#'))continue;
+  if(!name||url.includes('#')||isSodimm({category,name:fullName,description}))continue;
   result.push({id:'xcom-'+id,category,name,brand:attr(tag,'data-vendor'),mpn,image:attr(imageTag,'src'),specs:readSpecs(fullName,description,category),description,offers:[{store:'XCOM',url,price,availability:availability>0?'in-stock':Number.isFinite(stockLevel)?'out-of-stock':'unknown',checkedAt,status:price?'ok':'error',...(!price?{error:'Цена отсутствует в разметке'}:{})}]});
  }
  return result;

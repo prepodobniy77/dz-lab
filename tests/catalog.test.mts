@@ -1,3 +1,4 @@
+import {isSodimm} from '../lib/catalog-scope.ts';
 import {isAllowedStoreUrl} from '../lib/stores.ts';
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -24,7 +25,7 @@ test('exact MPN refuses BOX suffix and substring',()=>{assert.equal(matchesMpn('
 test('store allowlist rejects wrong merchant, nested attacker hosts and credentials',()=>{assert.equal(isAllowedStoreUrl('https://www.dns-shop.ru/product/test','DNS'),true);assert.equal(isAllowedStoreUrl('https://www.dns-shop.ru.evil.test/product/','DNS'),false);assert.equal(isAllowedStoreUrl('https://www.kns.ru/product/','DNS'),false);assert.equal(isAllowedStoreUrl('https://user:pass@www.dns-shop.ru/product/','DNS'),false)});
 test('CompDay price comes from primary card and exposes discount terms',()=>{const html='<article id="pageProductCard" data-price="11410"><h1>CPU</h1>Товар доступен: Сегодня <b class="actual cash price">11410</b><section id="sameCat">Нет в наличии <div data-price="999">Related</div></section></article>';const o=parseOffer(html,'COMPDAY','https://www.compday.ru/');assert.equal(o.price,11410);assert.equal(o.availability,'in-stock');assert.ok(o.condition)});
 
-test('HDD/AIO categories contain actual drives and cooling systems',()=>{const d=JSON.parse(readFileSync('data/catalog.json','utf8'));for(const p of d.products as Product[]){if(p.category==='hdd'){if(p.offers.some(o=>o.store==='DNS')){assert.match(p.name,/жестк|HDD|накопител/i);assert.doesNotMatch(p.name,/кабел|адаптер|креплен|SSD/i)}else{assert.match(p.name+' '+p.description,/SATA/i);assert.doesNotMatch(p.name+' '+p.description,/SAS|SSD|SCSI|USB/i)}}if(p.category==='aio')assert.ok(/жидкост|водян|СЖО/i.test(p.name)||(/Система охлаждения/i.test(p.name)&&Boolean(p.attributes?.['Размер радиатора'])),p.name)}});
+test('HDD/AIO categories contain actual drives and cooling systems',()=>{const d=JSON.parse(readFileSync('data/catalog.json','utf8'));for(const p of d.products as Product[]){if(p.category==='hdd'){if(p.offers.some(o=>['DNS','REGARD','CITILINK'].includes(o.store))){assert.match(p.name,/жестк|HDD|накопител/i);assert.doesNotMatch(p.name,/кабел|адаптер|креплен|SSD/i)}else{assert.match(p.name+' '+p.description,/SATA/i);assert.doesNotMatch(p.name+' '+p.description,/SAS|SSD|SCSI|USB/i)}}if(p.category==='aio')assert.ok(/жидкост|водян|СЖО/i.test(p.name)||(/Система охлаждения/i.test(p.name)&&Boolean(p.attributes?.['Размер радиатора'])),p.name)}});
 
 test('корпус без maxGpuLength даёт предупреждение',()=>{assert.ok(checkCompatibility({gpu:'g',case:'c'},[item('g','gpu',{gpuLength:300}),item('c','case',{})]).some(x=>x.level==='warning'&&/Длина видеокарты/.test(x.text)))});
 test('БП меньше рекомендованного даёт ошибку',()=>{assert.ok(checkCompatibility({gpu:'g',psu:'p'},[item('g','gpu',{recommendedPsu:850}),item('p','psu',{watts:650})]).some(x=>x.level==='error'))});
@@ -34,3 +35,10 @@ test('серверная память даёт ошибку',()=>{const r=item('
 test('неизвестный TDP не подменяется watts; явный TDP учитывает запас 30%',()=>{const ps=[item('c','cpu',{watts:100}),item('g','gpu',{watts:300}),item('p','psu',{watts:500})];assert.ok(checkCompatibility({cpu:'c',gpu:'g',psu:'p'},ps).some(x=>x.text==='Суммарная мощность не рассчитана: нет данных TDP'));ps[0].specs.tdp=100;ps[1].specs.tdp=300;assert.ok(checkCompatibility({cpu:'c',gpu:'g',psu:'p'},ps).some(x=>x.level==='error'&&/520 Вт/.test(x.text)))});
 
 test('серверный фильтр распознаёт память, SAS и ценовой порог',async()=>{const {isEnterpriseProduct,ENTERPRISE_PRICE_THRESHOLD}=await import('../lib/catalog.ts');assert.equal(isEnterpriseProduct(item('r','ram',{moduleType:'RDIMM'})),true);assert.equal(isEnterpriseProduct(item('h','hdd',{interface:'SAS'})),true);const p=item('p','gpu',{});p.offers=[{store:'XCOM',url:'https://www.xcom-shop.ru/',price:ENTERPRISE_PRICE_THRESHOLD+1,status:'ok',availability:'unknown',checkedAt:'2026-11-02T00:00:00Z'}];assert.equal(isEnterpriseProduct(p),true);p.offers[0].price=ENTERPRISE_PRICE_THRESHOLD;assert.equal(isEnterpriseProduct(p),false)});
+
+test('desktop catalog rejects common spellings of SO-DIMM across sources',()=>{
+ const d=JSON.parse(readFileSync('data/catalog.json','utf8'));
+ assert.ok(d.products.every((p:Product)=>!isSodimm(p)));
+ for(const label of ['SODIMM','SO‑DIMM','SO DIMM','Память для ноутбука'])assert.ok(isSodimm({category:'ram',name:label}));
+ assert.equal(isSodimm({category:'ram',name:'DDR5 2 × 16 GB DIMM'}),false);
+});

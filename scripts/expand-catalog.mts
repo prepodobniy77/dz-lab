@@ -1,7 +1,9 @@
 import {readFile,writeFile} from 'node:fs/promises';
 import {CATALOG_URLS,parseXcomCatalog,fetchHtml} from '../lib/providers.mts';
 import type {CatalogData,Category,Product} from '../lib/catalog-types';
+import {isSodimm} from '../lib/catalog-scope.ts';
 const data:CatalogData=JSON.parse(await readFile('data/catalog.json','utf8'));
+data.products=data.products.filter(p=>!isSodimm(p));
 const map=new Map(data.products.map(p=>[p.id,p]));
 const report:unknown[]=[];let blocked=false;
 // Additive import: keep detailed specs and all other merchants. Capture listing snapshots

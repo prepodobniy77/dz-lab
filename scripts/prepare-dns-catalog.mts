@@ -1,6 +1,7 @@
 /** Normalize authenticated provider responses and public browser observations.
  * Does not fetch pages or bypass access controls. Caller must respect store rules.
  */
+import {isSodimm} from '../lib/catalog-scope.ts';
 import {readFile,readdir,mkdir,writeFile} from 'node:fs/promises';
 const root='.sites-runtime';
 const plan=JSON.parse(await readFile(root+'/reef-dns/active-plan.json','utf8'));
@@ -27,7 +28,7 @@ for(const source of sources){
    if(!previous||(row.priceText&&Date.parse(row.checkedAt||snapshot.checkedAt)>=Date.parse(previous.checkedAt)))rows.set(row.guid,{...row,checkedAt:row.checkedAt||snapshot.checkedAt,transport:'html-snapshot'});
   }
  }
- const items=[...rows.values()];
+ const items=[...rows.values()].filter(row=>!isSodimm({...row,category:source.category}));
  const expected=plan.activeCounts[source.id];
  const entry={...source,expected,loaded:items.length,priced:items.filter(r=>r.priceText).length,complete:items.length===expected};
  coverage.push(entry);

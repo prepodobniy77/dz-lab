@@ -36,15 +36,6 @@
     "complete": true
   },
   {
-    "category": "ram",
-    "title": "Оперативная память SO-DIMM",
-    "id": "17a9b91b16404e77",
-    "expected": 146,
-    "loaded": 146,
-    "priced": 146,
-    "complete": true
-  },
-  {
     "category": "ssd",
     "title": "SSD накопители",
     "id": "8a9ddfba20724e77",
