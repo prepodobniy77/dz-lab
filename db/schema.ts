@@ -20,6 +20,10 @@ export const priceFeedImports = sqliteTable('price_feed_imports', {
  pendingReview: integer('pending_review').notNull().default(0),
  fingerprint: text('fingerprint'),
  rowsWritten: integer('rows_written').notNull().default(0),
+ bootstrap: integer('bootstrap').notNull().default(0),
+ forced: integer('forced').notNull().default(0),
+ conflicts: integer('conflicts').notNull().default(0),
+ recognized: integer('recognized').notNull().default(0),
 }, table => [uniqueIndex('price_feed_active_store').on(table.store).where(sql`status IN ('open','publishing')`)]);
 export const priceFeedRows = sqliteTable('price_feed_rows', {
  importId: text('import_id').notNull().references(() => priceFeedImports.id, {onDelete:'cascade'}),

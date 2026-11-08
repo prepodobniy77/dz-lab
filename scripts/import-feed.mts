@@ -9,8 +9,11 @@ import {
 import {downloadFeed} from '../lib/feed-download.ts';
 
 async function run() {
-  const [input = process.env.DNS_FEED_URL, ...args] = process.argv.slice(2);
-  if (!input) throw new FeedError('Использование: node scripts/import-feed.mts <файл или HTTPS URL> [--store=DNS] [--date=ISO]');
+  const args = process.argv.slice(2);
+  const input = args.find(arg => !arg.startsWith('--')) ?? process.env.DNS_FEED_URL;
+  const bootstrap = args.includes('--bootstrap');
+  const force = args.includes('--force');
+  if (!input) throw new FeedError('Использование: node scripts/import-feed.mts <файл или HTTPS URL> [--store=DNS] [--date=ISO] [--bootstrap] [--force]');
   const store = feedStore(args.find(arg => arg.startsWith('--store='))?.slice(8) ?? 'DNS');
   const date = args.find(arg => arg.startsWith('--date='))?.slice(7);
   const token = process.env.PRICE_JOB_TOKEN;
@@ -36,10 +39,12 @@ async function run() {
   const feed = parseRetailFeed(text,date,Date.now(),lastModified);
   requireFreshFeed(feed.checkedAt,process.env.FEED_MAX_AGE_HOURS);
   const parts = Math.max(1,Math.ceil(feed.rows.length/FEED_PART_SIZE));
-  const fingerprint = createHash('sha256').update(JSON.stringify({store,checkedAt:feed.checkedAt,parts})).update(text).digest('hex');
+  const fingerprint = createHash('sha256').update(JSON.stringify({store,checkedAt:feed.checkedAt,parts,bootstrap,force})).update(text).digest('hex');
   async function send(stage: string, payload: object) {
     const url = new URL('/api/prices/import',origin);
     url.searchParams.set('stage',stage);
+    if (stage === 'start' && bootstrap) url.searchParams.set('bootstrap','1');
+    if (stage === 'start' && force) url.searchParams.set('force','1');
     for (let attempt = 0; ; attempt++) {
       const response = await fetch(url,{
         method:'POST', redirect:'error', signal:AbortSignal.timeout(60_000),

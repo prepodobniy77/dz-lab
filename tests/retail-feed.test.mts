@@ -38,12 +38,13 @@ test('CSV, YML and XML normalize dates and availability and reject invalid price
   const csv = 'mpn;price;available;date\nPART-1;"1,25";true;2026-01-02 03:00\nPART-2;0;true;2026-01-02 03:00\nPART-3;-1;true;2026-01-02 03:00\nPART-4;oops;true;2026-01-02 03:00';
   const parsed = parseRetailFeed(csv,undefined,now);
   assert.equal(parsed.checkedAt,date);
-  assert.deepEqual(parsed.rows,[row(1,1.25)]);
+  assert.deepEqual(parsed.rows,[row(1,1.25),...([2,3,4].map(i => ({...row(i),price:null})))]);
   const yml = '<!DOCTYPE yml_catalog SYSTEM "shops.dtd"><yml_catalog date="2026-01-02 03:00"><shop><offers>' +
     '<offer id="retail-2" available="false"><vendorCode>PART-2</vendorCode><price>1000</price><currencyId>RUB</currencyId></offer>' +
     '<offer id="retail-3"><price>NaN</price></offer></offers></shop></yml_catalog>';
   assert.deepEqual(parseRetailFeed(yml,undefined,now).rows,[
     {...row(2,1000),sku:'retail-2',availability:'out-of-stock'},
+    {mpn:'',sku:'retail-3',url:'',price:null,availability:'unknown'},
   ]);
   assert.equal(parseRetailFeed('<offers date="'+date+'"><offer mpn="PART-2"><price>1000</price></offer></offers>',undefined,now).rows.length,1);
   assert.throws(() => parseRetailFeed('<!DOCTYPE yml_catalog [<!ENTITY x SYSTEM "file:///etc/passwd">]>'+yml,undefined,now),/DTD/);
@@ -78,7 +79,7 @@ test('D1 checks 80% before publishing, preserves old dates and stages large jump
     assert.equal(await reserveFeedImport(db,now+60_000),true);
     const history = async () => (await db.prepare('SELECT COUNT(*) AS n FROM price_history').first<{n:number}>())!.n;
     const importRows = async (rows: FeedRow[], checkedAt = date) => {
-      const id = await startFeedImport(db,'DNS',checkedAt,index.expected,1);
+      const id = await startFeedImport(db,'DNS',checkedAt,index.expected,1,{bootstrap:true});
       const batch = await readFeedImport(db,id);
       await assert.rejects(commitFeedImport(db,batch),/не все порции/);
       await stageFeedRows(db,batch,0,rows,index);
@@ -112,7 +113,7 @@ test('D1 checks 80% before publishing, preserves old dates and stages large jump
     assert.equal(older.updated,0);
     assert.equal(await history(),3);
     const later = '2026-01-03T00:00:00.000Z';
-    const concurrent = await Promise.allSettled([1,2].map(() => startFeedImport(db,'DNS',later,index.expected,2)));
+    const concurrent = await Promise.allSettled([1,2].map(() => startFeedImport(db,'DNS',later,index.expected,2,{bootstrap:true})));
     const opened = concurrent.find(result => result.status==='fulfilled');
     const refused = concurrent.find(result => result.status==='rejected');
     assert.ok(opened?.status==='fulfilled');
@@ -138,7 +139,7 @@ test('D1 checks 80% before publishing, preserves old dates and stages large jump
     assert.equal((await commitFeedImport(db,interrupted)).status,'published');
     assert.equal((await commitFeedImport(db,await readFeedImport(db,id))).updated,2);
 
-    const abandoned = await startFeedImport(db,'DNS',date,index.expected,2,{now:now+120_000});
+    const abandoned = await startFeedImport(db,'DNS',date,index.expected,2,{now:now+120_000,bootstrap:true});
     await stageFeedRows(db,await readFeedImport(db,abandoned),0,[row(0)],index);
     await cleanupFeedImports(db,now+120_000+2*3_600_000);
     assert.equal((await readFeedImport(db,abandoned)).status,'abandoned');
@@ -146,6 +147,22 @@ test('D1 checks 80% before publishing, preserves old dates and stages large jump
     await cleanupFeedImports(db,now+120_000+2*3_600_000+7*86_400_000);
     await assert.rejects(readFeedImport(db,abandoned),/истёк/);
     assert.equal((await publicFeedImports(db))[0].store,'DNS');
+    const firstIndex = indexFeedCatalog(products.map(product => ({...product,offers:[]})),'DNS');
+    await assert.rejects(startFeedImport(db,'DNS',date,firstIndex.expected,1),/bootstrap=1/);
+    const first = await startFeedImport(db,'DNS',later,firstIndex.expected,1,{bootstrap:true});
+    await stageFeedRows(db,await readFeedImport(db,first),0,products.map((product,i) => ({
+      ...row(i),url:product.offers[0].url,price:i < 3 ? 1000 : null,
+    })),firstIndex);
+    const short = await commitFeedImport(db,await readFeedImport(db,first));
+    assert.equal(short.recognized,5);
+    assert.equal(short.matched,3);
+    assert.equal(short.status,'rejected');
+
+    const forced = await startFeedImport(db,'DNS',later,100,1,{force:true});
+    await stageFeedRows(db,await readFeedImport(db,forced),0,[row(4)],index);
+    assert.equal((await commitFeedImport(db,await readFeedImport(db,forced))).forced,true);
+    assert.equal((await readFeedImport(db,forced)).status,'published');
+    assert.deepEqual(Object.keys((await publicFeedImports(db))[0]).sort(),['finishedAt','status','store','updated']);
     await db.prepare('DELETE FROM price_offers').run();
     assert.deepEqual(await publicFeedImports(db),[]);
   } finally {

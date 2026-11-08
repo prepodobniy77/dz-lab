@@ -22,7 +22,7 @@ export type FeedRow = {
   mpn: string;
   sku: string;
   url: string;
-  price: number;
+  price: number|null;
   availability: Offer['availability'];
 };
 export type RetailFeed = {checkedAt: string; rows: FeedRow[]};
@@ -77,16 +77,17 @@ function normalized(row: RawRow): FeedRow | null {
   const value = (row.price ?? '').trim().replace(',', '.');
   const price = /^\d+(?:\.\d{1,2})?$/.test(value) ? Number(value) : NaN;
   const currency = row.currency?.trim().toUpperCase();
-  if ((!mpn && !sku && !url) || mpn.length > 256 || sku.length > 128 || url.length > 2048 ||
-      !Number.isFinite(price) || price <= 0 || price > MAX_RETAIL_PRICE || (currency && currency !== 'RUB' && currency !== 'RUR')) return null;
+  if ((!mpn && !sku && !url) || mpn.length > 256 || sku.length > 128 || url.length > 2048) return null;
+  const validPrice = Number.isFinite(price) && price > 0 && price <= MAX_RETAIL_PRICE &&
+    (!currency || currency === 'RUB' || currency === 'RUR');
 
   const stock = (row.availability ?? '').trim().toLowerCase();
   let availability: Offer['availability'];
   if (/^(true|1|yes|in[-_ ]stock|в наличии)$/.test(stock)) availability = 'in-stock';
   else if (/^(false|0|no|out[-_ ]of[-_ ]stock|нет в наличии)$/.test(stock)) availability = 'out-of-stock';
   else if (stock === '' || stock === 'unknown') availability = 'unknown';
-  else return null;
-  return {mpn, sku, url, price, availability};
+  else return {mpn,sku,url,price:null,availability:'unknown'};
+  return {mpn,sku,url,price:validPrice ? price : null,availability};
 }
 
 function parseXml(text: string): {date: string; rows: FeedRow[]} {
@@ -215,6 +216,7 @@ export function feedStore(value: unknown): StoreId {
 
 export function indexFeedCatalog(products: Product[], store: StoreId) {
   const mpn: IdentityIndex = new Map();
+  const catalogMpn = new Map<string,Product|null>();
   const sku: IdentityIndex = new Map();
   const url: IdentityIndex = new Map();
   let expected = 0;
@@ -222,6 +224,8 @@ export function indexFeedCatalog(products: Product[], store: StoreId) {
     if (id) index.set(id, index.has(id) && index.get(id)?.product.id !== entry.product.id ? null : entry);
   };
   for (const product of products) {
+    const part = key(product.mpn);
+    if (part) catalogMpn.set(part,catalogMpn.has(part) ? null : product);
     const offer = product.offers.find(candidate => candidate.store === store);
     if (!offer || !isAllowedStoreUrl(offer.url, store)) continue;
     expected++;
@@ -235,10 +239,12 @@ export function indexFeedCatalog(products: Product[], store: StoreId) {
 
   return {
     expected,
-    match(row: FeedRow) {
+    match(row: FeedRow, {bootstrap = false, includeInvalid = false} = {}) {
       if (typeof row?.mpn !== 'string' || row.mpn.length > 256 || typeof row.sku !== 'string' || row.sku.length > 128 ||
-          typeof row.url !== 'string' || row.url.length > 2048 || !Number.isFinite(row.price) || row.price <= 0 || row.price > MAX_RETAIL_PRICE ||
+          typeof row.url !== 'string' || row.url.length > 2048 ||
           !['in-stock','out-of-stock','unknown'].includes(row.availability)) return null;
+      const validPrice = typeof row.price === 'number' && Number.isFinite(row.price) && row.price > 0 && row.price <= MAX_RETAIL_PRICE;
+      if (!includeInvalid && !validPrice) return null;
       if (row.url && !isAllowedStoreUrl(row.url, store)) return null;
       const link = row.url ? new URL(row.url) : undefined;
       const urlSku = link ? productSku(link, store) : undefined;
@@ -246,14 +252,21 @@ export function indexFeedCatalog(products: Product[], store: StoreId) {
       const urlMatch = link ? (url.get(reference(link)) ?? (urlSku ? sku.get(urlSku) : undefined)) : undefined;
       const mpnMatch = row.mpn ? mpn.get(key(row.mpn)) : undefined;
       const matched = urlMatch ?? skuMatch ?? mpnMatch;
-      if (!matched || [urlMatch,skuMatch,mpnMatch].some(candidate => candidate && candidate.product.id !== matched.product.id)) return null;
+      if (!matched) {
+        const product = bootstrap && link && catalogMpn.get(key(row.mpn));
+        if (!product || [urlMatch,skuMatch,mpnMatch].includes(null)) return null;
+        if (store === 'DNS' && (!urlSku || (/^[a-f\d]{16}$/i.test(row.sku) && key(row.sku) !== urlSku))) return null;
+        return {product,offer:{store,url:row.url,sku:row.sku || undefined,price:null,
+          checkedAt:'',availability:'unknown',status:'error'} satisfies Offer,validPrice};
+      }
+      if ([urlMatch,skuMatch,mpnMatch].some(candidate => candidate && candidate.product.id !== matched.product.id)) return null;
       if (link && reference(link) !== reference(new URL(matched.offer.url)) &&
           (!urlSku || urlSku !== productSku(new URL(matched.offer.url), store))) return null;
       if (row.mpn && matched.product.mpn && key(row.mpn) !== key(matched.product.mpn)) return null;
       if (row.sku && /^[a-f\d]{16}$/i.test(row.sku) && store === 'DNS' &&
           key(row.sku) !== productSku(new URL(matched.offer.url), store)) return null;
       if (row.sku && matched.offer.sku && key(row.sku) !== key(matched.offer.sku) && !skuMatch) return null;
-      return matched;
+      return {...matched,validPrice};
     },
   };
 }

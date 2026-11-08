@@ -24,6 +24,10 @@ export type ImportState = {
   pending_review: number;
   fingerprint: string|null;
   rows_written: number;
+  bootstrap: number;
+  forced: number;
+  conflicts: number;
+  recognized: number;
 };
 type CatalogIndex = ReturnType<typeof indexFeedCatalog>;
 type Stage = {id:string; data:string; price:number; baselineAt:string; baselinePrice:number|null};
@@ -68,16 +72,17 @@ export async function cleanupFeedImports(db: D1Database, now = Date.now()) {
   ]));
 }
 
-type StartOptions = {fingerprint?:string; rateLimit?:boolean; now?:number};
+type StartOptions = {fingerprint?:string; rateLimit?:boolean; now?:number; bootstrap?:boolean; force?:boolean};
 
 export async function startFeedImport(db: D1Database, store: StoreId, checkedAt: string, expected: number, parts: number,
-  {fingerprint,rateLimit,now = Date.now()}: StartOptions = {}) {
-  if (!expected) throw new FeedError('В каталоге нет известных карточек этого магазина.');
+  {fingerprint,rateLimit,now = Date.now(),bootstrap = false,force = false}: StartOptions = {}) {
   const active = () => db.prepare("SELECT * FROM price_feed_imports WHERE store=? AND status IN ('open','publishing')")
     .bind(store).first<ImportState>();
   const cleanupWrites = await cleanupFeedImports(db,now);
   const previous = await active();
   if (previous) throw new FeedConflictError(previous);
+  const useBootstrap = expected < 100;
+  if (useBootstrap && !bootstrap) throw new FeedError('В каталоге меньше 100 известных позиций магазина. Нужен bootstrap=1.');
   if (fingerprint) {
     const finished = await db.prepare(`SELECT id FROM price_feed_imports
       WHERE store=? AND fingerprint=? AND status IN ('published','rejected') ORDER BY finished_at DESC LIMIT 1`)
@@ -86,9 +91,10 @@ export async function startFeedImport(db: D1Database, store: StoreId, checkedAt:
   }
   if (rateLimit && !await reserveFeedImport(db,now)) throw new FeedRateError('Следующий импорт можно начать через минуту.');
   const id = crypto.randomUUID();
-  const started = await db.prepare(`INSERT INTO price_feed_imports(id,store,checked_at,started_at,expected,parts,fingerprint,rows_written)
-    VALUES (?,?,?,?,?,?,?,?) ON CONFLICT DO NOTHING`)
-    .bind(id,store,checkedAt,new Date(now).toISOString(),expected,parts,fingerprint ?? null,cleanupWrites).run();
+  const started = await db.prepare(`INSERT INTO price_feed_imports(id,store,checked_at,started_at,expected,parts,fingerprint,rows_written,bootstrap,forced)
+    VALUES (?,?,?,?,?,?,?,?,?,?) ON CONFLICT DO NOTHING`)
+    .bind(id,store,checkedAt,new Date(now).toISOString(),expected,parts,fingerprint ?? null,cleanupWrites,
+      Number(useBootstrap),Number(force)).run();
   if (!started.meta.changes) {
     const conflicting = await active();
     if (conflicting) throw new FeedConflictError(conflicting);
@@ -104,12 +110,13 @@ export async function readFeedImport(db: D1Database, id: string) {
   return result;
 }
 
-function preparedOffer(product: Product, previous: Offer, row: FeedRow, checkedAt: string): Stage {
+function preparedOffer(product: Product, previous: Offer, row: FeedRow, checkedAt: string, validPrice: boolean): Stage {
+  const price = validPrice ? row.price : null;
   const offer: Offer = {
-    store:previous.store, url:previous.url, price:row.price, checkedAt,
+    store:previous.store, url:row.url || previous.url, sku:previous.sku || row.sku || undefined, price, checkedAt,
     status:'ok', availability:row.availability, transport:'api', identity:'verified-reference',
   };
-  return {id:product.id,data:JSON.stringify(offer),price:row.price,
+  return {id:product.id,data:JSON.stringify(offer),price:price ?? 0,
     baselineAt:previous.checkedAt,baselinePrice:previous.status==='ok'?previous.price:null};
 }
 
@@ -119,8 +126,8 @@ export async function stageFeedRows(db: D1Database, batch: ImportState, part: nu
   if (part !== batch.next_part || part >= batch.parts) throw new FeedError('Нарушена последовательность порций.');
   const staged: Stage[] = [];
   for (const row of rows) {
-    const matched = index.match(row);
-    if (matched) staged.push(preparedOffer(matched.product,matched.offer,row,batch.checked_at));
+    const matched = index.match(row,{bootstrap:Boolean(batch.bootstrap),includeInvalid:true});
+    if (matched) staged.push(preparedOffer(matched.product,matched.offer,row,batch.checked_at,matched.validPrice));
   }
   const statements: D1PreparedStatement[] = [];
   for (let i = 0; i < staged.length; i += 500) {
@@ -144,6 +151,8 @@ export function feedImportReport(batch: ImportState) {
   return {
     store:batch.store, checkedAt:batch.checked_at, finishedAt:batch.finished_at, status:batch.status,
     expected:batch.expected, matched:batch.matched, updated:batch.updated, pendingReview:batch.pending_review, rowsWritten:batch.rows_written,
+    bootstrap:Boolean(batch.bootstrap), forced:Boolean(batch.forced), recognized:batch.recognized, conflicts:batch.conflicts,
+    ...(batch.status==='rejected'?{reason:batch.matched?'coverage_below_80_percent':'no_valid_offers'}:{}),
   };
 }
 
@@ -160,18 +169,22 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
   const ready = "b.id=? AND b.status='committing' AND r.import_id=b.id";
   const fresh = "COALESCE(p.attempt_at,r.baseline_at) < b.checked_at AND COALESCE(h.checked_at,'') < b.checked_at";
   const baseline = "CASE WHEN p.key IS NULL THEN r.baseline_price WHEN json_extract(p.data,'$.status')='ok' THEN json_extract(p.data,'$.price') END";
-  const minimum = Math.ceil(batch.expected * minimumPriceCoverage);
+
   // The set-based publication stays within one transactional D1 batch at any feed size.
   const results = await db.batch([
     bind(`
       UPDATE price_feed_imports
-      SET matched=(SELECT COUNT(*) FROM price_feed_rows WHERE import_id=price_feed_imports.id AND conflict=0)
+      SET matched=(SELECT COUNT(*) FROM price_feed_rows WHERE import_id=price_feed_imports.id AND conflict=0 AND price>0),
+        recognized=(SELECT COUNT(*) FROM price_feed_rows WHERE import_id=price_feed_imports.id),
+        conflicts=(SELECT COUNT(*) FROM price_feed_rows WHERE import_id=price_feed_imports.id AND conflict=1)
       WHERE id=? AND status='publishing' AND next_part=parts
     `),
     db.prepare(`
-      UPDATE price_feed_imports SET status=CASE WHEN matched>=? THEN 'committing' ELSE 'rejected' END, finished_at=?
+      UPDATE price_feed_imports SET status=CASE
+        WHEN matched>0 AND (forced=1 OR matched >= ? * CASE WHEN bootstrap=1 THEN recognized ELSE expected END)
+          THEN 'committing' ELSE 'rejected' END, finished_at=?
       WHERE id=? AND status='publishing' AND next_part=parts
-    `).bind(minimum,now,batch.id),
+    `).bind(minimumPriceCoverage,now,batch.id),
     bind(`
       UPDATE price_feed_rows SET decision=choices.decision
       FROM (
@@ -187,10 +200,10 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
         FROM price_feed_rows r JOIN price_feed_imports b ON b.id=r.import_id
         LEFT JOIN price_offers p ON p.key=${key}
         LEFT JOIN source_health h ON h.store=${review}
-        WHERE ${ready} AND r.conflict=0
+        WHERE ${ready} AND r.conflict=0 AND r.price>0
       ) choices
       WHERE price_feed_rows.product_id=choices.product_id
-        AND choices.decision<>'old'
+        AND choices.decision NOT IN ('old','same')
         AND price_feed_rows.import_id=(SELECT id FROM price_feed_imports WHERE status='committing')
     `),
     bind(`
@@ -230,8 +243,7 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
     db.prepare(`
       INSERT INTO source_health(store,checked_at,error)
       SELECT ? || store,finished_at,json_object(
-        'store',store,'checkedAt',checked_at,'finishedAt',finished_at,'status',status,
-        'expected',expected,'matched',matched,'updated',updated,'pendingReview',pending_review)
+        'store',store,'finishedAt',finished_at,'status',status,'updated',updated)
       FROM price_feed_imports WHERE id=? AND finished_at=?
       ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error
       WHERE source_health.checked_at<=excluded.checked_at
@@ -251,5 +263,13 @@ export async function publicFeedImports(db: D1Database) {
         AND typeof(json_extract(p.data,'$.price')) IN ('integer','real') AND json_extract(p.data,'$.price')>0
     ) ORDER BY h.store
   `).bind(publicPrefix.length+1).all<{error:string}>();
-  return rows.results.map(row=>JSON.parse(row.error) as ReturnType<typeof feedImportReport>);
+  return rows.results.map(row => {
+    const {store,finishedAt,status,updated} = JSON.parse(row.error) as ReturnType<typeof feedImportReport>;
+    return {store,finishedAt,status,updated};
+  });
+}
+
+export async function privateFeedImports(db: D1Database) {
+  const {results} = await db.prepare('SELECT * FROM price_feed_imports ORDER BY started_at DESC LIMIT 30').all<ImportState>();
+  return results.map(batch => ({id:batch.id,nextPart:batch.next_part,parts:batch.parts,...feedImportReport(batch)}));
 }
