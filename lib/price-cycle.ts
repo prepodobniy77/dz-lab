@@ -7,19 +7,19 @@ import {robotsPolicy} from './robots-policy.ts';
 import {hasFreshPrice} from './price-freshness.ts';
 import {aiProductLimit,minSweepIntervalMinutes} from './price-update-policy.ts';
 import {SweepIntervalError,priceSweepFailureMessage} from './price-job-errors.ts';
+import {acquirePriceLease} from './price-lease.ts';
 import {categories} from './catalog.ts';
 import type {PriceLink} from './ai-price-search.mts';
 export type CycleState={id:string;startedAt:string;phase:'scan'|'details'|'publish'|'ai'|'done';index:number;publishOffset:number;expected:number;staged:Record<string,StagedPrice>;seen:string[];missing:string[];robots?:{text:string;at:number};lastRequestAt:number;hostRules?:Record<string,{text:string;at:number;lastAt:number}>;aiAttempted:string[];aiVisited:string[];bulkDone:boolean;updatedIds:string[];attemptedIds:string[];pendingReviews:number;portions:number;activeDurationMs:number;report:SweepReport};
 export type CycleResult={done:boolean;cursor:{cycleId:string;phase:string;category?:string;page?:number;index:number}|null;processed:number;skipped?:boolean;reason?:string;report:SweepReport};
 export type CycleServices={db:D1Database;products:Product[];productIndices?:ReadonlyMap<string,number>;prepareProducts?:(state:CycleState|undefined)=>Promise<Product[]>;config:Record<string,string|undefined>;read:(url:string,timeoutMs:number)=>Promise<string>;bulk?:()=>Promise<{productId:string;offer:Offer}[]>;search?:(products:Product[],timeoutMs:number)=>Promise<PriceLink[]>;offerStatements:(values:{productId:string;offer:Offer}[])=>D1PreparedStatement[];now?:()=>number;pause?:(ms:number)=>Promise<void>;onReport:(report:SweepReport,final:boolean)=>Promise<void>};
 const jobs=xcomJobs();
-const STATE='PRICE_CYCLE_STATE',LEASE='PRICE_CYCLE_LEASE',SUCCESS='PRICE_SWEEP_SUCCESS';
+const STATE='PRICE_CYCLE_STATE',SUCCESS='PRICE_SWEEP_SUCCESS';
 export async function runPricePortion(services:CycleServices,trigger:SweepReport['trigger']='manual'):Promise<CycleResult>{
  let {products}=services;
  const {db,config}=services,now=services.now||Date.now,pause=services.pause||((ms:number)=>new Promise<void>(resolve=>setTimeout(resolve,ms)));const start=now(),deadline=start+115000;let dbRequests=0,httpRequests=0;
  const row=async(key:string)=>{dbRequests++;return db.prepare('SELECT error,blocked_until FROM source_health WHERE store=?').bind(key).first<{error:string|null;blocked_until:string|null}>()};
- const leaseToken=crypto.randomUUID();dbRequests++;const acquired=await db.batch([db.prepare("INSERT INTO source_health(store,checked_at,blocked_until,error) VALUES(?,?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,blocked_until=excluded.blocked_until,error=excluded.error WHERE source_health.blocked_until IS NULL OR source_health.blocked_until<=excluded.checked_at").bind(LEASE,new Date(start).toISOString(),new Date(start+3*60000).toISOString(),leaseToken)]);
- if(!acquired[0].meta.changes){const busy=await row(LEASE);throw new SweepIntervalError(Math.max(1,(Date.parse(busy?.blocked_until||'')-start)/1000)||180,'active_portion')}
+ dbRequests++;const releaseLease=await acquirePriceLease(db,start);
  let state:CycleState|undefined;let processed=0;const currentCursor=()=>{if(!state||state.phase==='done')return null;const job=jobs[state.index];return{cycleId:state.id,phase:state.phase,index:state.index,...(state.phase==='scan'&&job?{category:job.category,page:job.page}:{})}};
  const stateStatement=()=>{const text=JSON.stringify(state);if(new TextEncoder().encode(text).length>1800000)throw new Error('Данные цикла превышают безопасный размер');return db.prepare("INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error").bind(STATE,new Date(now()).toISOString(),text)};
  const saveState=async(extra:D1PreparedStatement[]=[])=>{dbRequests++;await db.batch([...extra,stateStatement()])};
@@ -102,5 +102,5 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
   console.info('Порция обновления цен',JSON.stringify({cycleId:state.id,portion:state.portions,durationMs:state.report.durationMs,totalDurationMs:state.report.totalDurationMs,processed,httpRequests}));
   return{done:state.phase==='done',cursor:currentCursor(),processed,report:state.report};
  }catch(error){if(state&&!(error instanceof SweepIntervalError)){const failed={...state.report,status:'failed' as const,done:false,cycleCompleted:false,message:priceSweepFailureMessage(error)};try{await services.onReport(failed,false)}catch{console.error('Не удалось сохранить причину ошибки обновления')}}throw error}
- finally{await db.batch([db.prepare('UPDATE source_health SET blocked_until=NULL WHERE store=? AND error=?').bind(LEASE,leaseToken)])}
+ finally{await releaseLease()}
 }

@@ -7,6 +7,8 @@ import {
   FEED_PART_SIZE, MAX_FEED_BYTES, MAX_FEED_ROWS, FeedError, StaleFeedError, feedDate,
   feedStore, indexFeedCatalog, parseRetailFeed, readFeedBody, requireFreshFeed, type FeedRow,
 } from '../lib/retail-feed';
+import {acquirePriceLease} from '../lib/price-lease';
+import {SweepIntervalError} from '../lib/price-job-errors';
 import {verifyPriceJobBearer} from '../lib/price-job-access';
 import type {StoreId} from '../lib/stores';
 
@@ -53,13 +55,14 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
   const limit = stage === null ? MAX_FEED_BYTES : 1024 * 1024;
   const tooLarge = () => Response.json({error:'Превышен размер тела запроса.'},{status:413,headers});
   if (length && Number(length) > limit) return tooLarge();
-  if ((stage === null || stage === 'start') && !await reserveFeedImport(db)) {
-    return Response.json({error:'Следующий импорт можно начать через минуту.'},
-      {status:429,headers:{...headers,'Retry-After':String(feedCooldown)}});
-  }
-
+  let releaseLease: (() => Promise<void>) | undefined;
   try {
     const body = await readFeedBody(request.body,length,limit);
+    releaseLease = await acquirePriceLease(db);
+    if ((stage === null || stage === 'start') && !await reserveFeedImport(db)) {
+      return Response.json({error:'Следующий импорт можно начать через минуту.'},
+        {status:429,headers:{...headers,'Retry-After':String(feedCooldown)}});
+    }
     if (stage === null) {
       const store = feedStore(request.headers.get('x-feed-store') ?? 'DNS');
       const feed = parseRetailFeed(body,request.headers.get('x-feed-date') ?? undefined);
@@ -99,9 +102,15 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
     const report = await commitFeedImport(db,batch);
     return Response.json(report,{status:report.status==='rejected'?422:200,headers});
   } catch (error) {
+    if (error instanceof SweepIntervalError) {
+      return Response.json({error:error.message,reason:error.reason},{status:429,
+        headers:{...headers,'Retry-After':String(error.retryAfter)}});
+    }
     if (!(error instanceof FeedError)) throw error;
     if (error instanceof StaleFeedError) return Response.json({status:'stale',error:error.message},{status:422,headers});
     if (error.message === 'Превышен размер тела запроса.') return tooLarge();
     return Response.json({error:error.message},{status:400,headers});
+  } finally {
+    await releaseLease?.();
   }
 }
