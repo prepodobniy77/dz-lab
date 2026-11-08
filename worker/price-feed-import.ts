@@ -1,6 +1,6 @@
 import {database, snapshot} from '../lib/catalog-server';
 import {
-  cleanupFeedImports, commitFeedImport, feedCooldown, FeedConflictError, FeedRateError, privateFeedImports, publicFeedImports, readFeedImport,
+  cleanupFeedImports, commitFeedImport, feedCooldown, feedImportExpired, FeedConflictError, FeedRateError, privateFeedImports, publicFeedImports, readFeedImport,
   stageFeedRows, startFeedImport,
 } from '../lib/feed-import-store';
 import {
@@ -80,7 +80,6 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
   try {
     const body = await readFeedBody(request.body,length,limit);
     releaseLease = await acquirePriceLease(db);
-    if (stage === 'rows' || stage === 'commit') await cleanupFeedImports(db);
     if (stage === null) {
       const store = feedStore(request.headers.get('x-feed-store') ?? 'DNS');
       const feed = parseRetailFeed(body,request.headers.get('x-feed-date') ?? undefined);
@@ -118,7 +117,10 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
     }
 
     const batch = await readFeedImport(db,importId(message.id));
-    if (batch.status === 'abandoned') throw new FeedError('Сеанс импорта истёк. Начни загрузку заново.');
+    if (feedImportExpired(batch)) await cleanupFeedImports(db);
+    if (batch.status === 'abandoned' || feedImportExpired(batch)) {
+      throw new FeedError('Сеанс импорта истёк. Начни загрузку заново.');
+    }
     if (stage === 'rows') {
       const part = message.part;
       if (typeof part !== 'number' || !Number.isInteger(part) || part < 0 ||

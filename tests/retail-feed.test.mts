@@ -197,6 +197,22 @@ test('D1 checks 80% before publishing, preserves old dates and stages large jump
     assert.deepEqual(Object.keys((await publicFeedImports(db))[0]).sort(),['finishedAt','status','store','updated']);
     await db.prepare('DELETE FROM price_offers').run();
     assert.deepEqual(await publicFeedImports(db),[]);
+    const fresh = await startFeedImport(db,'DNS',later,0,1,{bootstrap:true});
+    await stageFeedRows(db,await readFeedImport(db,fresh),0,products.map((product,i) => ({
+      ...row(i),url:product.offers[0].url,price:i<4?1000:null,
+    })),firstIndex);
+    const initialPublication = await commitFeedImport(db,await readFeedImport(db,fresh));
+    assert.equal(initialPublication.status,'published');
+    assert.equal(initialPublication.updated,4);
+
+    const duplicated = await startFeedImport(db,'DNS',later,0,1,{bootstrap:true});
+    await stageFeedRows(db,await readFeedImport(db,duplicated),0,products.map((product,i) => ({
+      ...row(i),url:i===1?products[0].offers[0].url+'?campaign=test':product.offers[0].url,
+    })),firstIndex);
+    const duplicateReport = await commitFeedImport(db,await readFeedImport(db,duplicated));
+    assert.equal(duplicateReport.conflicts,2);
+    assert.equal(duplicateReport.status,'rejected');
+
   } finally {
     await runtime.dispose();
   }

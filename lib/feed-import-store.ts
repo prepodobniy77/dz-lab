@@ -62,6 +62,10 @@ async function recordWrites(db: D1Database, id: string, writes: number) {
   if (writes) await db.prepare('UPDATE price_feed_imports SET rows_written=rows_written+? WHERE id=?').bind(writes,id).run();
 }
 
+export function feedImportExpired(batch: ImportState, now = Date.now()) {
+  return (batch.status === 'open' || batch.status === 'publishing') && now-Date.parse(batch.started_at)>=openAge;
+}
+
 export async function cleanupFeedImports(db: D1Database, now = Date.now()) {
   return countWrites(await db.batch([
     db.prepare(`UPDATE price_feed_imports SET status='abandoned',finished_at=?
@@ -114,11 +118,16 @@ export async function readFeedImport(db: D1Database, id: string) {
 
 function preparedOffer(product: Product, previous: Offer, row: FeedRow, checkedAt: string, validPrice: boolean): Stage {
   const price = validPrice ? row.price : null;
+  const link = new URL(row.url || previous.url);
+  link.hash = '';
+  // Keep product query parameters for other stores, where they may identify a variant.
+  if (previous.store==='DNS') link.search = '';
   const offer: Offer = {
-    store:previous.store, url:row.url || previous.url, sku:previous.sku || row.sku || undefined, price, checkedAt,
+    store:previous.store, url:link.href, sku:previous.sku || row.sku || undefined, price, checkedAt,
     status:'ok', availability:row.availability, transport:'api', identity:'verified-reference',
   };
-  return {id:product.id,data:JSON.stringify(offer),price:price ?? 0,
+  const retailReference = previous.store==='DNS' ? link.pathname.split('/')[2]?.toLowerCase() : link.href;
+  return {id:product.id,data:JSON.stringify({...offer,retailReference}),price:price ?? 0,
     baselineAt:previous.checkedAt,baselinePrice:previous.status==='ok'?previous.price:null};
 }
 
@@ -178,6 +187,15 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
   // The set-based publication stays within one transactional D1 batch at any feed size.
   const results = await db.batch([
     bind(`
+      UPDATE price_feed_rows SET conflict=1
+      WHERE import_id=?1 AND conflict=0
+        AND EXISTS (SELECT 1 FROM price_feed_imports WHERE id=?1 AND bootstrap=1 AND status='publishing')
+        AND json_extract(data,'$.retailReference') IN (
+          SELECT json_extract(data,'$.retailReference') FROM price_feed_rows
+          WHERE import_id=?1 GROUP BY 1 HAVING count(*)>1
+        )
+    `),
+    bind(`
       UPDATE price_feed_imports
       SET matched=(SELECT COUNT(*) FROM price_feed_rows WHERE import_id=price_feed_imports.id AND conflict=0 AND price>0),
         recognized=(SELECT COUNT(*) FROM price_feed_rows WHERE import_id=price_feed_imports.id),
@@ -226,14 +244,14 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
     `),
     bind(`
       INSERT INTO price_offers(key,product_id,store,data,attempt_at,is_seed)
-      SELECT ${key},r.product_id,b.store,r.data,b.checked_at,0
+      SELECT ${key},r.product_id,b.store,json_remove(r.data,'$.retailReference'),b.checked_at,0
       FROM price_feed_rows r JOIN price_feed_imports b ON b.id=r.import_id
       WHERE ${ready} AND r.decision='publish'
       ON CONFLICT(key) DO UPDATE SET data=excluded.data,attempt_at=excluded.attempt_at
     `),
     db.prepare(`
       INSERT INTO source_health(store,checked_at,error)
-      SELECT ${review},b.checked_at,json_object('productId',r.product_id,'offer',json(r.data),
+      SELECT ${review},b.checked_at,json_object('productId',r.product_id,'offer',json_remove(r.data,'$.retailReference'),
         'review',json('true'),'feedImportId',b.id,'firstAt',
         CASE WHEN ${firstReviewAt}>? THEN ${firstReviewAt} ELSE b.finished_at END)
       FROM price_feed_rows r JOIN price_feed_imports b ON b.id=r.import_id
