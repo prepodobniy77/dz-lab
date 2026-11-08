@@ -117,8 +117,9 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
     }
 
     const batch = await readFeedImport(db,importId(message.id));
-    if (feedImportExpired(batch)) await cleanupFeedImports(db);
-    if (batch.status === 'abandoned' || feedImportExpired(batch)) {
+    const expired = feedImportExpired(batch);
+    if (expired) await cleanupFeedImports(db);
+    if (batch.status === 'abandoned' || expired) {
       throw new FeedError('Сеанс импорта истёк. Начни загрузку заново.');
     }
     if (stage === 'rows') {

@@ -212,6 +212,19 @@ test('D1 checks 80% before publishing, preserves old dates and stages large jump
     const duplicateReport = await commitFeedImport(db,await readFeedImport(db,duplicated));
     assert.equal(duplicateReport.conflicts,2);
     assert.equal(duplicateReport.status,'rejected');
+    const larger = Array.from({length:100},(_,i) => ({
+      ...products[0],id:'large-'+i,mpn:'PART-'+i,
+      offers:[{...products[0].offers[0],url:'https://www.dns-shop.ru/product/'+i.toString(16).padStart(16,'0')+'/part/'}],
+    }));
+    const largerIndex = indexFeedCatalog(larger,'DNS');
+    const coverage = async (count: number) => {
+      const id = await startFeedImport(db,'DNS',later,largerIndex.expected,1);
+      await stageFeedRows(db,await readFeedImport(db,id),0,Array.from({length:count},(_,i)=>row(i)),largerIndex);
+      return commitFeedImport(db,await readFeedImport(db,id));
+    };
+    assert.equal((await coverage(79)).status,'rejected');
+    assert.equal((await coverage(80)).status,'published');
+
 
   } finally {
     await runtime.dispose();

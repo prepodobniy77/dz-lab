@@ -95,6 +95,7 @@ async function scheduledSweep(env: Cloudflare.Env) {
     });
     if (releaseLease) {
       try { await cleanupFeedImports(db); }
+      catch (error) { console.error('Не удалось очистить журнал импорта цен',error); }
       finally { await releaseLease(); }
     }
     if (!env.PRICE_JOB_TOKEN) throw new ScheduledSweepError('Не задан секрет PRICE_JOB_TOKEN.');
