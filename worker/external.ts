@@ -9,6 +9,8 @@ import type {SweepReport} from '../lib/hourly-prices';
 import type {PublicSweepReport} from '../lib/price-status';
 import type {PriceFeed} from '../lib/price-feed';
 import {catalogResponse} from './catalog-response';
+import {acquirePriceLease} from '../lib/price-lease';
+import {cleanupFeedImports} from '../lib/feed-import-store';
 import {serveFeedImport} from './price-feed-import';
 import {storeInfo} from '../lib/stores';
 
@@ -86,6 +88,14 @@ async function logSweepFailure(error: unknown, env: Cloudflare.Env, trigger: Swe
 
 async function scheduledSweep(env: Cloudflare.Env) {
   try {
+    const db = database(env);
+    const releaseLease = await acquirePriceLease(db).catch(error => {
+      if (!(error instanceof SweepIntervalError)) throw error;
+    });
+    if (releaseLease) {
+      try { await cleanupFeedImports(db); }
+      finally { await releaseLease(); }
+    }
     if (!env.PRICE_JOB_TOKEN) throw new ScheduledSweepError('Не задан секрет PRICE_JOB_TOKEN.');
     const origin = new URL(env.PRICE_WORKER_ORIGIN ?? '');
     if (origin.protocol !== 'https:' || !origin.hostname.endsWith('.workers.dev') || origin.username || origin.password) {

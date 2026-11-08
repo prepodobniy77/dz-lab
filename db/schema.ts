@@ -1,5 +1,5 @@
 import {sql} from 'drizzle-orm';
-import {index,integer,primaryKey,real,sqliteTable,text} from 'drizzle-orm/sqlite-core';
+import {index,integer,primaryKey,real,sqliteTable,text,uniqueIndex} from 'drizzle-orm/sqlite-core';
 export const priceOffers=sqliteTable('price_offers',{key:text('key').primaryKey(),productId:text('product_id').notNull(),store:text('store').notNull(),data:text('data').notNull(),attemptAt:text('attempt_at').notNull(),isSeed:integer('is_seed').notNull().default(0)},table=>[index('price_offers_live').on(table.isSeed).where(sql`is_seed = 0`)]);
 export const priceHistory=sqliteTable('price_history',{id:integer('id').primaryKey({autoIncrement:true}),productId:text('product_id').notNull(),store:text('store').notNull(),price:integer('price').notNull(),checkedAt:text('checked_at').notNull()});
 export const builds=sqliteTable('builds',{id:text('id').primaryKey(),name:text('name').notNull(),selection:text('selection').notNull(),createdAt:text('created_at').notNull()});
@@ -18,7 +18,9 @@ export const priceFeedImports = sqliteTable('price_feed_imports', {
  matched: integer('matched').notNull().default(0),
  updated: integer('updated').notNull().default(0),
  pendingReview: integer('pending_review').notNull().default(0),
-});
+ fingerprint: text('fingerprint'),
+ rowsWritten: integer('rows_written').notNull().default(0),
+}, table => [uniqueIndex('price_feed_active_store').on(table.store).where(sql`status IN ('open','publishing')`)]);
 export const priceFeedRows = sqliteTable('price_feed_rows', {
  importId: text('import_id').notNull().references(() => priceFeedImports.id, {onDelete:'cascade'}),
  productId: text('product_id').notNull(),

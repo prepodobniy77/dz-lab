@@ -1,3 +1,5 @@
+import {createHash} from 'node:crypto';
+import {setTimeout as sleep} from 'node:timers/promises';
 import {createReadStream} from 'node:fs';
 import {stat} from 'node:fs/promises';
 import {Readable} from 'node:stream';
@@ -34,27 +36,39 @@ async function run() {
   const feed = parseRetailFeed(text,date,Date.now(),lastModified);
   requireFreshFeed(feed.checkedAt,process.env.FEED_MAX_AGE_HOURS);
   const parts = Math.max(1,Math.ceil(feed.rows.length/FEED_PART_SIZE));
+  const fingerprint = createHash('sha256').update(JSON.stringify({store,checkedAt:feed.checkedAt,parts})).update(text).digest('hex');
   async function send(stage: string, payload: object) {
     const url = new URL('/api/prices/import',origin);
     url.searchParams.set('stage',stage);
-    const response = await fetch(url,{
-      method:'POST', redirect:'error', signal:AbortSignal.timeout(60_000),
-      headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},
-      body:JSON.stringify(payload),
-    });
-    const result = await response.json().catch(() => ({})) as Record<string,unknown>;
-    if (response.status === 422 && stage === 'commit' && result.status === 'rejected') {
-      console.log(JSON.stringify(result));
-      throw new FeedError('Прайс отклонён. Подтверждено меньше 80% известных позиций.');
+    for (let attempt = 0; ; attempt++) {
+      const response = await fetch(url,{
+        method:'POST', redirect:'error', signal:AbortSignal.timeout(60_000),
+        headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},
+        body:JSON.stringify(payload),
+      });
+      const result = await response.json().catch(() => ({})) as Record<string,unknown>;
+      if (response.status === 409 && stage === 'start') {
+        const existing = result.session as Record<string,unknown> | undefined;
+        if (existing?.fingerprint === fingerprint) return existing;
+      }
+      if (response.status === 429 && attempt < 3) {
+        const delay = Math.min(180, Math.max(1,Number(response.headers.get('Retry-After')) || 5));
+        await sleep(delay * 1000);
+        continue;
+      }
+      if (response.status === 422 && stage === 'commit' && result.status === 'rejected') {
+        console.log(JSON.stringify(result));
+        throw new FeedError('Прайс отклонён. Подтверждено меньше 80% позиций.');
+      }
+      if (!response.ok) throw new FeedError('Импорт вернул HTTP '+response.status+
+        (typeof result.error === 'string'?' · '+result.error:''));
+      return result;
     }
-    if (!response.ok) throw new FeedError('Импорт вернул HTTP '+response.status+
-      (typeof result.error === 'string'?' · '+result.error:''));
-    return result;
   }
 
-  const session = await send('start',{store,checkedAt:feed.checkedAt,parts});
-  if (typeof session.id !== 'string') throw new FeedError('Не получен ID импорта.');
-  for (let part = 0; part < parts; part++) {
+  const session = await send('start',{store,checkedAt:feed.checkedAt,parts,fingerprint});
+  if (typeof session.id !== 'string' || typeof session.nextPart !== 'number') throw new FeedError('Не получен курсор импорта.');
+  for (let part = session.nextPart; part < parts; part++) {
     await send('rows',{id:session.id,part,rows:feed.rows.slice(part*FEED_PART_SIZE,(part+1)*FEED_PART_SIZE)});
   }
   console.log(JSON.stringify(await send('commit',{id:session.id})));

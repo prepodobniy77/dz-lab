@@ -1,7 +1,7 @@
 import {database, snapshot} from '../lib/catalog-server';
 import {
-  commitFeedImport, feedCooldown, publicFeedImports, readFeedImport,
-  reserveFeedImport, stageFeedRows, startFeedImport,
+  cleanupFeedImports, commitFeedImport, feedCooldown, FeedConflictError, FeedRateError, publicFeedImports, readFeedImport,
+  stageFeedRows, startFeedImport,
 } from '../lib/feed-import-store';
 import {
   FEED_PART_SIZE, MAX_FEED_BYTES, MAX_FEED_ROWS, FeedError, StaleFeedError, feedDate,
@@ -59,19 +59,22 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
   try {
     const body = await readFeedBody(request.body,length,limit);
     releaseLease = await acquirePriceLease(db);
-    if ((stage === null || stage === 'start') && !await reserveFeedImport(db)) {
-      return Response.json({error:'Следующий импорт можно начать через минуту.'},
-        {status:429,headers:{...headers,'Retry-After':String(feedCooldown)}});
-    }
+    if (stage === 'rows' || stage === 'commit') await cleanupFeedImports(db);
     if (stage === null) {
       const store = feedStore(request.headers.get('x-feed-store') ?? 'DNS');
       const feed = parseRetailFeed(body,request.headers.get('x-feed-date') ?? undefined);
       requireFreshFeed(feed.checkedAt,env.FEED_MAX_AGE_HOURS);
       const index = indexFor(store);
-      const id = await startFeedImport(db,store,feed.checkedAt,index.expected,1);
+      const fingerprint = [...new Uint8Array(await crypto.subtle.digest('SHA-256',
+        new TextEncoder().encode(feed.checkedAt+'\n'+body)))].map(byte => byte.toString(16).padStart(2,'0')).join('');
+      const id = await startFeedImport(db,store,feed.checkedAt,index.expected,1,{rateLimit:true,fingerprint})
+        .catch(error => {
+          if (error instanceof FeedConflictError && error.session.fingerprint === fingerprint) return error.session.id;
+          throw error;
+        });
       const batch = await readFeedImport(db,id);
-      await stageFeedRows(db,batch,0,feed.rows,index);
-      const report = await commitFeedImport(db,{...batch,next_part:1});
+      if (batch.next_part === 0) await stageFeedRows(db,batch,0,feed.rows,index);
+      const report = await commitFeedImport(db,await readFeedImport(db,id));
       return Response.json(report,{status:report.status==='rejected'?422:200,headers});
     }
 
@@ -84,11 +87,17 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
       }
       const checkedAt = feedDate(message.checkedAt);
       requireFreshFeed(checkedAt,env.FEED_MAX_AGE_HOURS);
-      const id = await startFeedImport(db,store,checkedAt,indexFor(store).expected,parts);
-      return Response.json({id},{status:201,headers});
+      const fingerprint = message.fingerprint;
+      if (fingerprint !== undefined && (typeof fingerprint !== 'string' || !/^[a-f0-9]{64}$/.test(fingerprint))) {
+        throw new FeedError('Некорректный отпечаток прайса.');
+      }
+      const id = await startFeedImport(db,store,checkedAt,indexFor(store).expected,parts,{rateLimit:true,fingerprint});
+      const batch = await readFeedImport(db,id);
+      return Response.json({id,nextPart:batch.next_part},{status:201,headers});
     }
 
     const batch = await readFeedImport(db,importId(message.id));
+    if (batch.status === 'abandoned') throw new FeedError('Сеанс импорта истёк. Начни загрузку заново.');
     if (stage === 'rows') {
       const part = message.part;
       if (typeof part !== 'number' || !Number.isInteger(part) || part < 0 ||
@@ -106,6 +115,11 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
       return Response.json({error:error.message,reason:error.reason},{status:429,
         headers:{...headers,'Retry-After':String(error.retryAfter)}});
     }
+    if (error instanceof FeedConflictError) return Response.json({error:error.message,session:{
+      id:error.session.id,nextPart:error.session.next_part,fingerprint:error.session.fingerprint,
+    }},{status:409,headers});
+    if (error instanceof FeedRateError) return Response.json({error:error.message},
+      {status:429,headers:{...headers,'Retry-After':String(feedCooldown)}});
     if (!(error instanceof FeedError)) throw error;
     if (error instanceof StaleFeedError) return Response.json({status:'stale',error:error.message},{status:422,headers});
     if (error.message === 'Превышен размер тела запроса.') return tooLarge();

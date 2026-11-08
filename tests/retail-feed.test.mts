@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync,readdirSync} from 'node:fs';
 import {createRequire} from 'node:module';
 import {test} from 'node:test';
 import type {Product} from '../lib/catalog-types';
 import {
-  commitFeedImport, publicFeedImports, readFeedImport, reserveFeedImport, stageFeedRows, startFeedImport,
+  cleanupFeedImports, commitFeedImport, FeedConflictError, publicFeedImports, readFeedImport, reserveFeedImport, stageFeedRows, startFeedImport,
 } from '../lib/feed-import-store.ts';
 import {indexFeedCatalog, parseRetailFeed, readFeedBody, type FeedRow} from '../lib/retail-feed.ts';
 
@@ -66,8 +66,8 @@ test('D1 checks 80% before publishing, preserves old dates and stages large jump
   const runtime = new Miniflare({modules:true,script:'export default {fetch(){return new Response()}}',d1Databases:['DB']});
   try {
     const db = await runtime.getD1Database('DB') as D1Database;
-    for (const migration of ['0000_mushy_albert_cleary','0001_classy_sugar_man','0002_price_catalog_seed','0003_price_feed_imports']) {
-      const statements = readFileSync('drizzle/'+migration+'.sql','utf8').split('--> statement-breakpoint').filter(sql=>sql.trim());
+    for (const migration of readdirSync('drizzle').filter(name=>name.endsWith('.sql')).sort()) {
+      const statements = readFileSync('drizzle/'+migration,'utf8').split('--> statement-breakpoint').filter(sql=>sql.trim());
       await db.batch(statements.map(sql=>db.prepare(sql)));
     }
     await db.batch(products.map(product => db.prepare(
@@ -111,6 +111,40 @@ test('D1 checks 80% before publishing, preserves old dates and stages large jump
     const older = await importRows([row(0),row(1),row(2),row(3)],baseline);
     assert.equal(older.updated,0);
     assert.equal(await history(),3);
+    const later = '2026-01-03T00:00:00.000Z';
+    const concurrent = await Promise.allSettled([1,2].map(() => startFeedImport(db,'DNS',later,index.expected,2)));
+    const opened = concurrent.find(result => result.status==='fulfilled');
+    const refused = concurrent.find(result => result.status==='rejected');
+    assert.ok(opened?.status==='fulfilled');
+    assert.ok(refused?.status==='rejected' && refused.reason instanceof FeedConflictError);
+    const id = opened.value;
+    const initial = await readFeedImport(db,id);
+    assert.equal(await stageFeedRows(db,initial,0,[row(0)],index),1);
+    const resumed = await readFeedImport(db,id);
+    assert.equal(await stageFeedRows(db,resumed,0,[row(0,3000)],index),1);
+    assert.equal((await readFeedImport(db,id)).rows_written,resumed.rows_written);
+    assert.equal(await stageFeedRows(db,resumed,1,[row(1),row(2),row(3)],index),2);
+
+    // Force a failure after the price history INSERT, before offers become visible.
+    await db.prepare(`CREATE TRIGGER fail_feed BEFORE INSERT ON price_offers WHEN NEW.product_id='p1'
+      BEGIN SELECT RAISE(ABORT,'publication fault'); END`).run();
+    await assert.rejects(commitFeedImport(db,await readFeedImport(db,id)),/publication fault/);
+    const interrupted = await readFeedImport(db,id);
+    assert.equal(interrupted.status,'publishing');
+    assert.equal(interrupted.next_part,2);
+    assert.equal(interrupted.finished_at,null);
+    assert.equal(await history(),3);
+    await db.prepare('DROP TRIGGER fail_feed').run();
+    assert.equal((await commitFeedImport(db,interrupted)).status,'published');
+    assert.equal((await commitFeedImport(db,await readFeedImport(db,id))).updated,2);
+
+    const abandoned = await startFeedImport(db,'DNS',date,index.expected,2,{now:now+120_000});
+    await stageFeedRows(db,await readFeedImport(db,abandoned),0,[row(0)],index);
+    await cleanupFeedImports(db,now+120_000+2*3_600_000);
+    assert.equal((await readFeedImport(db,abandoned)).status,'abandoned');
+    assert.equal(await db.prepare('SELECT 1 FROM price_feed_rows WHERE import_id=?').bind(abandoned).first(),null);
+    await cleanupFeedImports(db,now+120_000+2*3_600_000+7*86_400_000);
+    await assert.rejects(readFeedImport(db,abandoned),/истёк/);
     assert.equal((await publicFeedImports(db))[0].store,'DNS');
     await db.prepare('DELETE FROM price_offers').run();
     assert.deepEqual(await publicFeedImports(db),[]);

@@ -5,7 +5,8 @@ import type {StoreId} from './stores.ts';
 
 const publicPrefix = 'PRICE_FEED_RESULT:';
 const cooldownKey = 'PRICE_FEED_RATE';
-const pendingAge = 24 * 60 * 60_000;
+const openAge = 2 * 60 * 60_000;
+const retentionAge = 7 * 24 * 60 * 60_000;
 export const feedCooldown = 60;
 
 export type ImportState = {
@@ -17,10 +18,12 @@ export type ImportState = {
   expected: number;
   parts: number;
   next_part: number;
-  status: 'open'|'published'|'rejected';
+  status: 'open'|'publishing'|'published'|'rejected'|'abandoned';
   matched: number;
   updated: number;
   pending_review: number;
+  fingerprint: string|null;
+  rows_written: number;
 };
 type CatalogIndex = ReturnType<typeof indexFeedCatalog>;
 type Stage = {id:string; data:string; price:number; baselineAt:string; baselinePrice:number|null};
@@ -36,21 +39,67 @@ export async function reserveFeedImport(db: D1Database, now = Date.now()) {
   return Boolean(result.meta.changes);
 }
 
-export async function startFeedImport(db: D1Database, store: StoreId, checkedAt: string, expected: number, parts: number) {
+export class FeedConflictError extends FeedError {
+  readonly session: ImportState;
+  constructor(session: ImportState) {
+    super('Для магазина уже открыт импорт.');
+    this.session = session;
+  }
+}
+
+export class FeedRateError extends FeedError {}
+
+function countWrites(results: D1Result[]) {
+  return results.reduce((sum,result) => sum + (result.meta.rows_written ?? result.meta.changes ?? 0),0);
+}
+
+async function recordWrites(db: D1Database, id: string, writes: number) {
+  if (writes) await db.prepare('UPDATE price_feed_imports SET rows_written=rows_written+? WHERE id=?').bind(writes,id).run();
+}
+
+export async function cleanupFeedImports(db: D1Database, now = Date.now()) {
+  return countWrites(await db.batch([
+    db.prepare(`UPDATE price_feed_imports SET status='abandoned',finished_at=?
+      WHERE status IN ('open','publishing') AND started_at<=?`)
+      .bind(new Date(now).toISOString(),new Date(now-openAge).toISOString()),
+    db.prepare(`DELETE FROM price_feed_rows WHERE import_id IN
+      (SELECT id FROM price_feed_imports WHERE status='abandoned')`),
+    db.prepare('DELETE FROM price_feed_imports WHERE finished_at<=?').bind(new Date(now-retentionAge).toISOString()),
+  ]));
+}
+
+type StartOptions = {fingerprint?:string; rateLimit?:boolean; now?:number};
+
+export async function startFeedImport(db: D1Database, store: StoreId, checkedAt: string, expected: number, parts: number,
+  {fingerprint,rateLimit,now = Date.now()}: StartOptions = {}) {
   if (!expected) throw new FeedError('В каталоге нет известных карточек этого магазина.');
+  const active = () => db.prepare("SELECT * FROM price_feed_imports WHERE store=? AND status IN ('open','publishing')")
+    .bind(store).first<ImportState>();
+  const cleanupWrites = await cleanupFeedImports(db,now);
+  const previous = await active();
+  if (previous) throw new FeedConflictError(previous);
+  if (fingerprint) {
+    const finished = await db.prepare(`SELECT id FROM price_feed_imports
+      WHERE store=? AND fingerprint=? AND status IN ('published','rejected') ORDER BY finished_at DESC LIMIT 1`)
+      .bind(store,fingerprint).first<{id:string}>();
+    if (finished) return finished.id;
+  }
+  if (rateLimit && !await reserveFeedImport(db,now)) throw new FeedRateError('Следующий импорт можно начать через минуту.');
   const id = crypto.randomUUID();
-  const now = Date.now();
-  await db.batch([
-    db.prepare('DELETE FROM price_feed_imports WHERE started_at < ?').bind(new Date(now-pendingAge).toISOString()),
-    db.prepare('INSERT INTO price_feed_imports(id,store,checked_at,started_at,expected,parts) VALUES (?,?,?,?,?,?)')
-      .bind(id,store,checkedAt,new Date(now).toISOString(),expected,parts),
-  ]);
+  const started = await db.prepare(`INSERT INTO price_feed_imports(id,store,checked_at,started_at,expected,parts,fingerprint,rows_written)
+    VALUES (?,?,?,?,?,?,?,?) ON CONFLICT DO NOTHING`)
+    .bind(id,store,checkedAt,new Date(now).toISOString(),expected,parts,fingerprint ?? null,cleanupWrites).run();
+  if (!started.meta.changes) {
+    const conflicting = await active();
+    if (conflicting) throw new FeedConflictError(conflicting);
+    throw new FeedError('Не удалось открыть импорт. Повтори запрос.');
+  }
+  await recordWrites(db,id,countWrites([started]) + Number(Boolean(rateLimit)));
   return id;
 }
 
 export async function readFeedImport(db: D1Database, id: string) {
-  const result = await db.prepare('SELECT * FROM price_feed_imports WHERE id=? AND started_at>=?')
-    .bind(id,new Date(Date.now()-pendingAge).toISOString()).first<ImportState>();
+  const result = await db.prepare('SELECT * FROM price_feed_imports WHERE id=?').bind(id).first<ImportState>();
   if (!result) throw new FeedError('Сеанс импорта не найден или истёк.');
   return result;
 }
@@ -65,8 +114,8 @@ function preparedOffer(product: Product, previous: Offer, row: FeedRow, checkedA
 }
 
 export async function stageFeedRows(db: D1Database, batch: ImportState, part: number, rows: FeedRow[], index: CatalogIndex) {
+  if (part < batch.next_part && batch.status !== 'abandoned') return batch.next_part;
   if (batch.status !== 'open') throw new FeedError('Сеанс импорта уже завершён.');
-  if (part < batch.next_part) return batch.next_part;
   if (part !== batch.next_part || part >= batch.parts) throw new FeedError('Нарушена последовательность порций.');
   const staged: Stage[] = [];
   for (const row of rows) {
@@ -87,20 +136,23 @@ export async function stageFeedRows(db: D1Database, batch: ImportState, part: nu
   }
   statements.push(db.prepare("UPDATE price_feed_imports SET next_part=next_part+1 WHERE id=? AND status='open' AND next_part=?")
     .bind(batch.id,part));
-  await db.batch(statements);
+  await recordWrites(db,batch.id,countWrites(await db.batch(statements)));
   return part + 1;
 }
 
 export function feedImportReport(batch: ImportState) {
   return {
     store:batch.store, checkedAt:batch.checked_at, finishedAt:batch.finished_at, status:batch.status,
-    expected:batch.expected, matched:batch.matched, updated:batch.updated, pendingReview:batch.pending_review,
+    expected:batch.expected, matched:batch.matched, updated:batch.updated, pendingReview:batch.pending_review, rowsWritten:batch.rows_written,
   };
 }
 
 export async function commitFeedImport(db: D1Database, batch: ImportState) {
-  if (batch.status !== 'open') return feedImportReport(batch);
+  if (batch.status !== 'open' && batch.status !== 'publishing') return feedImportReport(batch);
   if (batch.next_part !== batch.parts) throw new FeedError('Загружены не все порции.');
+  const claimed = await db.prepare("UPDATE price_feed_imports SET status='publishing' WHERE id=? AND status='open' AND next_part=parts")
+    .bind(batch.id).run();
+  await recordWrites(db,batch.id,countWrites([claimed]));
   const now = new Date().toISOString();
   const bind = (query: string) => db.prepare(query).bind(batch.id);
   const key = "r.product_id || ':' || b.store";
@@ -109,15 +161,16 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
   const fresh = "COALESCE(p.attempt_at,r.baseline_at) < b.checked_at AND COALESCE(h.checked_at,'') < b.checked_at";
   const baseline = "CASE WHEN p.key IS NULL THEN r.baseline_price WHEN json_extract(p.data,'$.status')='ok' THEN json_extract(p.data,'$.price') END";
   const minimum = Math.ceil(batch.expected * minimumPriceCoverage);
-  await db.batch([
+  // The set-based publication stays within one transactional D1 batch at any feed size.
+  const results = await db.batch([
     bind(`
       UPDATE price_feed_imports
       SET matched=(SELECT COUNT(*) FROM price_feed_rows WHERE import_id=price_feed_imports.id AND conflict=0)
-      WHERE id=? AND status='open' AND next_part=parts
+      WHERE id=? AND status='publishing' AND next_part=parts
     `),
     db.prepare(`
       UPDATE price_feed_imports SET status=CASE WHEN matched>=? THEN 'committing' ELSE 'rejected' END, finished_at=?
-      WHERE id=? AND status='open' AND next_part=parts
+      WHERE id=? AND status='publishing' AND next_part=parts
     `).bind(minimum,now,batch.id),
     bind(`
       UPDATE price_feed_rows SET decision=choices.decision
@@ -125,6 +178,10 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
         SELECT r.product_id, CASE
           WHEN NOT (${fresh}) THEN 'old'
           WHEN abs(r.price-(${baseline})) > (${baseline})*0.5 THEN 'review'
+          WHEN p.key IS NOT NULL AND json_extract(p.data,'$.status')='ok'
+            AND json_extract(p.data,'$.price')=r.price
+            AND json_extract(p.data,'$.availability') IS json_extract(r.data,'$.availability')
+            AND json_extract(p.data,'$.url')=json_extract(r.data,'$.url') THEN 'same'
           ELSE 'publish'
         END AS decision
         FROM price_feed_rows r JOIN price_feed_imports b ON b.id=r.import_id
@@ -133,13 +190,15 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
         WHERE ${ready} AND r.conflict=0
       ) choices
       WHERE price_feed_rows.product_id=choices.product_id
+        AND choices.decision<>'old'
         AND price_feed_rows.import_id=(SELECT id FROM price_feed_imports WHERE status='committing')
     `),
     bind(`
       INSERT INTO price_history(product_id,store,price,checked_at)
       SELECT r.product_id,b.store,r.price,b.checked_at
       FROM price_feed_rows r JOIN price_feed_imports b ON b.id=r.import_id
-      WHERE ${ready} AND r.decision='publish'
+      LEFT JOIN price_offers p ON p.key=${key}
+      WHERE ${ready} AND r.decision='publish' AND r.price IS NOT (${baseline})
     `),
     bind(`
       INSERT INTO price_offers(key,product_id,store,data,attempt_at,is_seed)
@@ -179,6 +238,7 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
     `).bind(publicPrefix,batch.id,now),
     bind("DELETE FROM price_feed_rows WHERE import_id=? AND EXISTS (SELECT 1 FROM price_feed_imports b WHERE b.id=import_id AND b.status IN ('published','rejected'))"),
   ]);
+  await recordWrites(db,batch.id,countWrites(results));
   return feedImportReport(await readFeedImport(db,batch.id));
 }
 

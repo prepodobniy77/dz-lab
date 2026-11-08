@@ -29,6 +29,13 @@
       "when": 1794084015631,
       "tag": "0003_price_feed_imports",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1794164668424,
+      "tag": "0004_feed_import_lifecycle",
+      "breakpoints": true
     }
   ]
 }
