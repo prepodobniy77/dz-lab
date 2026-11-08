@@ -1,12 +1,12 @@
 name: Импорт прайса DNS
 on:
   schedule:
-    - cron: '0 3,15 * * *'
+    - cron: '40 3,15 * * *'
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: dz-lab-dns-feed
+  group: dz-lab-prices
   cancel-in-progress: false
 
 jobs:
@@ -28,6 +28,7 @@ jobs:
         run: npm exec --yes --package pnpm@11.25.0 -- pnpm install --frozen-lockfile --ignore-scripts
       - if: env.DNS_FEED_URL != ''
         env:
+          FEED_MAX_AGE_HOURS: ${{ vars.FEED_MAX_AGE_HOURS }}
           DNS_FEED_TOKEN: ${{ secrets.DNS_FEED_TOKEN }}
           SITE_URL: ${{ vars.SITE_URL }}
           PRICE_JOB_TOKEN: ${{ secrets.PRICE_JOB_TOKEN }}

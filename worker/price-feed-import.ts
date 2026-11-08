@@ -4,8 +4,8 @@ import {
   reserveFeedImport, stageFeedRows, startFeedImport,
 } from '../lib/feed-import-store';
 import {
-  FEED_PART_SIZE, MAX_FEED_BYTES, MAX_FEED_ROWS, FeedError, feedDate,
-  feedStore, indexFeedCatalog, parseRetailFeed, readFeedBody, type FeedRow,
+  FEED_PART_SIZE, MAX_FEED_BYTES, MAX_FEED_ROWS, FeedError, StaleFeedError, feedDate,
+  feedStore, indexFeedCatalog, parseRetailFeed, readFeedBody, requireFreshFeed, type FeedRow,
 } from '../lib/retail-feed';
 import {verifyPriceJobBearer} from '../lib/price-job-access';
 import type {StoreId} from '../lib/stores';
@@ -63,6 +63,7 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
     if (stage === null) {
       const store = feedStore(request.headers.get('x-feed-store') ?? 'DNS');
       const feed = parseRetailFeed(body,request.headers.get('x-feed-date') ?? undefined);
+      requireFreshFeed(feed.checkedAt,env.FEED_MAX_AGE_HOURS);
       const index = indexFor(store);
       const id = await startFeedImport(db,store,feed.checkedAt,index.expected,1);
       const batch = await readFeedImport(db,id);
@@ -78,7 +79,9 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
       if (typeof parts !== 'number' || !Number.isInteger(parts) || parts < 1 || parts > maxParts) {
         throw new FeedError('Некорректное число порций.');
       }
-      const id = await startFeedImport(db,store,feedDate(message.checkedAt),indexFor(store).expected,parts);
+      const checkedAt = feedDate(message.checkedAt);
+      requireFreshFeed(checkedAt,env.FEED_MAX_AGE_HOURS);
+      const id = await startFeedImport(db,store,checkedAt,indexFor(store).expected,parts);
       return Response.json({id},{status:201,headers});
     }
 
@@ -97,6 +100,7 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
     return Response.json(report,{status:report.status==='rejected'?422:200,headers});
   } catch (error) {
     if (!(error instanceof FeedError)) throw error;
+    if (error instanceof StaleFeedError) return Response.json({status:'stale',error:error.message},{status:422,headers});
     if (error.message === 'Превышен размер тела запроса.') return tooLarge();
     return Response.json({error:error.message},{status:400,headers});
   }

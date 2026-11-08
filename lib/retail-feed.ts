@@ -8,6 +8,15 @@ export const MAX_FEED_ROWS = 50_000;
 export const FEED_PART_SIZE = 100;
 const MAX_RETAIL_PRICE = 10_000_000;
 export class FeedError extends Error {}
+export class StaleFeedError extends FeedError {}
+
+export function requireFreshFeed(checkedAt: string, maxAge: unknown, now = Date.now()) {
+  const hours = maxAge === undefined || maxAge === '' ? 36 : Number(maxAge);
+  if (!Number.isFinite(hours) || hours <= 0) throw new FeedError('FEED_MAX_AGE_HOURS должен быть больше нуля.');
+  if (now - Date.parse(checkedAt) > hours * 3_600_000) {
+    throw new StaleFeedError('Фид устарел: дата выгрузки старше допустимого срока.');
+  }
+}
 
 export type FeedRow = {
   mpn: string;
@@ -23,7 +32,7 @@ export function feedDate(value: unknown, now = Date.now()): string {
   const match = typeof value === 'string'
     ? /^(\d{4}-\d{2}-\d{2})[T ](\d{2}:\d{2})(?::(\d{2})(\.\d{1,3})?)?(Z|[+-]\d{2}:\d{2})?$/.exec(value.trim())
     : null;
-  if (!match) throw new FeedError('Укажи дату выгрузки с временем.');
+  if (!match) throw new FeedError('В фиде нет даты выгрузки с временем и подходящего Last-Modified.');
   const [, date, time, seconds = '00', millis = '', zone = '+03:00'] = match;
   const wallTime = date + 'T' + time + ':' + seconds;
   const local = new Date(wallTime + 'Z');
@@ -147,10 +156,10 @@ function parseXml(text: string): {date: string; rows: FeedRow[]} {
   return {date, rows};
 }
 
-export function parseRetailFeed(text: string, headerDate?: string, now = Date.now()): RetailFeed {
+export function parseRetailFeed(text: string, headerDate?: string, now = Date.now(), lastModified?: string): RetailFeed {
   if (text.trimStart().startsWith('<')) {
     const xml = parseXml(text);
-    const checkedAt = feedDate(xml.date, now);
+    const checkedAt = feedDate(xml.date || headerDate || lastModified, now);
     if (headerDate && feedDate(headerDate, now) !== checkedAt) throw new FeedError('Даты выгрузки расходятся.');
     return {checkedAt, rows: xml.rows};
   }
@@ -177,7 +186,8 @@ export function parseRetailFeed(text: string, headerDate?: string, now = Date.no
   }
 
   if (!records.length || records.length > MAX_FEED_ROWS) throw new FeedError('В CSV нет допустимого числа строк.');
-  const checkedAt = feedDate(headerDate ?? records[0].date ?? records[0].checkedat, now);
+  const feedRecord = records.find(record => record.date?.trim() || record.checkedat?.trim());
+  const checkedAt = feedDate(headerDate || feedRecord?.date?.trim() || feedRecord?.checkedat?.trim() || lastModified, now);
   const rows: FeedRow[] = [];
   for (const record of records) {
     const rowDate = record.date || record.checkedat;

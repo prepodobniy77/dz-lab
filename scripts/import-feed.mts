@@ -2,8 +2,9 @@ import {createReadStream} from 'node:fs';
 import {stat} from 'node:fs/promises';
 import {Readable} from 'node:stream';
 import {
-  FEED_PART_SIZE, FeedError, feedStore, parseRetailFeed, readFeedBody,
+  FEED_PART_SIZE, FeedError, StaleFeedError, feedStore, parseRetailFeed, readFeedBody, requireFreshFeed,
 } from '../lib/retail-feed.ts';
+import {downloadFeed} from '../lib/feed-download.ts';
 
 async function run() {
   const [input = process.env.DNS_FEED_URL, ...args] = process.argv.slice(2);
@@ -20,23 +21,18 @@ async function run() {
   }
 
   let text: string;
+  let lastModified: string | undefined;
   if (/^https?:\/\//i.test(input)) {
-    const url = new URL(input);
-    if (url.protocol !== 'https:' || url.username || url.password || url.hash) throw new FeedError('Для источника требуется HTTPS URL.');
-    const sourceToken = store === 'DNS' ? process.env.DNS_FEED_TOKEN : undefined;
-    const source = await fetch(url,{
-      redirect:'error', signal:AbortSignal.timeout(60_000),
-      headers:sourceToken?{Authorization:'Bearer '+sourceToken}:undefined,
-    }).catch(() => {throw new FeedError('Не удалось получить файл источника.');});
-    if (!source.ok) throw new FeedError('Источник вернул HTTP '+source.status+'.');
-    text = await readFeedBody(source.body,source.headers.get('content-length'));
+    const source = await downloadFeed(input,process.env.DNS_FEED_URL,store === 'DNS' ? process.env.DNS_FEED_TOKEN : undefined);
+    ({text,lastModified} = source);
   } else {
     const file = await stat(input);
     if (!file.isFile()) throw new FeedError('Ожидается обычный файл.');
     text = await readFeedBody(Readable.toWeb(createReadStream(input)) as unknown as ReadableStream<Uint8Array>,String(file.size));
   }
 
-  const feed = parseRetailFeed(text,date);
+  const feed = parseRetailFeed(text,date,Date.now(),lastModified);
+  requireFreshFeed(feed.checkedAt,process.env.FEED_MAX_AGE_HOURS);
   const parts = Math.max(1,Math.ceil(feed.rows.length/FEED_PART_SIZE));
   async function send(stage: string, payload: object) {
     const url = new URL('/api/prices/import',origin);
@@ -67,6 +63,7 @@ async function run() {
 try {
   await run();
 } catch (error) {
+  if (error instanceof StaleFeedError) console.log(JSON.stringify({status:'stale'}));
   console.error(error instanceof FeedError ? error.message : 'Не удалось прочитать прайс или завершить импорт.');
   process.exitCode = 1;
 }
