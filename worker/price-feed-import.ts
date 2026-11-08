@@ -7,6 +7,7 @@ import {
   FEED_PART_SIZE, MAX_FEED_BYTES, MAX_FEED_ROWS, FeedError, StaleFeedError, feedDate,
   feedStore, indexFeedCatalog, parseRetailFeed, readFeedBody, requireFreshFeed, type FeedRow,
 } from '../lib/retail-feed';
+import {listFeedReviews, moderateFeedReview} from '../lib/feed-reviews';
 import {acquirePriceLease} from '../lib/price-lease';
 import {SweepIntervalError} from '../lib/price-job-errors';
 import {verifyPriceJobBearer} from '../lib/price-job-access';
@@ -14,6 +15,13 @@ import type {Offer} from '../lib/catalog-types';
 import type {StoreId} from '../lib/stores';
 
 const headers = {'Cache-Control':'no-store'};
+
+const authorized = (request: Request, env: Cloudflare.Env) =>
+  verifyPriceJobBearer(request.headers.get('authorization') ?? '',env.PRICE_JOB_TOKEN);
+
+const busy = (error: SweepIntervalError) => Response.json({error:error.message,reason:error.reason},{
+  status:429,headers:{...headers,'Retry-After':String(error.retryAfter)},
+});
 const maxParts = Math.ceil(MAX_FEED_ROWS / FEED_PART_SIZE);
 const indexes = new Map<StoreId, ReturnType<typeof indexFeedCatalog>>();
 async function indexFor(db: D1Database, store: StoreId) {
@@ -52,7 +60,7 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
   const details = searchParams.get('details') === '1';
   if (method === 'GET' && !details) return Response.json({stores:await publicFeedImports(database(env))},{headers});
   if (method !== 'POST' && method !== 'GET') return Response.json({error:'Метод недоступен'},{status:405,headers:{...headers,Allow:'GET, POST'}});
-  if (!await verifyPriceJobBearer(request.headers.get('authorization') ?? '',env.PRICE_JOB_TOKEN)) {
+  if (!await authorized(request,env)) {
     return Response.json({error:'Доступ запрещён'},{status:401,headers});
   }
   if (method === 'GET') return Response.json({imports:await privateFeedImports(database(env))},{headers});
@@ -124,10 +132,7 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
     const report = await commitFeedImport(db,batch);
     return Response.json(report,{status:report.status==='rejected'?422:200,headers});
   } catch (error) {
-    if (error instanceof SweepIntervalError) {
-      return Response.json({error:error.message,reason:error.reason},{status:429,
-        headers:{...headers,'Retry-After':String(error.retryAfter)}});
-    }
+    if (error instanceof SweepIntervalError) return busy(error);
     if (error instanceof FeedConflictError) return Response.json({error:error.message,session:{
       id:error.session.id,nextPart:error.session.next_part,fingerprint:error.session.fingerprint,
     }},{status:409,headers});
@@ -137,6 +142,36 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
     if (error instanceof StaleFeedError) return Response.json({status:'stale',error:error.message},{status:422,headers});
     if (error.message === 'Превышен размер тела запроса.') return tooLarge();
     return Response.json({error:error.message},{status:400,headers});
+  } finally {
+    await releaseLease?.();
+  }
+}
+
+
+export async function serveFeedReviews(request: Request, env: Cloudflare.Env) {
+  if (!await authorized(request,env)) return Response.json({error:'Доступ запрещён'},{status:401,headers});
+  const db = database(env);
+  if (request.method === 'GET') {
+    const cursor = new URL(request.url).searchParams.get('after') ?? '';
+    return Response.json(await listFeedReviews(db,cursor.slice(0,512)),{headers});
+  }
+  if (request.method !== 'POST') return Response.json({error:'Метод недоступен'},{status:405,headers:{...headers,Allow:'GET, POST'}});
+
+  let releaseLease: (() => Promise<void>) | undefined;
+  try {
+    const body = await readFeedBody(request.body,request.headers.get('content-length'),4096);
+    const {store,productId,checkedAt,action} = readMessage(body);
+    if (typeof productId !== 'string' || !productId || productId.length>256 ||
+        (action !== 'accept' && action !== 'reject')) throw new FeedError('Нужны productId и действие accept или reject.');
+    const candidate = {store:feedStore(store),productId,checkedAt:feedDate(checkedAt)};
+    releaseLease = await acquirePriceLease(db);
+    const changed = await moderateFeedReview(db,{...candidate,action});
+    return changed ? Response.json({status:action==='accept'?'accepted':'rejected'},{headers}) :
+      Response.json({error:'Предложение изменилось, истекло или уже проверено.'},{status:409,headers});
+  } catch (error) {
+    if (error instanceof SweepIntervalError) return busy(error);
+    if (error instanceof FeedError) return Response.json({error:error.message},{status:400,headers});
+    throw error;
   } finally {
     await releaseLease?.();
   }

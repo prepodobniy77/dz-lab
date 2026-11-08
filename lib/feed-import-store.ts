@@ -1,4 +1,5 @@
 import type {Offer, Product} from './catalog-types';
+import {expiredFeedReviews, feedReviewAge} from './feed-reviews.ts';
 import {minimumPriceCoverage} from './price-cycle-data.ts';
 import {FeedError, type FeedRow, type indexFeedCatalog} from './retail-feed.ts';
 import type {StoreId} from './stores.ts';
@@ -69,6 +70,7 @@ export async function cleanupFeedImports(db: D1Database, now = Date.now()) {
     db.prepare(`DELETE FROM price_feed_rows WHERE import_id IN
       (SELECT id FROM price_feed_imports WHERE status='abandoned')`),
     db.prepare('DELETE FROM price_feed_imports WHERE finished_at<=?').bind(new Date(now-retentionAge).toISOString()),
+    expiredFeedReviews(db,now),
   ]));
 }
 
@@ -168,6 +170,9 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
   const review = "'PRICE_REVIEW:' || " + key;
   const ready = "b.id=? AND b.status='committing' AND r.import_id=b.id";
   const fresh = "COALESCE(p.attempt_at,r.baseline_at) < b.checked_at AND COALESCE(h.checked_at,'') < b.checked_at";
+  const firstReviewAt = "COALESCE(json_extract(h.error,'$.firstAt'),h.checked_at)";
+  const reviewThreshold = new Date(Date.parse(now)-feedReviewAge).toISOString();
+  const jump = "json_extract(h.error,'$.offer.price')";
   const baseline = "CASE WHEN p.key IS NULL THEN r.baseline_price WHEN json_extract(p.data,'$.status')='ok' THEN json_extract(p.data,'$.price') END";
 
   // The set-based publication stays within one transactional D1 batch at any feed size.
@@ -185,16 +190,22 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
           THEN 'committing' ELSE 'rejected' END, finished_at=?
       WHERE id=? AND status='publishing' AND next_part=parts
     `).bind(minimumPriceCoverage,now,batch.id),
-    bind(`
+    db.prepare(`
       UPDATE price_feed_rows SET decision=choices.decision
       FROM (
-        SELECT r.product_id, CASE
+        SELECT r.import_id,r.product_id, CASE
           WHEN NOT (${fresh}) THEN 'old'
-          WHEN abs(r.price-(${baseline})) > (${baseline})*0.5 THEN 'review'
+          WHEN abs(r.price-(${baseline})) > (${baseline})*0.5 THEN
+            CASE WHEN ${firstReviewAt}>? AND abs(r.price-(${jump}))<=(${jump})*0.02
+              AND json_extract(h.error,'$.feedImportId') IS NOT NULL AND h.checked_at=(
+                SELECT max(previous.checked_at) FROM price_feed_imports previous
+                WHERE previous.store=b.store AND previous.status='published'
+              ) THEN 'publish' ELSE 'review' END
           WHEN p.key IS NOT NULL AND json_extract(p.data,'$.status')='ok'
             AND json_extract(p.data,'$.price')=r.price
             AND json_extract(p.data,'$.availability') IS json_extract(r.data,'$.availability')
-            AND json_extract(p.data,'$.url')=json_extract(r.data,'$.url') THEN 'same'
+            AND json_extract(p.data,'$.url')=json_extract(r.data,'$.url')
+              THEN CASE WHEN h.store IS NOT NULL THEN 'clear' ELSE 'same' END
           ELSE 'publish'
         END AS decision
         FROM price_feed_rows r JOIN price_feed_imports b ON b.id=r.import_id
@@ -204,8 +215,8 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
       ) choices
       WHERE price_feed_rows.product_id=choices.product_id
         AND choices.decision NOT IN ('old','same')
-        AND price_feed_rows.import_id=(SELECT id FROM price_feed_imports WHERE status='committing')
-    `),
+        AND price_feed_rows.import_id=choices.import_id
+    `).bind(reviewThreshold,batch.id),
     bind(`
       INSERT INTO price_history(product_id,store,price,checked_at)
       SELECT r.product_id,b.store,r.price,b.checked_at
@@ -220,18 +231,21 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
       WHERE ${ready} AND r.decision='publish'
       ON CONFLICT(key) DO UPDATE SET data=excluded.data,attempt_at=excluded.attempt_at
     `),
-    bind(`
+    db.prepare(`
       INSERT INTO source_health(store,checked_at,error)
-      SELECT ${review},b.checked_at,json_object('productId',r.product_id,'offer',json(r.data),'review',json('true'))
+      SELECT ${review},b.checked_at,json_object('productId',r.product_id,'offer',json(r.data),
+        'review',json('true'),'feedImportId',b.id,'firstAt',
+        CASE WHEN ${firstReviewAt}>? THEN ${firstReviewAt} ELSE b.finished_at END)
       FROM price_feed_rows r JOIN price_feed_imports b ON b.id=r.import_id
+      LEFT JOIN source_health h ON h.store=${review}
       WHERE ${ready} AND r.decision='review'
       ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error
-    `),
+    `).bind(reviewThreshold,batch.id),
     bind(`
       DELETE FROM source_health WHERE store IN (
         SELECT ${review}
         FROM price_feed_rows r JOIN price_feed_imports b ON b.id=r.import_id
-        WHERE ${ready} AND r.decision='publish'
+        WHERE ${ready} AND r.decision IN ('publish','clear')
       )
     `),
     bind(`

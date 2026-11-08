@@ -11,7 +11,7 @@ import type {PriceFeed} from '../lib/price-feed';
 import {catalogResponse} from './catalog-response';
 import {acquirePriceLease} from '../lib/price-lease';
 import {cleanupFeedImports} from '../lib/feed-import-store';
-import {serveFeedImport} from './price-feed-import';
+import {serveFeedImport, serveFeedReviews} from './price-feed-import';
 import {storeInfo} from '../lib/stores';
 
 const json = (data: unknown, status = 200, headers: Record<string, string> = {}) =>
@@ -20,6 +20,7 @@ const denied = () => json({error: 'Доступ запрещён'}, 401);
 
 async function servePrices(request: Request, path: string, env: Cloudflare.Env) {
   if (path === '/api/prices/import') return serveFeedImport(request,env);
+  if (path === '/api/prices/import/reviews') return serveFeedReviews(request,env);
   if (request.method === 'GET') {
     if (path === '/api/prices/sweep') return json({report: await readPublicSweepReport(database(env))});
     if (path === '/api/prices/status') {

@@ -6,6 +6,8 @@ import type {Product} from '../lib/catalog-types';
 import {
   cleanupFeedImports, commitFeedImport, FeedConflictError, publicFeedImports, readFeedImport, reserveFeedImport, stageFeedRows, startFeedImport,
 } from '../lib/feed-import-store.ts';
+import {listFeedReviews, moderateFeedReview} from '../lib/feed-reviews.ts';
+import {acquirePriceLease} from '../lib/price-lease.ts';
 import {indexFeedCatalog, parseRetailFeed, readFeedBody, type FeedRow} from '../lib/retail-feed.ts';
 
 const baseline = '2026-01-01T00:00:00.000Z';
@@ -147,6 +149,36 @@ test('D1 checks 80% before publishing, preserves old dates and stages large jump
     await cleanupFeedImports(db,now+120_000+2*3_600_000+7*86_400_000);
     await assert.rejects(readFeedImport(db,abandoned),/истёк/);
     assert.equal((await publicFeedImports(db))[0].store,'DNS');
+    const releaseLease = await acquirePriceLease(db);
+    await assert.rejects(acquirePriceLease(db),{reason:'active_portion'});
+    await releaseLease();
+    await (await acquirePriceLease(db))();
+
+    const jumpAt = '2026-01-05T00:00:00.000Z';
+    const confirmAt = '2026-01-06T00:00:00.000Z';
+    const jumpRows = [row(0,3000),row(1,3000),row(2),row(3,3000)];
+    assert.equal((await importRows(jumpRows,jumpAt)).pendingReview,3);
+    const pending = await listFeedReviews(db,'');
+    assert.equal(pending.reviews.length,3);
+    assert.equal((await importRows(jumpRows,jumpAt)).updated,0);
+    const confirmation = await importRows([row(0,3060),row(1,3100),row(2),row(3,3100)],confirmAt);
+    assert.equal(confirmation.updated,1);
+    assert.equal(confirmation.pendingReview,2);
+    assert.equal((await listFeedReviews(db,'')).reviews.length,2);
+    const current = async (id: string) => (await db.prepare("SELECT data FROM price_offers WHERE key=?")
+      .bind(id+':DNS').first<{data:string}>())!.data;
+    assert.equal(JSON.parse(await current('p0')).price,3060);
+    assert.equal(JSON.parse(await current('p2')).checkedAt,date);
+    assert.equal(await moderateFeedReview(db,{store:'DNS',productId:'p1',checkedAt:jumpAt,action:'accept'}),false);
+    assert.equal(await moderateFeedReview(db,{store:'DNS',productId:'p1',checkedAt:confirmAt,action:'accept'}),true);
+    assert.equal(JSON.parse(await current('p1')).price,3100);
+    assert.equal(await moderateFeedReview(db,{store:'DNS',productId:'p3',checkedAt:confirmAt,action:'reject'}),true);
+    assert.equal(JSON.parse(await current('p3')).checkedAt,date);
+    await importRows([row(0,9000),row(1,3100),row(2),row(3)],'2026-01-07T00:00:00.000Z');
+    await cleanupFeedImports(db,Date.now()+7*86_400_000+1000);
+    assert.equal((await listFeedReviews(db,'')).reviews.length,0);
+    assert.equal(JSON.parse(await current('p0')).price,3060);
+
     const firstIndex = indexFeedCatalog(products.map(product => ({...product,offers:[]})),'DNS');
     await assert.rejects(startFeedImport(db,'DNS',date,firstIndex.expected,1),/bootstrap=1/);
     const first = await startFeedImport(db,'DNS',later,firstIndex.expected,1,{bootstrap:true});
