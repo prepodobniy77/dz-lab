@@ -5,7 +5,7 @@ import {parseXcomCatalog,parseOffer,matchesMpn} from './providers.mts';
 import {xcomJobs,indexXcomProducts,stagePrice,coverageAccepted,type StagedPrice} from './price-cycle-data.ts';
 import {robotsPolicy} from './robots-policy.ts';
 import {hasFreshPrice} from './price-freshness.ts';
-import {aiProductLimit,minSweepIntervalMinutes} from './price-update-policy.ts';
+import {aiProductLimit,isInCurrentSweepWindow,minSweepIntervalMinutes} from './price-update-policy.ts';
 import {SweepIntervalError,priceSweepFailureMessage} from './price-job-errors.ts';
 import {acquirePriceLease} from './price-lease.ts';
 import {categories} from './catalog.ts';
@@ -39,6 +39,10 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
   if(!state||state.phase==='done'){
    const success=await row(SUCCESS);const last=success?.error?JSON.parse(success.error) as SweepReport:null;const lastSuccessTime=Date.parse(last?.finishedAt||last?.checkedAt||'');const completedTime=state?.report.cycleCompleted?Date.parse(state.report.finishedAt||''):NaN;const lastTime=Number.isFinite(completedTime)?Math.max(completedTime,Number.isFinite(lastSuccessTime)?lastSuccessTime:0):lastSuccessTime;
    if(Number.isFinite(lastSuccessTime)&&start-lastSuccessTime<6*3600000)return{done:true,cursor:null,processed:0,skipped:true,reason:'recent_success',report:last!};
+   if(trigger!=='manual'&&isInCurrentSweepWindow(lastTime,start)){
+    const completed=lastTime===lastSuccessTime?last!:state!.report;
+    return{done:true,cursor:null,processed:0,skipped:true,reason:'current_window',report:completed};
+   }
    const elapsed=start-lastTime,interval=minSweepIntervalMinutes(config.MIN_SWEEP_INTERVAL_MINUTES)*60000;if(Number.isFinite(lastTime)&&elapsed<interval)throw new SweepIntervalError((interval-elapsed)/1000);
    const legacy=await row('PRICE_SWEEP_LOCK');if(legacy?.blocked_until&&Date.parse(legacy.blocked_until)>start)throw new SweepIntervalError((Date.parse(legacy.blocked_until)-start)/1000);
    const block=await row('XCOM');if(block?.blocked_until&&Date.parse(block.blocked_until)>start)throw new SweepIntervalError((Date.parse(block.blocked_until)-start)/1000);

@@ -1,15 +1,11 @@
-import {SWEEP_HOUR_UTC} from './price-update-policy.ts';
-
-const dayMs = 86_400_000;
+import {currentSweepWindowStart, SWEEP_DAY_MS} from './price-update-policy.ts';
 
 export function missedScheduledRuns(lastRun: string|undefined, now = Date.now()) {
   const last = Date.parse(lastRun || '');
   if (!Number.isFinite(last)) return 0;
-  const today = new Date(now);
-  const todaySlot = Date.UTC(today.getUTCFullYear(),today.getUTCMonth(),today.getUTCDate(),SWEEP_HOUR_UTC);
-  const currentSlot = todaySlot <= now ? todaySlot : todaySlot-dayMs;
   // Allow the current slot to finish before counting it as missed.
-  return Math.min(30,Math.max(0,Math.ceil((currentSlot-dayMs-last)/dayMs)));
+  const previousSlot = currentSweepWindowStart(now)-SWEEP_DAY_MS;
+  return Math.min(30,Math.max(0,Math.ceil((previousSlot-last)/SWEEP_DAY_MS)));
 }
 
 export async function notifyPriceProblem(db:D1Database,config:Record<string,string|undefined>,reason:string,fetcher:typeof fetch=fetch,now=Date.now()){
