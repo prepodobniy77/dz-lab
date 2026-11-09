@@ -55,4 +55,4 @@ pnpm exec wrangler secret put DELECT_DISTRIBUTOR --config wrangler.jsonc
 
 ## Расписание и проверка
 
-Cloudflare Cron запускается в **06:00 и 18:00 по Москве**. GitHub Actions проверяет необходимость резервного запуска в **06:20 и 18:20**, а также через `workflow_dispatch`. Связанное задание Sites выключено. [Проверка публикации и истории циклов](PRICE-UPDATES.md).
+Cloudflare Cron запускается ежедневно в **06:00 по Москве**. GitHub Actions проверяет необходимость резервного запуска в **06:20 МСК**, а также через `workflow_dispatch`. Связанное задание Sites выключено. [Проверка публикации и истории циклов](PRICE-UPDATES.md).

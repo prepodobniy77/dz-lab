@@ -1,4 +1,17 @@
-export function missedScheduledRuns(lastRun:string|undefined,now=Date.now()){const last=Date.parse(lastRun||'');if(!Number.isFinite(last))return 0;const date=new Date(now);let slot=Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDate(),15);if(slot>now)slot-=12*3600000;if(slot>now)slot-=12*3600000;let missed=0;for(let t=slot-12*3600000;t>last&&missed<30;t-=12*3600000)missed++;return missed}
+import {SWEEP_HOUR_UTC} from './price-update-policy.ts';
+
+const dayMs = 86_400_000;
+
+export function missedScheduledRuns(lastRun: string|undefined, now = Date.now()) {
+  const last = Date.parse(lastRun || '');
+  if (!Number.isFinite(last)) return 0;
+  const today = new Date(now);
+  const todaySlot = Date.UTC(today.getUTCFullYear(),today.getUTCMonth(),today.getUTCDate(),SWEEP_HOUR_UTC);
+  const currentSlot = todaySlot <= now ? todaySlot : todaySlot-dayMs;
+  // Allow the current slot to finish before counting it as missed.
+  return Math.min(30,Math.max(0,Math.ceil((currentSlot-dayMs-last)/dayMs)));
+}
+
 export async function notifyPriceProblem(db:D1Database,config:Record<string,string|undefined>,reason:string,fetcher:typeof fetch=fetch,now=Date.now()){
  const token=config.TELEGRAM_BOT_TOKEN,chat=config.TELEGRAM_CHAT_ID;if(!token||!chat)return;
  if(!/^\d+:[A-Za-z0-9_-]+$/.test(token)||! /^(?:-?\d+|@[A-Za-z0-9_]+)$/.test(chat))return;
