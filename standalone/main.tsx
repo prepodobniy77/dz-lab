@@ -7,5 +7,5 @@ import '../app/globals.css';
 import '../app/apple.css';
 
 createRoot(document.getElementById('root')!).render(
-  <Workbench initialData={{...desktopCatalog(raw as unknown as CatalogData),storage:'snapshot',signedIn:false}}/>
+  <Workbench themeSwitch initialData={{...desktopCatalog(raw as unknown as CatalogData),storage:'snapshot',signedIn:false}}/>
 );
