@@ -1,4 +1,5 @@
 import {appendFile} from 'node:fs/promises';
+import {isInCurrentSweepWindow} from '../lib/price-update-policy.ts';
 import type {CycleResult} from '../lib/price-cycle.ts';
 import type {PublicSweepReport} from '../lib/price-status.ts';
 
@@ -22,8 +23,9 @@ async function summary(message: string) {
 }
 
 const successfulAt = Date.parse(report?.lastSuccessfulAt ?? '');
-const age = Date.now() - successfulAt;
-if (age >= 0 && age < 6 * 3600_000) {
+const now = Date.now();
+const age = now - successfulAt;
+if (isInCurrentSweepWindow(successfulAt, now) || (age >= 0 && age < 6 * 3600_000)) {
   await summary('Запуск пропущен. Последний успешный цикл — ' + report!.lastSuccessfulAt);
 } else {
   const maxPortions = 600;
