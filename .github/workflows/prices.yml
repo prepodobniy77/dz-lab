@@ -1,7 +1,7 @@
 name: Резервное обновление цен DZ LAB
 on:
   schedule:
-    - cron: '20 3,15 * * *'
+    - cron: '20 3 * * *'
   workflow_dispatch:
 permissions:
   contents: read
