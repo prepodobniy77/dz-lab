@@ -5,7 +5,7 @@
   "compatibility_date": "2026-05-15",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "workers_dev": true,
-  "triggers": { "crons": ["0 3,15 * * *"] },
+  "triggers": { "crons": ["0 3 * * *"] },
   "d1_databases": [{ "binding": "DB", "database_name": "dz-lab-db", "database_id": "ffedd233-c3c5-4799-9aa8-6cce42adc4d3", "migrations_dir": "drizzle" }],
   "assets": {
     "directory": "dist/static",
