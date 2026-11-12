@@ -22,6 +22,27 @@
       "when": 1794075011143,
       "tag": "0002_price_catalog_seed",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1794084015631,
+      "tag": "0003_price_feed_imports",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1794164668424,
+      "tag": "0004_feed_import_lifecycle",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1794164938873,
+      "tag": "0005_feed_import_coverage",
+      "breakpoints": true
     }
   ]
 }

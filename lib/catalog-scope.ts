@@ -9,5 +9,10 @@ export function isSodimm(item: MemoryItem): boolean {
 }
 
 export function desktopCatalog(data: CatalogData): CatalogData {
-  return {...data, products: data.products.filter(item => !isSodimm(item))};
+  const products = data.products.filter(item => !isSodimm(item));
+  const hasDnsPrices = products.some(product => product.offers.some(offer =>
+    offer.store === 'DNS' && offer.status === 'ok' && typeof offer.price === 'number' &&
+    Number.isFinite(offer.price) && offer.price > 0));
+  const sources = hasDnsPrices ? data.sources : data.sources.filter(source => source.name !== 'DNS');
+  return {...data, products, sources};
 }
