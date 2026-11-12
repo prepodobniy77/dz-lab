@@ -2,8 +2,7 @@ import type {Offer} from './catalog-types';
 import type {StoreId} from './stores.ts';
 
 export const feedReviewAge = 7 * 86_400_000;
-const feedReviewFilter = `store GLOB 'PRICE_REVIEW:*' AND json_valid(error)
-  AND (store GLOB 'PRICE_REVIEW:*:DNS' OR json_extract(error,'$.feedImportId') IS NOT NULL)`;
+const feedReviewFilter = `store GLOB 'PRICE_REVIEW:*' AND json_valid(error)`;
 const firstSeen = "COALESCE(json_extract(error,'$.firstAt'),checked_at)";
 
 type ReviewRow = {store:string;checked_at:string;error:string};

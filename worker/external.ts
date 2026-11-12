@@ -1,4 +1,4 @@
-import {database, snapshotById} from '../lib/catalog-server';
+import {database, snapshot, snapshotById} from '../lib/catalog-server';
 import {readCatalogPriceDelta} from '../lib/catalog-price-delta';
 import {verifyPriceJobBearer} from '../lib/price-job-access';
 import {priceSweepFailureMessage, ScheduledSweepError, SweepIntervalError} from '../lib/price-job-errors';
@@ -12,6 +12,9 @@ import {catalogResponse} from './catalog-response';
 import {acquirePriceLease} from '../lib/price-lease';
 import {cleanupFeedImports} from '../lib/feed-import-store';
 import {serveFeedImport, serveFeedReviews} from './price-feed-import';
+import {readSourceStatuses} from '../lib/source-status';
+import {monitorSources} from '../lib/source-monitor';
+import {SWEEP_CRON_UTC} from '../lib/price-update-policy';
 import {storeInfo} from '../lib/stores';
 
 const json = (data: unknown, status = 200, headers: Record<string, string> = {}) =>
@@ -22,6 +25,7 @@ async function servePrices(request: Request, path: string, env: Cloudflare.Env) 
   if (path === '/api/prices/import') return serveFeedImport(request,env);
   if (path === '/api/prices/import/reviews') return serveFeedReviews(request,env);
   if (request.method === 'GET') {
+    if (path === '/api/prices/sources') return json({schedule:{cron:SWEEP_CRON_UTC,timeZone:'Europe/Moscow',times:['06:00','18:00']},sources:await readSourceStatuses(database(env),snapshot.products,env as unknown as Record<string,string|undefined>)});
     if (path === '/api/prices/sweep') return json({report: await readPublicSweepReport(database(env))});
     if (path === '/api/prices/status') {
       if (!await verifyPriceJobBearer(request.headers.get('authorization') || '', env.PRICE_JOB_TOKEN)) return denied();
@@ -29,7 +33,7 @@ async function servePrices(request: Request, path: string, env: Cloudflare.Env) 
       const [report, history, summary] = await Promise.all([
         readSweepReport(db), readSweepHistory(db), readPublicSweepReport(db),
       ]);
-      return json({report, history, lastSuccessfulAt: summary?.lastSuccessfulAt ?? null});
+      return json({report, history, lastSuccessfulAt: summary?.lastSuccessfulAt ?? null,sources:await readSourceStatuses(db,snapshot.products,env as unknown as Record<string,string|undefined>)});
     }
     if (path === '/api/prices/current') {
       const db = database(env);
@@ -132,6 +136,9 @@ async function scheduledSweep(env: Cloudflare.Env) {
   } catch (error) {
     await logSweepFailure(error, env, 'cron');
     throw error;
+  } finally {
+    try{await monitorSources(database(env),snapshot.products,env as unknown as Record<string,string|undefined>)}
+    catch{console.error('Не удалось проверить свежесть источников')}
   }
 }
 

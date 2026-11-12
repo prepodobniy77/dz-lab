@@ -124,7 +124,7 @@ function preparedOffer(product: Product, previous: Offer, row: FeedRow, checkedA
   if (previous.store==='DNS') link.search = '';
   const offer: Offer = {
     store:previous.store, url:link.href, sku:previous.sku || row.sku || undefined, price, checkedAt,
-    status:'ok', availability:row.availability, transport:'api', identity:'verified-reference',
+    status:'ok', availability:row.availability, transport:'feed', source:'feed',exportedAt:checkedAt,region:'Москва',currency:'RUB',identity:'verified-reference',
   };
   const retailReference = previous.store==='DNS' ? link.pathname.split('/')[2]?.toLowerCase() : link.href;
   return {id:product.id,data:JSON.stringify({...offer,retailReference}),price:price ?? 0,
@@ -219,11 +219,6 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
                 SELECT max(previous.checked_at) FROM price_feed_imports previous
                 WHERE previous.store=b.store AND previous.status='published'
               ) THEN 'publish' ELSE 'review' END
-          WHEN p.key IS NOT NULL AND json_extract(p.data,'$.status')='ok'
-            AND json_extract(p.data,'$.price')=r.price
-            AND json_extract(p.data,'$.availability') IS json_extract(r.data,'$.availability')
-            AND json_extract(p.data,'$.url')=json_extract(r.data,'$.url')
-              THEN CASE WHEN h.store IS NOT NULL THEN 'clear' ELSE 'same' END
           ELSE 'publish'
         END AS decision
         FROM price_feed_rows r JOIN price_feed_imports b ON b.id=r.import_id
@@ -280,6 +275,11 @@ export async function commitFeedImport(db: D1Database, batch: ImportState) {
       ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error
       WHERE source_health.checked_at<=excluded.checked_at
     `).bind(publicPrefix,batch.id,now),
+    bind(`INSERT INTO source_health(store,checked_at,error)
+      SELECT 'PRICE_SOURCE_SUCCESS:'||store,finished_at,json_object('checkedAt',checked_at,'importId',id)
+      FROM price_feed_imports WHERE id=? AND status='published' AND updated>0
+      ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error
+      WHERE source_health.checked_at<=excluded.checked_at`),
     bind("DELETE FROM price_feed_rows WHERE import_id=? AND EXISTS (SELECT 1 FROM price_feed_imports b WHERE b.id=import_id AND b.status IN ('published','rejected'))"),
   ]);
   await recordWrites(db,batch.id,countWrites(results));

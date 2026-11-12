@@ -7,7 +7,8 @@ import {runPricePortion,type CycleState} from './price-cycle';
 import {fetchHtml} from './providers.mts';
 import {findRouterAIPriceLinks} from './routerai-price-search.mts';
 import {findPriceLinks} from './ai-price-search.mts';
-import {fetchPriceExport,apiOffers} from './price-api.mts';
+import {delectProvider} from './providers/delect.ts';
+import {sourceIsDue} from './source-policy.ts';
 import {saveSweepReport} from './price-report-store';
 import {SweepIntervalError,priceSweepFailureMessage} from './price-job-errors';
 import {categories} from './catalog';
@@ -41,7 +42,7 @@ export async function runPriceSweep(trigger:SweepReport['trigger']='manual',bind
  return runPricePortion({db,products,config,read:fetchHtml,
   ...(bindings?{productIndices:snapshotIndexById}:{}),
   ...(xcomOnly?{prepareProducts:(state:CycleState|undefined)=>prepareXcomSweepProducts(db,state)}:{}),offerStatements:values=>offerWriteStatements(db,values),onReport:(report,final)=>saveSweepReport(db,report,final,config),
-  ...(config.DELECT_API_KEY&&config.DELECT_DISTRIBUTOR?{bulk:async()=>apiOffers(products,await fetchPriceExport(config.DELECT_API_KEY!,config.DELECT_DISTRIBUTOR!),config.DELECT_DISTRIBUTOR!).map(v=>({productId:v.id,offer:v.offer}))}:{}),
+  ...(config.DELECT_API_KEY&&config.DELECT_DISTRIBUTOR?{bulk:async()=>{const last=await db.prepare("SELECT error FROM source_health WHERE store='PRICE_SOURCE_SUCCESS:DELECT'").first<{error:string}>();if(!sourceIsDue('DELECT',config,last?JSON.parse(last.error).checkedAt:undefined))return[];return (await delectProvider.fetchOffers({products,config}))?.offers??[]}}:{}),
   ...(config.ROUTERAI_API_KEY?{search:(products,timeoutMs)=>findRouterAIPriceLinks(products,config.ROUTERAI_API_KEY!,config.ROUTERAI_MODEL,fetch,timeoutMs)}:config.PERPLEXITY_API_KEY?{search:(products,timeoutMs)=>findPriceLinks(products,config.PERPLEXITY_API_KEY!,config.PRICE_AI_MODEL,fetch,timeoutMs)}:{})
  },trigger);
 }

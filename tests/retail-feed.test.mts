@@ -139,7 +139,9 @@ test('D1 checks 80% before publishing, preserves old dates and stages large jump
     assert.equal(await history(),3);
     await db.prepare('DROP TRIGGER fail_feed').run();
     assert.equal((await commitFeedImport(db,interrupted)).status,'published');
-    assert.equal((await commitFeedImport(db,await readFeedImport(db,id))).updated,2);
+    // A newer export refreshes all four checkedAt values; history still records only two price changes.
+    assert.equal((await commitFeedImport(db,await readFeedImport(db,id))).updated,4);
+    assert.equal(await history(),5);
 
     const abandoned = await startFeedImport(db,'DNS',date,index.expected,2,{now:now+120_000,bootstrap:true});
     await stageFeedRows(db,await readFeedImport(db,abandoned),0,[row(0)],index);
@@ -162,18 +164,18 @@ test('D1 checks 80% before publishing, preserves old dates and stages large jump
     assert.equal(pending.reviews.length,3);
     assert.equal((await importRows(jumpRows,jumpAt)).updated,0);
     const confirmation = await importRows([row(0,3060),row(1,3100),row(2),row(3,3100)],confirmAt);
-    assert.equal(confirmation.updated,1);
+    assert.equal(confirmation.updated,2);
     assert.equal(confirmation.pendingReview,2);
     assert.equal((await listFeedReviews(db,'')).reviews.length,2);
     const current = async (id: string) => (await db.prepare("SELECT data FROM price_offers WHERE key=?")
       .bind(id+':DNS').first<{data:string}>())!.data;
     assert.equal(JSON.parse(await current('p0')).price,3060);
-    assert.equal(JSON.parse(await current('p2')).checkedAt,date);
+    assert.equal(JSON.parse(await current('p2')).checkedAt,confirmAt);
     assert.equal(await moderateFeedReview(db,{store:'DNS',productId:'p1',checkedAt:jumpAt,action:'accept'}),false);
     assert.equal(await moderateFeedReview(db,{store:'DNS',productId:'p1',checkedAt:confirmAt,action:'accept'}),true);
     assert.equal(JSON.parse(await current('p1')).price,3100);
     assert.equal(await moderateFeedReview(db,{store:'DNS',productId:'p3',checkedAt:confirmAt,action:'reject'}),true);
-    assert.equal(JSON.parse(await current('p3')).checkedAt,date);
+    assert.equal(JSON.parse(await current('p3')).checkedAt,later);
     await importRows([row(0,9000),row(1,3100),row(2),row(3)],'2026-01-07T00:00:00.000Z');
     await cleanupFeedImports(db,Date.now()+7*86_400_000+1000);
     assert.equal((await listFeedReviews(db,'')).reviews.length,0);

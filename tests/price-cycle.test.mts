@@ -17,3 +17,26 @@ test('ошибка транзакции публикации не продвиг
 
 test('платный лимит 50 общий на все порции, не возобновляется на каждом вызове',async()=>{const {db,dispose}=await setup();try{const s=services(db);await runPricePortion(s);const saved=await db.prepare("SELECT error FROM source_health WHERE store='PRICE_CYCLE_STATE'").first<{error:string}>();const state=JSON.parse(saved!.error);const names=['cpu','motherboard','gpu','ram','ssd','hdd','aio','psu','cooler','case'] as const;const many=Array.from({length:60},(_,i)=>({...products[0],id:'xcom-test-'+i,category:names[i%10]}));state.phase='ai';state.expected=60;state.seen=many.map(p=>p.id);state.staged={};state.updatedIds=[];state.aiAttempted=[];state.aiVisited=[];s.products=many;let charged=0,calls=0;const run:CycleServices={...s,search:async batch=>{charged+=batch.length;calls++;return[]}};await db.batch([db.prepare("UPDATE source_health SET error=? WHERE store='PRICE_CYCLE_STATE'").bind(JSON.stringify(state))]);let result=await runPricePortion(run);for(let i=0;i<10&&!result.done;i++)result=await runPricePortion(run);assert.equal(result.done,true);assert.equal(charged,50);assert.equal(calls,10);assert.equal(result.report.aiProducts,50)}finally{await dispose()}});
 test('403 на robots останавливает обход без чтения каталога и публикации',async()=>{const {db,dispose}=await setup();try{const s=services(db);let reads=0;s.read=async()=>{reads++;throw new Error('Магазин вернул HTTP 403')};const result=await runPricePortion(s);assert.equal(result.done,true);assert.equal(result.report.status,'partial');assert.equal(reads,1);assert.equal(result.report.updated,0);assert.equal((await db.prepare('SELECT count(*) AS n FROM price_offers').first<{n:number}>())!.n,0)}finally{await dispose()}});
+
+test('прайс API публикуется даже при блокировке XCOM; повтор порции его не дублирует',async()=>{
+ const {db,dispose}=await setup();try{
+  const s:CycleServices=services(db);let calls=0;
+  s.read=async()=>{throw new Error('HTTP 403')};
+  s.bulk=async()=>{calls++;return [{productId:products[0].id,offer:{...products[0].offers[0],store:'DELECT',price:1200,checkedAt:new Date(s.now!()).toISOString()}}]};
+  s.onReport=(report,final)=>saveSweepReport(db,report,final);
+  const result=await runPricePortion(s,'cron');assert.equal(result.done,true);assert.equal(result.report.updated,1);
+  assert.equal((await db.prepare("SELECT count(*) n FROM price_offers WHERE store='DELECT'").first<{n:number}>())!.n,1);
+  assert.ok(await db.prepare("SELECT store FROM source_health WHERE store='PRICE_SOURCE_SUCCESS:DELECT'").first());
+  assert.equal(await db.prepare("SELECT store FROM source_health WHERE store='PRICE_SOURCE_SUCCESS:XCOM'").first(),null);
+  assert.equal(calls,1);
+ }finally{await dispose()}
+});
+test('интервал XCOM не пропускает независимый прайс API',async()=>{
+ const {db,dispose}=await setup();try{
+  const s:CycleServices=services(db);const date=new Date(s.now!()-13*3600000).toISOString();
+  await db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?)').bind('PRICE_SOURCE_SUCCESS:XCOM',date,JSON.stringify({checkedAt:date})).run();
+  s.config.PRICE_XCOM_INTERVAL_HOURS='24';let reads=0;s.read=async()=>{reads++;throw new Error('Unexpected HTML request')};
+  s.bulk=async()=>[{productId:products[0].id,offer:{...products[0].offers[0],store:'DELECT',price:1200,checkedAt:new Date(s.now!()).toISOString()}}];
+  const result=await runPricePortion(s,'cron');assert.equal(result.done,true);assert.equal(result.report.updated,1);assert.equal(reads,0);
+ }finally{await dispose()}
+});
