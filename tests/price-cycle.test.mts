@@ -40,3 +40,21 @@ test('интервал XCOM не пропускает независимый п�
   const result=await runPricePortion(s,'cron');assert.equal(result.done,true);assert.equal(result.report.updated,1);assert.equal(reads,0);
  }finally{await dispose()}
 });
+
+test('большой API-прайс публикуется порциями, сбой не продвигает курсор и не скачивает экспорт повторно',async()=>{
+ const {db,dispose}=await setup();try{
+  const s:CycleServices=services(db);s.config.PRICE_PUBLISH_PORTION_SIZE='2';let downloads=0;
+  s.bulk=async()=>{downloads++;return products.map(p=>({productId:p.id,offer:{...p.offers[0],store:'DELECT',price:1200,checkedAt:new Date(s.now!()).toISOString()}}))};
+  const first=await runPricePortion(s);assert.equal(first.done,false);assert.equal(first.report.updated,2);
+  assert.equal(await db.prepare("SELECT store FROM source_health WHERE store='PRICE_SOURCE_SUCCESS:DELECT'").first(),null);
+  s.offerStatements=()=>[db.prepare('INSERT INTO missing_table(value) VALUES(1)')];
+  await assert.rejects(runPricePortion(s));
+  const saved=await db.prepare("SELECT error FROM source_health WHERE store='PRICE_CYCLE_STATE'").first<{error:string}>();
+  assert.equal(JSON.parse(saved!.error).bulkOffset,2);
+  s.offerStatements=values=>offerWriteStatements(db,values);
+  await runPricePortion(s);
+  assert.equal(downloads,1);
+  assert.equal((await db.prepare("SELECT count(*) n FROM price_history WHERE store='DELECT'").first<{n:number}>())!.n,4);
+  assert.ok(await db.prepare("SELECT store FROM source_health WHERE store='PRICE_SOURCE_SUCCESS:DELECT'").first());
+ }finally{await dispose()}
+});

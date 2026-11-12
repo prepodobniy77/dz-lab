@@ -13,7 +13,7 @@ import {sourceIsDue} from './source-policy.ts';
 import {acquirePriceLease} from './price-lease.ts';
 import {categories} from './catalog.ts';
 import type {PriceLink} from './ai-price-search.mts';
-export type CycleState={id:string;startedAt:string;phase:'scan'|'details'|'publish'|'ai'|'done';index:number;publishOffset:number;expected:number;staged:Record<string,StagedPrice>;seen:string[];missing:string[];robots?:{text:string;at:number};lastRequestAt:number;hostRules?:Record<string,{text:string;at:number;lastAt:number}>;aiAttempted:string[];aiVisited:string[];bulkDone:boolean;xcomSkipped?:boolean;updatedIds:string[];attemptedIds:string[];pendingReviews:number;portions:number;activeDurationMs:number;report:SweepReport};
+export type CycleState={id:string;startedAt:string;phase:'scan'|'details'|'publish'|'ai'|'done';index:number;publishOffset:number;expected:number;staged:Record<string,StagedPrice>;seen:string[];missing:string[];robots?:{text:string;at:number};lastRequestAt:number;hostRules?:Record<string,{text:string;at:number;lastAt:number}>;aiAttempted:string[];aiVisited:string[];bulkDone:boolean;bulkStaged?:StagedPrice[];bulkOffset?:number;xcomSkipped?:boolean;updatedIds:string[];attemptedIds:string[];pendingReviews:number;portions:number;activeDurationMs:number;report:SweepReport};
 export type CycleResult={done:boolean;cursor:{cycleId:string;phase:string;category?:string;page?:number;index:number}|null;processed:number;skipped?:boolean;reason?:string;report:SweepReport};
 export type CycleServices={db:D1Database;products:Product[];productIndices?:ReadonlyMap<string,number>;prepareProducts?:(state:CycleState|undefined)=>Promise<Product[]>;config:Record<string,string|undefined>;read:(url:string,timeoutMs:number)=>Promise<string>;bulk?:()=>Promise<{productId:string;offer:Offer}[]>;search?:(products:Product[],timeoutMs:number)=>Promise<PriceLink[]>;offerStatements:(values:{productId:string;offer:Offer}[])=>D1PreparedStatement[];now?:()=>number;pause?:(ms:number)=>Promise<void>;onReport:(report:SweepReport,final:boolean)=>Promise<void>};
 const jobs=xcomJobs();
@@ -58,23 +58,45 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
   state.report.updatedOffers??=state.updatedIds.length;
   if(!state.bulkDone){
    // An API batch validates its own coverage and publishes independently of XCOM.
-   const values=services.bulk?(httpRequests++,await services.bulk()):[];
-   const byId=new Map(products.map(p=>[p.id,p]));
-   const staged=values.flatMap(v=>{const p=byId.get(v.productId);const entry=p&&hasFreshPrice([v.offer],now())?stagePrice(p,v.offer):null;return entry?[entry]:[]});
-   const decision=await prepareSnapshotReviews(db,staged,state.id,now());
+   if(!state.bulkStaged){
+    const values=services.bulk?(httpRequests++,await services.bulk()):[];
+    const byId=new Map(products.map(p=>[p.id,p]));
+    state.bulkStaged=values.flatMap(v=>{const p=byId.get(v.productId);const entry=p&&hasFreshPrice([v.offer],now())?stagePrice(p,v.offer):null;return entry?[entry]:[]});
+    state.bulkOffset=0;await saveState();
+   }
+   const staged=state.bulkStaged;
+   const offset=state.bulkOffset??0;
+   const size=Math.min(500,Math.max(1,Number(config.PRICE_PUBLISH_PORTION_SIZE)||120));
+   const chunk=staged.slice(offset,offset+size);
+   const decision=await prepareSnapshotReviews(db,chunk,state.id,now());
    const writes=[...services.offerStatements(decision.published),...decision.statements];
    state.pendingReviews+=decision.review.length;
    state.report.updatedOffers+=decision.published.length;
-   for(const v of staged)markAttempt(v.productId);
-   for(const v of decision.published)if(!state.updatedIds.includes(v.productId))state.updatedIds.push(v.productId);
-   for(const store of new Set(staged.map(v=>v.offer.store))){
-    writes.push(db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error').bind('PRICE_SOURCE_CYCLE:'+store,new Date(now()).toISOString(),JSON.stringify({cycleId:state.id})));
-    const accepted=decision.published.filter(v=>v.offer.store===store);
-    if(accepted.length)writes.push(db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error').bind('PRICE_SOURCE_SUCCESS:'+store,new Date(now()).toISOString(),JSON.stringify({checkedAt:accepted.map(v=>v.offer.checkedAt).sort().at(-1),cycleId:state.id})));
+   for(const v of chunk)markAttempt(v.productId);
+   for(const v of decision.published){
+    if(!state.updatedIds.includes(v.productId))state.updatedIds.push(v.productId);
+    const i=staged.findIndex(x=>x.productId===v.productId&&x.offer.store===v.offer.store);staged[i]=v;
    }
-   state.bulkDone=true;
+   state.bulkOffset=offset+chunk.length;
+   state.bulkDone=state.bulkOffset>=staged.length;
+   if(state.bulkDone){
+    for(const store of new Set(staged.map(v=>v.offer.store))){
+     writes.push(db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error').bind('PRICE_SOURCE_CYCLE:'+store,new Date(now()).toISOString(),JSON.stringify({cycleId:state.id})));
+     const accepted=staged.filter(v=>v.offer.store===store&&!v.review);
+     if(accepted.length)writes.push(db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error').bind('PRICE_SOURCE_SUCCESS:'+store,new Date(now()).toISOString(),JSON.stringify({checkedAt:accepted.map(v=>v.offer.checkedAt).sort().at(-1),cycleId:state.id})));
+    }
+    delete state.bulkStaged;
+   }
+   state.report.updated=state.updatedIds.length;state.report.attempted=state.attemptedIds.length;
+   state.report.pendingReviews=state.pendingReviews;
    await saveState(writes);
+   if(!state.bulkDone){
+    state.report.done=false;state.report.cycleCompleted=false;
+    await services.onReport(state.report,false);
+    return{done:false,cursor:currentCursor(),processed:chunk.length,report:state.report};
+   }
   }
+
   let requests=0;
   let productsById: Map<string,Product> | undefined;
   const findProduct=(id:string)=>services.productIndices
