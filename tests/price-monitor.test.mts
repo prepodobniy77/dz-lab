@@ -1,16 +1,16 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {createRequire} from 'node:module';
 import {saveSweepReport,readSweepHistory,readPublicSweepReport} from '../lib/price-report-store.ts';import {notifyPriceProblem,missedScheduledRuns} from '../lib/price-alerts.ts';import {isInCurrentSweepWindow} from '../lib/price-update-policy.ts';
 import type {SweepReport} from '../lib/hourly-prices.ts';
-test('пропуски считаются по одному суточному слоту 03:00 UTC', () => {
+test('пропуски считаются по слотам 03:00 и 15:00 UTC', () => {
   const last = '2026-11-01T03:01Z';
-  assert.equal(missedScheduledRuns(last,Date.parse('2026-11-02T15:01Z')),0);
-  assert.equal(missedScheduledRuns(last,Date.parse('2026-11-04T02:59Z')),1);
-  assert.equal(missedScheduledRuns(last,Date.parse('2026-11-04T03:00Z')),2);
+  assert.equal(missedScheduledRuns(last,Date.parse('2026-11-02T15:01Z')),2);
+  assert.equal(missedScheduledRuns(last,Date.parse('2026-11-04T02:59Z')),4);
+  assert.equal(missedScheduledRuns(last,Date.parse('2026-11-04T03:00Z')),5);
 });
-test('задержавшийся резерв узнаёт утренний успех до следующего суточного окна', () => {
+test('задержавшийся резерв узнаёт утренний успех до следующего 12-часового окна', () => {
   const morning = Date.parse('2026-11-09T03:15Z');
-  assert.equal(isInCurrentSweepWindow(morning,Date.parse('2026-11-09T20:30Z')),true);
-  assert.equal(isInCurrentSweepWindow(morning,Date.parse('2026-11-10T02:59Z')),true);
+  assert.equal(isInCurrentSweepWindow(morning,Date.parse('2026-11-09T14:59Z')),true);
+  assert.equal(isInCurrentSweepWindow(morning,Date.parse('2026-11-09T15:00Z')),false);
   assert.equal(isInCurrentSweepWindow(morning,Date.parse('2026-11-10T03:00Z')),false);
   assert.equal(isInCurrentSweepWindow(NaN,morning),false);
 });

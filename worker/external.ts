@@ -1,4 +1,4 @@
-import {database, snapshotById} from '../lib/catalog-server';
+import {database, snapshot, snapshotById} from '../lib/catalog-server';
 import {readCatalogPriceDelta} from '../lib/catalog-price-delta';
 import {verifyPriceJobBearer} from '../lib/price-job-access';
 import {priceSweepFailureMessage, ScheduledSweepError, SweepIntervalError} from '../lib/price-job-errors';
@@ -9,6 +9,12 @@ import type {SweepReport} from '../lib/hourly-prices';
 import type {PublicSweepReport} from '../lib/price-status';
 import type {PriceFeed} from '../lib/price-feed';
 import {catalogResponse} from './catalog-response';
+import {acquirePriceLease} from '../lib/price-lease';
+import {cleanupFeedImports} from '../lib/feed-import-store';
+import {serveFeedImport, serveFeedReviews} from './price-feed-import';
+import {readSourceStatuses,sourceReport} from '../lib/source-status';
+import {monitorSources} from '../lib/source-monitor';
+import {SWEEP_CRON_UTC} from '../lib/price-update-policy';
 import {storeInfo} from '../lib/stores';
 
 const json = (data: unknown, status = 200, headers: Record<string, string> = {}) =>
@@ -16,7 +22,10 @@ const json = (data: unknown, status = 200, headers: Record<string, string> = {})
 const denied = () => json({error: 'Доступ запрещён'}, 401);
 
 async function servePrices(request: Request, path: string, env: Cloudflare.Env) {
+  if (path === '/api/prices/import') return serveFeedImport(request,env);
+  if (path === '/api/prices/import/reviews') return serveFeedReviews(request,env);
   if (request.method === 'GET') {
+    if (path === '/api/prices/sources') return json({schedule:{cron:SWEEP_CRON_UTC,timeZone:'Europe/Moscow',times:['06:00','18:00']},...await sourceReport(env.DB,snapshot.products,env as unknown as Record<string,string|undefined>)});
     if (path === '/api/prices/sweep') return json({report: await readPublicSweepReport(database(env))});
     if (path === '/api/prices/status') {
       if (!await verifyPriceJobBearer(request.headers.get('authorization') || '', env.PRICE_JOB_TOKEN)) return denied();
@@ -24,7 +33,7 @@ async function servePrices(request: Request, path: string, env: Cloudflare.Env) 
       const [report, history, summary] = await Promise.all([
         readSweepReport(db), readSweepHistory(db), readPublicSweepReport(db),
       ]);
-      return json({report, history, lastSuccessfulAt: summary?.lastSuccessfulAt ?? null});
+      return json({report, history, lastSuccessfulAt: summary?.lastSuccessfulAt ?? null,sources:await readSourceStatuses(db,snapshot.products,env as unknown as Record<string,string|undefined>)});
     }
     if (path === '/api/prices/current') {
       const db = database(env);
@@ -36,7 +45,7 @@ async function servePrices(request: Request, path: string, env: Cloudflare.Env) 
       let lastObservation = 0;
       const stores = new Map<PriceFeed['stores'][number]['store'], PriceFeed['stores'][number]>();
       for (const {offer} of observations) {
-        if (!storeInfo(offer.store)) continue;
+        if (!storeInfo(offer.store) || (offer.store === 'DNS' && (offer.status !== 'ok' || !(Number(offer.price) > 0)))) continue;
         lastObservation = Math.max(lastObservation, Date.parse(offer.checkedAt) || 0);
         let summary = stores.get(offer.store);
         if (!summary) {
@@ -84,6 +93,15 @@ async function logSweepFailure(error: unknown, env: Cloudflare.Env, trigger: Swe
 
 async function scheduledSweep(env: Cloudflare.Env) {
   try {
+    const db = database(env);
+    const releaseLease = await acquirePriceLease(db).catch(error => {
+      if (!(error instanceof SweepIntervalError)) throw error;
+    });
+    if (releaseLease) {
+      try { await cleanupFeedImports(db); }
+      catch (error) { console.error('Не удалось очистить журнал импорта цен',error); }
+      finally { await releaseLease(); }
+    }
     if (!env.PRICE_JOB_TOKEN) throw new ScheduledSweepError('Не задан секрет PRICE_JOB_TOKEN.');
     const origin = new URL(env.PRICE_WORKER_ORIGIN ?? '');
     if (origin.protocol !== 'https:' || !origin.hostname.endsWith('.workers.dev') || origin.username || origin.password) {
@@ -118,6 +136,9 @@ async function scheduledSweep(env: Cloudflare.Env) {
   } catch (error) {
     await logSweepFailure(error, env, 'cron');
     throw error;
+  } finally {
+    try{await monitorSources(database(env),snapshot.products,env as unknown as Record<string,string|undefined>)}
+    catch{console.error('Не удалось проверить свежесть источников')}
   }
 }
 

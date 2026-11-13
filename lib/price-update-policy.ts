@@ -2,11 +2,12 @@ export const DEFAULT_MIN_SWEEP_INTERVAL_MINUTES=660;
 export const SWEEP_DEADLINE_MS=120_000;
 export const MAX_AI_PRODUCTS_PER_RUN=50;
 export const SWEEP_HOUR_UTC=3;
-export const SWEEP_CRON_UTC=`0 ${SWEEP_HOUR_UTC} * * *`;
-export const SWEEP_DAY_MS=86_400_000;
+export const SWEEP_CRON_UTC="0 3,15 * * *";
+export const SWEEP_DAY_MS=43_200_000; // Interval between scheduled windows.
 export function currentSweepWindowStart(now: number) {
   const date = new Date(now);
-  const slot = Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDate(),SWEEP_HOUR_UTC);
+  let slot = Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDate(),15);
+  if(slot>now)slot-=SWEEP_DAY_MS;
   return slot <= now ? slot : slot-SWEEP_DAY_MS;
 }
 export function isInCurrentSweepWindow(at: number, now: number) {

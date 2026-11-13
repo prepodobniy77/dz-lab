@@ -29,6 +29,9 @@ importers:
       cmdk:
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      csv-parse:
+        specifier: 6.1.0
+        version: 6.1.0
       date-fns:
         specifier: ^4.4.0
         version: 4.4.0
@@ -71,6 +74,9 @@ importers:
       recharts:
         specifier: ^3.8.0
         version: 3.8.0(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react-is@16.13.1)(react@19.2.6)(redux@5.0.1)
+      saxes:
+        specifier: 6.0.0
+        version: 6.0.0
       sonner:
         specifier: ^2.0.8
         version: 2.0.8(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -2848,6 +2854,9 @@ packages:
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
+  csv-parse@6.1.0:
+    resolution: {integrity: sha512-CEE+jwpgLn+MmtCpVcPtiCZpVtB6Z2OKPTr34pycYYoL7sxdOkXDdQ4lRiw6ioC0q6BLqhc6cKweCVvral8yhw==}
+
   d3-array@3.2.4:
     resolution: {integrity: sha512-tdQAmyA18i4J7wprpYq8ClcxZy3SC31QMeByyCFyRt7BVHdREQZ5lpzoe5mFEYZUWe+oq8HBvk9JjpibyEV4Jg==}
     engines: {node: '>=12'}
@@ -3483,6 +3492,7 @@ packages:
   image-size@2.0.2:
     resolution: {integrity: sha512-IRqXKlaXwgSMAMtpNzZa1ZAe8m+Sa1770Dhk8VkSsP9LS+iHD62Zd8FQKs8fbPiagBE7BzoFX23cxFnwshpV6w==}
     engines: {node: '>=16.x'}
+    deprecated: Use latest 2.x please
     hasBin: true
 
   immer@10.2.0:
@@ -4255,6 +4265,10 @@ packages:
     resolution: {integrity: sha512-ZvHN3ygzZ8FuxjSNB+mKBiF/NIoqHzlBGbD0MJiT+MvSsFOvotnWOhdTjxKzhHRT2wPC1QbhLzx2q/Y83VhfYQ==}
     engines: {node: '>=16'}
 
+  saxes@6.0.0:
+    resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
+    engines: {node: '>=v12.22.7'}
+
   scheduler@0.27.0:
     resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
 
@@ -4772,6 +4786,9 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+
+  xmlchars@2.2.0:
+    resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
 
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
@@ -7091,6 +7108,8 @@ snapshots:
 
   csstype@3.2.3: {}
 
+  csv-parse@6.1.0: {}
+
   d3-array@3.2.4:
     dependencies:
       internmap: 2.0.3
@@ -8660,6 +8679,10 @@ snapshots:
       postcss-value-parser: 4.2.0
       yoga-layout: 3.2.1
 
+  saxes@6.0.0:
+    dependencies:
+      xmlchars: 2.2.0
+
   scheduler@0.27.0: {}
 
   schema-utils@4.3.3:
@@ -9261,6 +9284,8 @@ snapshots:
       - utf-8-validate
 
   ws@8.18.0: {}
+
+  xmlchars@2.2.0: {}
 
   yallist@3.1.1: {}
 

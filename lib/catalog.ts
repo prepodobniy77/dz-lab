@@ -1,8 +1,9 @@
+import {storeInfo} from './stores.ts';
 import {isConfirmedOffer,priceAgeHours,PRICE_EXPIRED_HOURS} from './price-freshness.ts';
 import type {Category,Product,Selection,Specs} from './catalog-types';
 export const categories:{id:Category;label:string;short:string}[]=[{id:'cpu',label:'Процессор',short:'CPU'},{id:'motherboard',label:'Материнская плата',short:'BOARD'},{id:'gpu',label:'Видеокарта',short:'GPU'},{id:'ram',label:'Оперативная память',short:'RAM'},{id:'ssd',label:'SSD-накопитель',short:'SSD'},{id:'hdd',label:'Жёсткий диск HDD',short:'HDD'},{id:'aio',label:'Жидкостное охлаждение',short:'AIO'},{id:'psu',label:'Блок питания',short:'PSU'},{id:'cooler',label:'Воздушный кулер',short:'COOLING'},{id:'case',label:'Корпус',short:'CASE'}];
 export const money=(n:number)=>new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0}).format(n)+' ₽';
-export function bestOffer(p:Product,now=Date.now()){const available=p.offers.filter(isConfirmedOffer);const recent=available.filter(o=>priceAgeHours(o,now)<=PRICE_EXPIRED_HOURS);return (recent.length?recent:available).sort((a,b)=>a.price!-b.price!)[0]}
+export function bestOffer(p:Product,now=Date.now()){const available=p.offers.filter(o=>storeInfo(o.store)&&isConfirmedOffer(o));const recent=available.filter(o=>priceAgeHours(o,now)<=PRICE_EXPIRED_HOURS);return recent.sort((a,b)=>a.price!-b.price!)[0]}
 export function facts(p:Product){const s=p.specs;return [s.radiatorSize?`Радиатор ${s.radiatorSize} мм`:null,s.sockets?.length?s.sockets.join(' / '):s.socket,s.memory,s.cores?`${s.cores} ядер`:null,s.capacity?`${s.capacity} ГБ`:null,s.watts?`${s.watts} Вт`:null,s.formFactor,s.interface,s.moduleType].filter(Boolean).join(' · ')}
 export type Compatibility={level:'error'|'warning'|'info';text:string};
 export function checkCompatibility(selection:Selection,products:Product[]):Compatibility[]{

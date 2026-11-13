@@ -1,6 +1,7 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
+import test,{mock} from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 import {readyMotherboard,type ReadyBoardChoice} from '../lib/ready-motherboards.mts';
 import type {Product} from '../lib/catalog-types';import type {ReadyBuild} from '../lib/ready-builds';
+mock.timers.enable({apis:['Date'],now:Date.parse('2026-11-07T10:33:57.160Z')});
 const products:Product[]=JSON.parse(readFileSync('data/catalog.json','utf8')).products;
 const builds:ReadyBuild[]=JSON.parse(readFileSync('data/ready-builds.json','utf8'));
 const plan:ReadyBoardChoice[]=JSON.parse(readFileSync('data/ready-board-plan.json','utf8'));

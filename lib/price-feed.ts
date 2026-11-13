@@ -110,7 +110,7 @@ export function applyPriceFeed<T extends CatalogData>(catalog: T, feed: PriceFee
         if (!current) return offer;
         const {error, requiresReview, ...base} = offer;
         return {...base, ...(feed.source === 'd1' ? current : {}), price: current.price, checkedAt: current.checkedAt, status: current.status,
-          availability: current.availability, transport: current.transport === 'api' ? 'api' as const : 'html-snapshot' as const};
+          availability: current.availability, transport: current.transport ?? 'html-snapshot'};
       }).concat([...offers.values()].filter(offer => !product.offers.some(base => base.store === offer.store))),
     };
   });

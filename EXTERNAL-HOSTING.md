@@ -55,4 +55,29 @@ pnpm exec wrangler secret put DELECT_DISTRIBUTOR --config wrangler.jsonc
 
 ## Расписание и проверка
 
-Cloudflare Cron запускается ежедневно в **06:00 по Москве**. GitHub Actions проверяет необходимость резервного запуска в **06:20 МСК**, а также через `workflow_dispatch`. Связанное задание Sites выключено. [Проверка публикации и истории циклов](PRICE-UPDATES.md).
+Cloudflare Cron запускается в **06:00 и 18:00 МСК**. Резерв GitHub Actions — в **06:20 и 18:20 МСК**, а также через `workflow_dispatch`. Фид DNS — отдельный workflow в **06:40 и 18:40 МСК**, только при наличии URL. Связанное задание Sites выключено. [Проверка публикации и истории циклов](PRICE-UPDATES.md).
+
+## Источники и панель владельца
+
+`/admin/prices` читает защищённый отчёт; `/api/prices/sources` публично показывает расписание и возраст цен. [Источники и требуемые доступы](PRICE-SOURCES.md).
+
+Когда DNS выдаст разрешённый фид, задай настройки (до этого DNS пропускается):
+
+```sh
+gh secret set DNS_FEED_URL --repo prepodobniy77/dz-lab
+# Только если поставщик требует Bearer-токен:
+gh secret set DNS_FEED_TOKEN --repo prepodobniy77/dz-lab
+gh variable set PRICE_DNS_INTERVAL_HOURS --repo prepodobniy77/dz-lab --body 12
+gh variable set FEED_MAX_AGE_HOURS --repo prepodobniy77/dz-lab --body 36
+```
+
+В переменные Worker добавь `DNS_FEED_ENABLED=1`, когда фид настроен в GitHub. Частоты XCOM/Delect — `PRICE_XCOM_INTERVAL_HOURS` / `PRICE_DELECT_INTERVAL_HOURS`. Не помещай секретный URL в `wrangler.jsonc`.
+
+Необязательные уведомления владельцу:
+
+```sh
+pnpm exec wrangler secret put TELEGRAM_BOT_TOKEN --config wrangler.jsonc
+pnpm exec wrangler secret put TELEGRAM_CHAT_ID --config wrangler.jsonc
+```
+
+Зелёная сборка не подтверждает свежесть: после публикации нужны реальные новые `checkedAt` и запись успешного цикла. [Worker Previews требуют отдельных настроек ресурсов](https://developers.cloudflare.com/workers/previews/resources/). Без `DB` публичный отчёт возвращает `storage: snapshot`, исходные даты и `configured: false` для всех источников. Это не обновление цен. Для проверки записей в Cloudflare нужна отдельная staging-база с миграциями и привязкой Preview; не подключай к экспериментам рабочую базу. Локальная проверка использует отдельную временную D1.
