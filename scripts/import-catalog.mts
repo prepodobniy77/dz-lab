@@ -17,6 +17,6 @@ const filtered=unique.filter(p=>{
  return true;
 });
 const importedAt=new Date().toISOString();
-await writeFile('data/catalog.json',JSON.stringify({products:filtered,importedAt,region:'Москва',sources:[{name:'XCOM',status:'ok',note:'Прямой импорт открытых страниц каталога, Москва. Два первых листа каждой категории; не весь ассортимент магазина.'},{name:'KNS',status:'pending',note:'Дополнительные предложения процессоров подключаются по точной карточке.'}]},null,2));
+await writeFile('data/catalog.json',JSON.stringify({products:filtered,importedAt,region:'Москва',sources:[{name:'XCOM',status:'ok',note:'Прямой импорт открытых страниц каталога, Москва. Два первых листа каждой категории; не весь ассортимент магазина.'},{name:'BIT28',status:'pending',url:'https://28bit.ru/',note:'Цены ещё не подключены.'}]},null,2));
 await writeFile('data/import-report.json',JSON.stringify({importedAt,results,rawCount:unique.length,importedCount:filtered.length},null,2));
 console.log('IMPORTED',filtered.length,JSON.stringify(Object.fromEntries(categories.map(c=>[c,filtered.filter(p=>p.category===c).length]))));

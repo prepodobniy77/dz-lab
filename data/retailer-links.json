@@ -1,13 +1,50 @@
 [
- {"mpn":"100-000000597","store":"DNS","url":"https://www.dns-shop.ru/product/d4bde9994d11ed20/processor-amd-ryzen-5-7500f-oem/","referenceVerified":true},
- {"mpn":"CM8071504821014","store":"DNS","url":"https://www.dns-shop.ru/product/163592727233ed20/processor-intel-core-i5-14600kf-oem/","referenceVerified":true},
- {"mpn":"KF556C36BBEK2-32","store":"DNS","url":"https://www.dns-shop.ru/product/17e2942c3953ed20/operativnaa-pamat-kingston-fury-beast-black-kf556c36bbek2-32-32-gb/","referenceVerified":true},
- {"mpn":"MZ-V9P1T0BW","store":"DNS","url":"https://www.dns-shop.ru/product/39779619c38e0fd2/1000-gb-m2-nvme-nakopitel-samsung-990-pro-mz-v9p1t0bw/","referenceVerified":true},
- {"mpn":"100-000000597","store":"CITILINK","url":"https://www.citilink.ru/product/processor-amd-ryzen-5-7500f-am5-oem-100-000000597-2005596/","referenceVerified":true},
- {"mpn":"CM8071504821014","store":"CITILINK","url":"https://www.citilink.ru/product/processor-intel-core-i5-14600kf-lga-1700-oem-cm8071504821014-srn42-1985476/","referenceVerified":true},
- {"mpn":"KF556C36BBEK2-32","store":"CITILINK","url":"https://www.citilink.ru/product/pamyat-ddr5-2x16gb-5600mhz-kingston-kf556c36bbek2-32-fury-beast-expo-r-2017943/","referenceVerified":true},
- {"mpn":"MZ-V9P1T0BW","store":"CITILINK","url":"https://www.citilink.ru/product/ssd-nakopitel-samsung-990-pro-mz-v9p1t0bw-1tb-m-2-2280-pcie-4-0-x4-nvm-1896626/","referenceVerified":true},
- {"mpn":"100-000000597","store":"E2E4","url":"https://moscow.e2e4online.ru/catalog/item/protsessor-amd-ryzen-5-7500f-tray-oem-1270147/"},
- {"mpn":"CM8071504821014","store":"E2E4","url":"https://moscow.e2e4online.ru/catalog/item/protsessor-intel-core-i5-14600kf-tray-oem-1232654/"},
- {"mpn":"100-000000597","store":"COMPDAY","url":"https://www.compday.ru/komplektuyuszie/protsessory/441957.htm"}
+  {
+    "mpn": "100-000000597",
+    "store": "DNS",
+    "url": "https://www.dns-shop.ru/product/d4bde9994d11ed20/processor-amd-ryzen-5-7500f-oem/",
+    "referenceVerified": true
+  },
+  {
+    "mpn": "CM8071504821014",
+    "store": "DNS",
+    "url": "https://www.dns-shop.ru/product/163592727233ed20/processor-intel-core-i5-14600kf-oem/",
+    "referenceVerified": true
+  },
+  {
+    "mpn": "KF556C36BBEK2-32",
+    "store": "DNS",
+    "url": "https://www.dns-shop.ru/product/17e2942c3953ed20/operativnaa-pamat-kingston-fury-beast-black-kf556c36bbek2-32-32-gb/",
+    "referenceVerified": true
+  },
+  {
+    "mpn": "MZ-V9P1T0BW",
+    "store": "DNS",
+    "url": "https://www.dns-shop.ru/product/39779619c38e0fd2/1000-gb-m2-nvme-nakopitel-samsung-990-pro-mz-v9p1t0bw/",
+    "referenceVerified": true
+  },
+  {
+    "mpn": "100-000000597",
+    "store": "CITILINK",
+    "url": "https://www.citilink.ru/product/processor-amd-ryzen-5-7500f-am5-oem-100-000000597-2005596/",
+    "referenceVerified": true
+  },
+  {
+    "mpn": "CM8071504821014",
+    "store": "CITILINK",
+    "url": "https://www.citilink.ru/product/processor-intel-core-i5-14600kf-lga-1700-oem-cm8071504821014-srn42-1985476/",
+    "referenceVerified": true
+  },
+  {
+    "mpn": "KF556C36BBEK2-32",
+    "store": "CITILINK",
+    "url": "https://www.citilink.ru/product/pamyat-ddr5-2x16gb-5600mhz-kingston-kf556c36bbek2-32-fury-beast-expo-r-2017943/",
+    "referenceVerified": true
+  },
+  {
+    "mpn": "MZ-V9P1T0BW",
+    "store": "CITILINK",
+    "url": "https://www.citilink.ru/product/ssd-nakopitel-samsung-990-pro-mz-v9p1t0bw-1tb-m-2-2280-pcie-4-0-x4-nvm-1896626/",
+    "referenceVerified": true
+  }
 ]

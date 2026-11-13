@@ -15,17 +15,6 @@
       "description": "Ядро: Vermeer; Кол-во ядер: 6; Кол-во потоков: 12 потоков; Сокет: AM4; Номинальная частота: 3.5 ГГц и 4.4 ГГц в турбо режиме; Техпроцесс: 7 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/337587.htm",
-          "price": 9870,
-          "checkedAt": "2026-11-01T20:13:07.792Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_5_5600_1004058.html",
           "price": 11384,
@@ -96,17 +85,6 @@
       "description": "Ядро: Alder Lake-S; Кол-во ядер: 8; Кол-во потоков: 20 потоков; Сокет: LGA1700; Номинальная частота: 3.6 ГГц и 5 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/305997.htm",
-          "price": 25120,
-          "checkedAt": "2026-11-01T20:13:12.763Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i7-12700k_874295.html",
           "price": 27913,
@@ -166,17 +144,6 @@
       },
       "description": "Ядро: Granite Ridge; Кол-во ядер: 16; Кол-во потоков: 32 потоков; Сокет: AM5; Номинальная частота: 4.3 ГГц и 5.7 ГГц в турбо режиме; Тепловыделение: 170 Вт;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/563626.htm",
-          "price": 54490,
-          "checkedAt": "2026-11-01T20:13:15.367Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_9_9950x3d_1196278.html",
@@ -247,17 +214,6 @@
       "description": "Ядро: Arrow Lake; Кол-во ядер: 14; Кол-во потоков: 14 потоков; Сокет: LGA1851; Номинальная частота: 4.2 ГГц и 5.2 ГГц в турбо режиме; Тепловыделение: 125 Вт;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/538355.htm",
-          "price": 16940,
-          "checkedAt": "2026-11-01T20:13:11.459Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_ultra_5_245k_1128107.html",
           "price": 19317,
@@ -322,17 +278,6 @@
       "description": "Ядро: Raptor Lake; Кол-во ядер: 8; Кол-во потоков: 32 потоков; Сокет: LGA1700; Номинальная частота: 3.2 ГГц и 6 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/379136.htm",
-          "price": 41940,
-          "checkedAt": "2026-11-01T20:13:15.000Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i9_14900k_1057036.html",
           "price": 49596,
@@ -387,17 +332,6 @@
       },
       "description": "Ядро: Arrow Lake; Кол-во ядер: 24; Кол-во потоков: 24 потоков; Сокет: LGA1851; Номинальная частота: 3.2 ГГц и 5.5 ГГц в турбо режиме; Тепловыделение: 250 Вт;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/610148.htm",
-          "price": 28980,
-          "checkedAt": "2026-11-01T20:13:13.699Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_ultra_7_270k_plus_1304167.html",
@@ -457,17 +391,6 @@
       },
       "description": "Ядро: Raptor Lake; Кол-во ядер: 8; Кол-во потоков: 28 потоков; Сокет: LGA1700; Номинальная частота: 3.4 ГГц и 5.6 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/379797.htm",
-          "price": 32940,
-          "checkedAt": "2026-11-01T20:13:14.440Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i7-14700k_1057425.html",
@@ -533,26 +456,6 @@
       "description": "Ядро: Raphael; Кол-во ядер: 6; Кол-во потоков: 12 потоков; Сокет: AM5; Номинальная частота: 3.7 ГГц и 5 ГГц в турбо режиме; Техпроцесс: 5 нм;",
       "offers": [
         {
-          "store": "KNS",
-          "url": "https://www.kns.ru/product/processor-amd-ryzen-5-7500f-oem/",
-          "price": 12658,
-          "availability": "in-stock",
-          "checkedAt": "2026-11-01T19:24:35.607Z",
-          "status": "ok",
-          "transport": "html-snapshot"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/441957.htm",
-          "price": 11410,
-          "checkedAt": "2026-11-01T20:13:07.232Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_5_7500f_1077819.html",
           "price": 12487,
@@ -563,16 +466,6 @@
           "identity": "mpn"
         },
         {
-          "store": "E2E4",
-          "url": "https://moscow.e2e4online.ru/catalog/item/protsessor-amd-ryzen-5-7500f-tray-oem-1270147/",
-          "price": 13500,
-          "checkedAt": "2026-11-05T18:23:17.044Z",
-          "status": "ok",
-          "availability": "out-of-stock",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "REGARD",
           "url": "https://www.regard.ru/product/661697/processor-amd-ryzen-5-7500f-oem",
           "price": 12960,
@@ -581,16 +474,6 @@
           "status": "ok",
           "identity": "mpn",
           "transport": "html-snapshot"
-        },
-        {
-          "store": "NIX",
-          "url": "https://www.nix.ru/autocatalog/amd/CPU-AMD-Ryzen-5-7500F-100-000000597-37-GHz-6core-6-plus-32Mb-Socket-AM5_759000.html",
-          "price": 15187,
-          "availability": "unknown",
-          "checkedAt": "2026-11-05T18:30:49.055Z",
-          "status": "ok",
-          "transport": "html-snapshot",
-          "identity": "mpn"
         },
         {
           "store": "DNS",
@@ -652,17 +535,6 @@
       "description": "Ядро: Phoenix; Кол-во ядер: 6; Кол-во потоков: 12 потоков; Сокет: AM5; Номинальная частота: 4.3 ГГц и 5 ГГц в турбо режиме; Техпроцесс: 4 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/441952.htm",
-          "price": 12930,
-          "checkedAt": "2026-11-01T20:13:09.331Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_5_8600g_1084724.html",
           "price": 15920,
@@ -713,17 +585,6 @@
       },
       "description": "Ядро: Cezanne; Кол-во ядер: 6; Кол-во потоков: 12 потоков; Сокет: AM4; Номинальная частота: 3.6 ГГц и 4.6 ГГц в турбо режиме; Техпроцесс: 7 нм;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/441956.htm",
-          "price": 16180,
-          "checkedAt": "2026-11-01T20:13:11.276Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_5_5600gt_1084725.html",
@@ -784,26 +645,6 @@
       },
       "description": "Ядро: Raptor Lake; Кол-во ядер: 8; Кол-во потоков: 28 потоков; Сокет: LGA1700; Номинальная частота: 3.4 ГГц и 5.6 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
-        {
-          "store": "KNS",
-          "url": "https://www.kns.ru/product/processor-intel-core-i7-14700kf-oem/",
-          "price": 35206,
-          "availability": "in-stock",
-          "checkedAt": "2026-11-01T19:24:34.462Z",
-          "status": "ok",
-          "transport": "html-snapshot"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/379795.htm",
-          "price": 30890,
-          "checkedAt": "2026-11-01T20:13:14.067Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i7-14700kf_1057426.html",
@@ -869,17 +710,6 @@
       "description": "Ядро: Raptor Lake; Кол-во ядер: 6; Кол-во потоков: 20 потоков; Сокет: LGA1700; Номинальная частота: 2.6 ГГц и 5 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/396171.htm",
-          "price": 28034,
-          "checkedAt": "2026-11-01T20:13:13.319Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i5-14500_1076192.html",
           "price": 29685,
@@ -932,17 +762,6 @@
       },
       "description": "Кол-во ядер: 12; Кол-во потоков: 24 потоков; Сокет: AM5; Номинальная частота: 4.4 ГГц и 5.6 ГГц в турбо режиме;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/482775.htm",
-          "price": 30890,
-          "checkedAt": "2026-11-01T20:13:14.251Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_9_9900x_1137706.html",
@@ -999,17 +818,6 @@
       "description": "Ядро: Alder Lake-S; Кол-во ядер: 8; Кол-во потоков: 20 потоков; Сокет: LGA1700; Номинальная частота: 3.3 ГГц и 4.9 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/307005.htm",
-          "price": 25020,
-          "checkedAt": "2026-11-01T20:13:12.575Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i7-12700_886586.html",
           "price": 28622,
@@ -1061,26 +869,6 @@
       "description": "Ядро: Raptor Lake; Кол-во ядер: 6; Кол-во потоков: 20 потоков; Сокет: LGA1700; Номинальная частота: 3.5 ГГц и 5.3 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
         {
-          "store": "KNS",
-          "url": "https://www.kns.ru/product/processor-intel-core-i5-14600kf-oem/",
-          "price": 21490,
-          "availability": "in-stock",
-          "checkedAt": "2026-11-01T19:24:33.998Z",
-          "status": "ok",
-          "transport": "html-snapshot"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/379135.htm",
-          "price": 19400,
-          "checkedAt": "2026-11-01T20:13:12.019Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_i5_14600kf_1057035.html",
           "price": 21710,
@@ -1089,16 +877,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "E2E4",
-          "url": "https://moscow.e2e4online.ru/catalog/item/protsessor-intel-core-i5-14600kf-tray-oem-1232654/",
-          "price": 23489,
-          "checkedAt": "2026-11-05T18:23:17.874Z",
-          "status": "ok",
-          "availability": "out-of-stock",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         },
         {
           "store": "DNS",
@@ -1172,17 +950,6 @@
       },
       "description": "Ядро: Raptor Lake; Кол-во ядер: 8; Кол-во потоков: 28 потоков; Сокет: LGA1700; Номинальная частота: 2.1 ГГц и 5.4 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/388251.htm",
-          "price": 29040,
-          "checkedAt": "2026-11-01T20:13:13.883Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i7-14700f_1070976.html",
@@ -1289,17 +1056,6 @@
       "description": "Ядро: Raphael AM5; Кол-во ядер: 8; Кол-во потоков: 16 потоков; Сокет: AM5; Номинальная частота: 4.5 ГГц и 5.4 ГГц в турбо режиме; Техпроцесс: 5 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/330724.htm",
-          "price": 18950,
-          "checkedAt": "2026-11-01T20:13:11.647Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_7_7700x_987246.html",
           "price": 20920,
@@ -1360,17 +1116,6 @@
       },
       "description": "Ядро: Phoenix; Кол-во ядер: 8; Кол-во потоков: 16 потоков; Сокет: AM5; Номинальная частота: 4.1 ГГц и 5 ГГц в турбо режиме; Тепловыделение: 65 Вт;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/477880.htm",
-          "price": 12300,
-          "checkedAt": "2026-11-01T20:13:08.960Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_7_8700f_1121888.html",
@@ -1476,17 +1221,6 @@
       "description": "Ядро: Alder Lake-S; Кол-во ядер: 4; Кол-во потоков: 8 потоков; Сокет: LGA1700; Номинальная частота: 3.3 ГГц и 4.3 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/308207.htm",
-          "price": 9930,
-          "checkedAt": "2026-11-01T20:13:07.979Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i3-12100f_894426.html",
           "price": 8984,
@@ -1538,17 +1272,6 @@
       },
       "description": "Ядро: Alder Lake-S; Кол-во ядер: 6; Кол-во потоков: 16 потоков; Сокет: LGA1700; Номинальная частота: 3.7 ГГц и 4.9 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/307741.htm",
-          "price": 14870,
-          "checkedAt": "2026-11-01T20:13:10.255Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i5-12600kf_876341.html",
@@ -1610,17 +1333,6 @@
       "description": "Ядро: Alder Lake-S; Кол-во ядер: 6; Кол-во потоков: 12 потоков; Сокет: LGA1700; Номинальная частота: 2.5 ГГц и 4.4 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/306997.htm",
-          "price": 13450,
-          "checkedAt": "2026-11-01T20:13:09.699Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i5-12400_894431.html",
           "price": 15452,
@@ -1672,17 +1384,6 @@
       },
       "description": "Ядро: Alder Lake-S; Кол-во ядер: 4; Кол-во потоков: 8 потоков; Сокет: LGA1700; Номинальная частота: 3.3 ГГц и 4.3 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/308444.htm",
-          "price": 11050,
-          "checkedAt": "2026-11-01T20:13:08.352Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i3-12100_894419.html",
@@ -1744,17 +1445,6 @@
       },
       "description": "Ядро: Raptor Lake; Кол-во ядер: 4; Кол-во потоков: 8 потоков; Сокет: LGA1700; Номинальная частота: 3.5 ГГц и 4.7 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/396170.htm",
-          "price": 11410,
-          "checkedAt": "2026-11-01T20:13:08.771Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i3-14100_1076194.html",
@@ -1869,17 +1559,6 @@
       "description": "Ядро: Raphael AM5; Кол-во ядер: 8; Кол-во потоков: 16 потоков; Сокет: AM5; Номинальная частота: 4.2 ГГц и 5 ГГц в турбо режиме; Техпроцесс: 5 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/367432.htm",
-          "price": 25980,
-          "checkedAt": "2026-11-01T20:13:13.131Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_7_7800x3d_1084723.html",
           "price": 28423,
@@ -1949,17 +1628,6 @@
       "description": "Ядро: Granite Ridge; Кол-во ядер: 8; Кол-во потоков: 16 потоков; Сокет: AM5; Номинальная частота: 4.7 ГГц и 5.2 ГГц в турбо режиме; Тепловыделение: 120 Вт;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/540122.htm",
-          "price": 35750,
-          "checkedAt": "2026-11-01T20:13:14.627Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_7_9800x3d_1157449.html",
           "price": 40779,
@@ -2020,17 +1688,6 @@
       },
       "description": "Ядро: Arrow Lake; Кол-во ядер: 8; Кол-во потоков: 20 потоков; Сокет: LGA1851; Номинальная частота: 3.9 ГГц и 5.4 ГГц в турбо режиме; Тепловыделение: 125 Вт;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/538356.htm",
-          "price": 25890,
-          "checkedAt": "2026-11-01T20:13:12.947Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_ultra_7_265k_1128113.html",
@@ -2096,17 +1753,6 @@
       },
       "description": "Ядро: Granite Ridge; Кол-во ядер: 8; Кол-во потоков: 16 потоков; Сокет: AM5; Номинальная частота: 3.8 ГГц и 5.5 ГГц в турбо режиме; Тепловыделение: 65 Вт;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/482304.htm",
-          "price": 20890,
-          "checkedAt": "2026-11-01T20:13:12.207Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_7_9700x_1129307.html",
@@ -2233,17 +1879,6 @@
       "description": "Ядро: Alder Lake-S; Кол-во ядер: 6; Кол-во потоков: 12 потоков; Сокет: LGA1700; Номинальная частота: 2.5 ГГц и 4.4 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/345099.htm",
-          "price": 10680,
-          "checkedAt": "2026-11-01T20:13:08.167Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i5-12400f_886588.html",
           "price": 12398,
@@ -2306,17 +1941,6 @@
           "transport": "html-snapshot"
         },
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/487316.htm",
-          "price": 38980,
-          "checkedAt": "2026-11-01T20:13:14.816Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_9_9950x_1129306.html",
           "price": 45248,
@@ -2370,17 +1994,6 @@
       "description": "Ядро: Picasso; Кол-во ядер: 4; Кол-во потоков: 4 потоков; Сокет: AM4; Номинальная частота: 3.6 ГГц и 4 ГГц в турбо режиме; Техпроцесс: 12 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/263355.htm",
-          "price": 4200,
-          "checkedAt": "2026-11-01T20:13:07.416Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_3_3200g_717450.html",
           "price": 4755,
@@ -2432,17 +2045,6 @@
       },
       "description": "Ядро: Raptor Lake; Кол-во ядер: 6; Кол-во потоков: 20 потоков; Сокет: LGA1700; Номинальная частота: 3.5 ГГц и 5.3 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/379794.htm",
-          "price": 20930,
-          "checkedAt": "2026-11-01T20:13:12.391Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i5-14600k_1057424.html",
@@ -2561,17 +2163,6 @@
       "description": "Ядро: Arrow Lake; Кол-во ядер: 10; Кол-во потоков: 10 потоков; Сокет: LGA1851; Номинальная частота: 3.3 ГГц и 4.9 ГГц в турбо режиме; Тепловыделение: 65 Вт;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/559870.htm",
-          "price": 15010,
-          "checkedAt": "2026-11-01T20:13:10.672Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_ultra_5_225_1196280.html",
           "price": 17715,
@@ -2625,17 +2216,6 @@
       },
       "description": "Ядро: Cezanne; Кол-во ядер: 8; Кол-во потоков: 16 потоков; Сокет: AM4; Номинальная частота: 3.8 ГГц и 4.6 ГГц в турбо режиме; Техпроцесс: 7 нм;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/305956.htm",
-          "price": 19320,
-          "checkedAt": "2026-11-01T20:13:11.835Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_7_5700g_870669.html",
@@ -2750,26 +2330,6 @@
       "description": "Ядро: Raphael AM5; Кол-во ядер: 8; Кол-во потоков: 16 потоков; Сокет: AM5; Номинальная частота: 3.8 ГГц и 5.3 ГГц в турбо режиме; Техпроцесс: 5 нм;",
       "offers": [
         {
-          "store": "KNS",
-          "url": "https://www.kns.ru/product/processor-amd-ryzen-7-7700-oem/",
-          "price": 18274,
-          "availability": "in-stock",
-          "checkedAt": "2026-11-01T19:24:35.959Z",
-          "status": "ok",
-          "transport": "html-snapshot"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/367431.htm",
-          "price": 15840,
-          "checkedAt": "2026-11-01T20:13:10.903Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_x8_r7-7700_1054592.html",
           "price": 18177,
@@ -2841,17 +2401,6 @@
       "description": "Ядро: Picasso; Кол-во ядер: 4; Кол-во потоков: 8 потоков; Сокет: AM4; Номинальная частота: 3.7 ГГц; Техпроцесс: 12 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/270266.htm",
-          "price": 6590,
-          "checkedAt": "2026-11-01T20:13:07.603Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_5_3400g_726150.html",
           "price": 7226,
@@ -2901,17 +2450,6 @@
       },
       "description": "Ядро: Arrow Lake; Кол-во ядер: 24; Кол-во потоков: 24 потоков; Сокет: LGA1851; Номинальная частота: 3.2 ГГц и 5.7 ГГц в турбо режиме; Тепловыделение: 125 Вт;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/538358.htm",
-          "price": 42740,
-          "checkedAt": "2026-11-01T20:13:15.183Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_ultra_9_285k_1128119.html",
@@ -2975,17 +2513,6 @@
       },
       "description": "Ядро: Phoenix; Кол-во ядер: 6; Кол-во потоков: 12 потоков; Сокет: AM5; Номинальная частота: 3.5 ГГц и 5 ГГц в турбо режиме; Тепловыделение: 65 Вт;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/441958.htm",
-          "price": 11290,
-          "checkedAt": "2026-11-01T20:13:08.584Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_5_8500g_1099788.html",
@@ -3051,17 +2578,6 @@
       },
       "description": "Ядро: Vermeer; Кол-во ядер: 8; Кол-во потоков: 16 потоков; Сокет: AM4; Номинальная частота: 3.4 ГГц и 4.6 ГГц в турбо режиме; Техпроцесс: 7 нм;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/335377.htm",
-          "price": 12870,
-          "checkedAt": "2026-11-01T20:13:09.147Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_7_5700x_952254.html",
@@ -3133,17 +2649,6 @@
       "description": "Ядро: Raptor Lake; Кол-во ядер: 8; Кол-во потоков: 28 потоков; Сокет: LGA1700; Номинальная частота: 2.1 ГГц и 5.4 ГГц в турбо режиме; Техпроцесс: 10 нм;",
       "offers": [
         {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/416263.htm",
-          "price": 28940,
-          "checkedAt": "2026-11-01T20:13:13.513Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
-        {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/intel_core_i7-14700_1076193.html",
           "price": 33958,
@@ -3206,17 +2711,6 @@
       },
       "description": "Ядро: Granite Ridge; Кол-во ядер: 6; Кол-во потоков: 12 потоков; Сокет: AM5; Номинальная частота: 3.9 ГГц и 5.4 ГГц в турбо режиме; Тепловыделение: 65 Вт;",
       "offers": [
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/482593.htm",
-          "price": 15920,
-          "checkedAt": "2026-11-01T20:13:11.088Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
-        },
         {
           "store": "XCOM",
           "url": "https://www.xcom-shop.ru/amd_ryzen_5_9600x_1129308.html",
@@ -10715,16 +10209,6 @@
           "availability": "in-stock",
           "checkedAt": "2026-11-05T18:23:30.705Z",
           "status": "ok",
-          "transport": "html-snapshot",
-          "identity": "mpn"
-        },
-        {
-          "store": "E2E4",
-          "url": "https://moscow.e2e4online.ru/catalog/item/ssd-samsung-990-pro-1tb-m-2-2280-pcie-4-0-x4-mz--1133682/",
-          "price": 24755,
-          "checkedAt": "2026-11-05T18:30:51.205Z",
-          "status": "ok",
-          "availability": "out-of-stock",
           "transport": "html-snapshot",
           "identity": "mpn"
         },
@@ -370845,32 +370329,11 @@
       "note": "Проверено запросов: 673; обновлено цен: 1536; требуется проверка: 0. "
     },
     {
-      "name": "KNS",
-      "url": "https://www.kns.ru/",
-      "checkedAt": "2026-11-05T18:30:51.224Z",
-      "status": "limited",
-      "note": "Проверено запросов: 0; обновлено цен: 0; требуется проверка: 0. TypeError: fetch failed"
-    },
-    {
       "name": "REGARD",
       "url": "https://www.regard.ru/catalog/1536/komplektuyushchie-dlya-pk",
       "checkedAt": "2026-11-07T10:27:25.912Z",
       "status": "partial",
       "note": "Москва. 1 308 цен из публичного каталога. Часть страниц или карточек не удалось подтвердить. Цены на SO-DIMM исключены; дата проверки указана у каждого предложения."
-    },
-    {
-      "name": "COMPDAY",
-      "url": "https://www.compday.ru/",
-      "checkedAt": "2026-11-05T18:30:51.224Z",
-      "status": "limited",
-      "note": "Проверено запросов: 0; обновлено цен: 0; требуется проверка: 0. TypeError: fetch failed"
-    },
-    {
-      "name": "E2E4",
-      "url": "https://moscow.e2e4online.ru/",
-      "checkedAt": "2026-11-05T18:30:51.224Z",
-      "status": "partial",
-      "note": "Проверено запросов: 4; обновлено цен: 3; требуется проверка: 0. "
     },
     {
       "name": "DNS",
@@ -370887,25 +370350,16 @@
       "note": "Москва. 2 456 цен из публичного каталога. Просмотрены все страницы разделов комплектующих. Цены на SO-DIMM исключены; дата проверки указана у каждого предложения."
     },
     {
-      "name": "ONLINETRADE",
-      "url": "https://www.onlinetrade.ru/",
-      "checkedAt": "2026-11-05T18:30:51.224Z",
-      "status": "limited",
-      "note": "Проверено запросов: 0; обновлено цен: 0; требуется проверка: 0. TypeError: fetch failed"
+      "name": "BIT28",
+      "url": "https://28bit.ru/",
+      "status": "pending",
+      "note": "Цены ещё не подключены. Ожидается подтверждённый источник розничных цен по Москве."
     },
     {
-      "name": "NIX",
-      "url": "https://www.nix.ru/",
-      "checkedAt": "2026-11-05T18:30:51.224Z",
-      "status": "partial",
-      "note": "Проверено запросов: 2; обновлено цен: 1; требуется проверка: 0. "
-    },
-    {
-      "name": "FCENTER",
-      "url": "https://www.fcenter.ru/",
-      "checkedAt": "2026-11-05T18:30:51.224Z",
-      "status": "limited",
-      "note": "Проверено запросов: 0; обновлено цен: 0; требуется проверка: 0. TypeError: fetch failed"
+      "name": "MVIDEO",
+      "url": "https://www.mvideo.ru/",
+      "status": "pending",
+      "note": "Цены ещё не подключены. Ожидается подтверждённый источник розничных цен по Москве."
     }
   ]
 }
