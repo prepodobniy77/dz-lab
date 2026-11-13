@@ -10,7 +10,7 @@ import {delectProvider} from '../lib/providers/delect.ts';
 import {xcomProvider} from '../lib/providers/xcom.ts';
 import {priceReliability} from '../lib/price-freshness.ts';
 import {bestOffer} from '../lib/catalog.ts';
-import {summarizeSources} from '../lib/source-status.ts';
+import {summarizeSources,sourceReport} from '../lib/source-status.ts';
 import {sourceIsDue,sourceIntervalHours} from '../lib/source-policy.ts';
 import {notifyStaleSources} from '../lib/source-monitor.ts';
 import {offerWriteStatements} from '../lib/offer-storage.ts';
@@ -34,6 +34,12 @@ test('реестр обнаруживает новый файл адаптера
 const offer=(hours=0,price=1000):Offer=>({store:'XCOM',url:'https://www.xcom-shop.ru/test_1.html',
   price,status:'ok',availability:'in-stock',checkedAt:new Date(now-hours*3600000).toISOString()});
 const product:Product={id:'xcom-1',name:'Same name',brand:'',mpn:'PART-1',category:'cpu',specs:{},description:'',image:'',offers:[offer(48)]};
+test('preview без базы честно показывает снимок без активных источников',async()=>{
+ const report=await sourceReport(undefined,[product],{DNS_FEED_ENABLED:'1'},now);
+ assert.equal(report.storage,'snapshot');
+ assert.ok(report.sources.every(s=>!s.configured&&s.lastSuccessfulAt===null));
+ assert.equal(report.sources.find(s=>s.store==='XCOM')?.oldestPriceAgeHours,48);
+});
 async function database(){
   const require=createRequire(import.meta.url);
   const {Miniflare}=createRequire(require.resolve('wrangler/package.json'))('miniflare');

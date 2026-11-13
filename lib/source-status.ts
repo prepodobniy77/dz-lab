@@ -55,3 +55,10 @@ export async function readSourceStatuses(db:D1Database,products:Product[],config
   return summarizeSources(products,offers.results.map(r=>({productId:r.product_id,offer:JSON.parse(r.data) as Offer})),
     config,Object.fromEntries(runs.results.map(r=>[r.store.slice('PRICE_SOURCE_SUCCESS:'.length),r.checked_at])),now);
 }
+
+/** Previews without a D1 binding can describe snapshots, but cannot claim active updates. */
+export async function sourceReport(db:D1Database|undefined,products:Product[],config:ProviderConfig,now=Date.now()) {
+  if(!db)return {storage:'snapshot' as const,sources:summarizeSources(products,[],config,{},now)
+    .map(source=>({...source,configured:false}))};
+  return {storage:'connected' as const,sources:await readSourceStatuses(db,products,config,now)};
+}

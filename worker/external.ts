@@ -12,7 +12,7 @@ import {catalogResponse} from './catalog-response';
 import {acquirePriceLease} from '../lib/price-lease';
 import {cleanupFeedImports} from '../lib/feed-import-store';
 import {serveFeedImport, serveFeedReviews} from './price-feed-import';
-import {readSourceStatuses} from '../lib/source-status';
+import {readSourceStatuses,sourceReport} from '../lib/source-status';
 import {monitorSources} from '../lib/source-monitor';
 import {SWEEP_CRON_UTC} from '../lib/price-update-policy';
 import {storeInfo} from '../lib/stores';
@@ -25,7 +25,7 @@ async function servePrices(request: Request, path: string, env: Cloudflare.Env) 
   if (path === '/api/prices/import') return serveFeedImport(request,env);
   if (path === '/api/prices/import/reviews') return serveFeedReviews(request,env);
   if (request.method === 'GET') {
-    if (path === '/api/prices/sources') return json({schedule:{cron:SWEEP_CRON_UTC,timeZone:'Europe/Moscow',times:['06:00','18:00']},sources:await readSourceStatuses(database(env),snapshot.products,env as unknown as Record<string,string|undefined>)});
+    if (path === '/api/prices/sources') return json({schedule:{cron:SWEEP_CRON_UTC,timeZone:'Europe/Moscow',times:['06:00','18:00']},...await sourceReport(env.DB,snapshot.products,env as unknown as Record<string,string|undefined>)});
     if (path === '/api/prices/sweep') return json({report: await readPublicSweepReport(database(env))});
     if (path === '/api/prices/status') {
       if (!await verifyPriceJobBearer(request.headers.get('authorization') || '', env.PRICE_JOB_TOKEN)) return denied();
