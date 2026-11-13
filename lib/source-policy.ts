@@ -1,10 +1,12 @@
 import type {StoreId} from './stores';
 import type {ProviderConfig} from './providers/types';
+import {providers} from './providers/index.ts';
 export const SOURCE_ALERT_HOURS = 26;
 export function sourceIntervalHours(store:StoreId,config:ProviderConfig) {
   const raw = config['PRICE_'+store+'_INTERVAL_HOURS'];
   const value = raw === undefined || raw === '' ? 12 : Number(raw);
-  const max = store==='DNS'||store==='DELECT' ? 12 : 168;
+  const source=providers.find(p=>p.store===store)?.source;
+  const max = source==='api'||source==='feed' ? 12 : 168;
   if (!Number.isFinite(value) || value<1 || value>max) throw new Error(`PRICE_${store}_INTERVAL_HOURS: допустимо от 1 до ${max}.`);
   return value;
 }

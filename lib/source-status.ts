@@ -3,6 +3,7 @@ import {stores,type StoreId} from './stores.ts';
 import {priceAgeHours} from './price-freshness.ts';
 import {sourceIntervalHours,SOURCE_ALERT_HOURS} from './source-policy.ts';
 import type {ProviderConfig,SourceKind} from './providers/types';
+import {providers} from './providers/index.ts';
 
 export type SourceStatus = {
   store:StoreId; source:SourceKind; region:'Москва'; currency:'RUB';
@@ -35,8 +36,7 @@ export function summarizeSources(products:Product[],patches:{productId:string;of
     const dated = offers.map(o=>Date.parse(o.checkedAt)).filter(t=>Number.isFinite(t)&&t<=now);
     const oldestPriceAt = dated.length===offers.length && dated.length ? new Date(Math.min(...dated)).toISOString() : null;
     const newestPriceAt = dated.length ? new Date(Math.max(...dated)).toISOString() : null;
-    const configured = store.id==='XCOM' || store.id==='DNS'&&Boolean(config.DNS_FEED_URL||config.DNS_FEED_ENABLED==='1') ||
-      store.id==='DELECT'&&Boolean(config.DELECT_API_KEY&&config.DELECT_DISTRIBUTOR);
+    const configured = providers.find(p=>p.store===store.id)?.isConfigured(config)??false;
     const latest = offers.reduce<Offer|undefined>((a,b)=>!a||Date.parse(b.checkedAt)>Date.parse(a.checkedAt)?b:a,undefined);
     return {store:store.id,source:latest?sourceKind(latest):store.id==='DNS'?'feed':store.id==='DELECT'?'api':'snapshot',
       region:'Москва',currency:'RUB',offers:offers.length,oldestPriceAt,

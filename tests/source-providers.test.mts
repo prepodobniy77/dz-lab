@@ -1,7 +1,10 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
-import {readFileSync,readdirSync} from 'node:fs';
+import {readFileSync,readdirSync,mkdtempSync,writeFileSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {generatePriceProviders} from '../scripts/generate-price-providers.mts';
 import {dnsProvider} from '../lib/providers/dns.ts';
 import {delectProvider} from '../lib/providers/delect.ts';
 import {xcomProvider} from '../lib/providers/xcom.ts';
@@ -16,6 +19,18 @@ import {indexXcomProducts} from '../lib/price-cycle-data.ts';
 import type {Product,Offer} from '../lib/catalog-types';
 const now=Date.parse('2026-11-12T15:00:00Z');
 const date=new Date(now).toISOString();
+test('реестр обнаруживает новый файл адаптера без ручного изменения исполнителя',()=>{
+ const dir=mkdtempSync(join(tmpdir(),'dz-providers-'));
+ try{
+  writeFileSync(join(dir,'types.ts'),'');writeFileSync(join(dir,'dns.ts'),'export default {}');
+  generatePriceProviders(dir);
+  assert.match(readFileSync(join(dir,'index.ts'),'utf8'),/from '.\/dns.ts'/);
+  writeFileSync(join(dir,'regard.ts'),'export default {}');generatePriceProviders(dir);
+  const generated=readFileSync(join(dir,'index.ts'),'utf8');
+  assert.match(generated,/from '.\/regard.ts'/);assert.match(generated,/\[provider0,provider1\]/);
+  generatePriceProviders(dir);assert.equal(readFileSync(join(dir,'index.ts'),'utf8'),generated);
+ }finally{rmSync(dir,{recursive:true,force:true})}
+});
 const offer=(hours=0,price=1000):Offer=>({store:'XCOM',url:'https://www.xcom-shop.ru/test_1.html',
   price,status:'ok',availability:'in-stock',checkedAt:new Date(now-hours*3600000).toISOString()});
 const product:Product={id:'xcom-1',name:'Same name',brand:'',mpn:'PART-1',category:'cpu',specs:{},description:'',image:'',offers:[offer(48)]};

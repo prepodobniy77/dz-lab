@@ -28,6 +28,7 @@ export type ProviderContext = {
 export interface PriceProvider {
   store: StoreId;
   source: SourceKind;
+  isConfigured(config:ProviderConfig): boolean;
   fetchOffers(context: ProviderContext): Promise<OfferBatch|null>;
 }
 

@@ -7,7 +7,7 @@ import {runPricePortion,type CycleState} from './price-cycle';
 import {fetchHtml} from './providers.mts';
 import {findRouterAIPriceLinks} from './routerai-price-search.mts';
 import {findPriceLinks} from './ai-price-search.mts';
-import {delectProvider} from './providers/delect.ts';
+import {providers} from './providers/index.ts';
 import {sourceIsDue} from './source-policy.ts';
 import {saveSweepReport} from './price-report-store';
 import {SweepIntervalError,priceSweepFailureMessage} from './price-job-errors';
@@ -36,13 +36,22 @@ async function prepareXcomSweepProducts(db:D1Database,state:CycleState|undefined
 }
 export async function runPriceSweep(trigger:SweepReport['trigger']='manual',bindings?:Cloudflare.Env){
  const db=database(bindings),config=(bindings??env) as unknown as Record<string,string|undefined>;
- const allStores=!!(config.ROUTERAI_API_KEY||config.PERPLEXITY_API_KEY||config.DELECT_API_KEY&&config.DELECT_DISTRIBUTOR);
+ const apis=providers.filter(p=>p.source==='api'&&p.isConfigured(config));
+ const allStores=!!(config.ROUTERAI_API_KEY||config.PERPLEXITY_API_KEY||apis.length);
  const xcomOnly=!!bindings&&!allStores&&Number(config.PRICE_DETAIL_PORTION_REQUESTS)===1;
  const products=bindings?(xcomOnly?snapshot.products:await externalSweepProducts(db)):(await getCatalog()).products;
  return runPricePortion({db,products,config,read:fetchHtml,
   ...(bindings?{productIndices:snapshotIndexById}:{}),
   ...(xcomOnly?{prepareProducts:(state:CycleState|undefined)=>prepareXcomSweepProducts(db,state)}:{}),offerStatements:values=>offerWriteStatements(db,values),onReport:(report,final)=>saveSweepReport(db,report,final,config),
-  ...(config.DELECT_API_KEY&&config.DELECT_DISTRIBUTOR?{bulk:async()=>{const last=await db.prepare("SELECT error FROM source_health WHERE store='PRICE_SOURCE_SUCCESS:DELECT'").first<{error:string}>();if(!sourceIsDue('DELECT',config,last?JSON.parse(last.error).checkedAt:undefined))return[];return (await delectProvider.fetchOffers({products,config}))?.offers??[]}}:{}),
+  ...(apis.length?{bulk:async()=>{
+   const offers:{productId:string;offer:Offer}[]=[];
+   for(const provider of apis){
+    const last=await db.prepare('SELECT checked_at,error FROM source_health WHERE store=?').bind('PRICE_SOURCE_SUCCESS:'+provider.store).first<{checked_at:string;error:string}>();
+    if(!sourceIsDue(provider.store,config,last?.error?(JSON.parse(last.error).startedAt??last.checked_at):last?.checked_at))continue;
+    const batch=await provider.fetchOffers({products,config});if(batch)offers.push(...batch.offers);
+   }
+   return offers;
+  }}:{}),
   ...(config.ROUTERAI_API_KEY?{search:(products,timeoutMs)=>findRouterAIPriceLinks(products,config.ROUTERAI_API_KEY!,config.ROUTERAI_MODEL,fetch,timeoutMs)}:config.PERPLEXITY_API_KEY?{search:(products,timeoutMs)=>findPriceLinks(products,config.PERPLEXITY_API_KEY!,config.PRICE_AI_MODEL,fetch,timeoutMs)}:{})
  },trigger);
 }

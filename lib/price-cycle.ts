@@ -50,7 +50,7 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
    const legacy=await row('PRICE_SWEEP_LOCK');if(legacy?.blocked_until&&Date.parse(legacy.blocked_until)>start)throw new SweepIntervalError((Date.parse(legacy.blocked_until)-start)/1000);
    const block=await row('XCOM');
    const lastSource=await row('PRICE_SOURCE_SUCCESS:XCOM');
-   const skipXcom=Boolean(block?.blocked_until&&Date.parse(block.blocked_until)>start)||Boolean(trigger!=='manual'&&lastSource&&!sourceIsDue('XCOM',config,lastSource.error?JSON.parse(lastSource.error).checkedAt:undefined,start));
+   const skipXcom=Boolean(block?.blocked_until&&Date.parse(block.blocked_until)>start)||Boolean(trigger!=='manual'&&lastSource&&!sourceIsDue('XCOM',config,lastSource.error?(JSON.parse(lastSource.error).startedAt??JSON.parse(lastSource.error).checkedAt):undefined,start));
    const visited=await row('PRICE_SWEEP_SELECTION');let aiVisited:string[]=[];try{aiVisited=visited?.error?JSON.parse(visited.error).attemptedIds:[]}catch{};if(!Array.isArray(aiVisited))aiVisited=[];
    if(state&&services.prepareProducts)products=await services.prepareProducts(undefined);
    state={id:crypto.randomUUID(),startedAt:new Date(start).toISOString(),phase:'scan',index:0,publishOffset:0,expected:products.filter(p=>p.offers.some(o=>o.store==='XCOM')).length,staged:{},seen:[],missing:[],lastRequestAt:0,aiAttempted:[],aiVisited,bulkDone:false,updatedIds:[],attemptedIds:[],pendingReviews:0,portions:0,activeDurationMs:0,report:{checkedAt:new Date(start).toISOString(),cycleId:'',status:'partial',trigger,attempted:0,updated:0,skipped:0,categories:Object.fromEntries(categories.map(c=>[c.id,{attempted:0,updated:0}])),message:'Идёт проверка; данные ещё не опубликованы.'}};state.report.cycleId=state.id;state.xcomSkipped=skipXcom;if(skipXcom)state.phase='ai';await saveState();
@@ -83,7 +83,7 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
     for(const store of new Set(staged.map(v=>v.offer.store))){
      writes.push(db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error').bind('PRICE_SOURCE_CYCLE:'+store,new Date(now()).toISOString(),JSON.stringify({cycleId:state.id})));
      const accepted=staged.filter(v=>v.offer.store===store&&!v.review);
-     if(accepted.length)writes.push(db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error').bind('PRICE_SOURCE_SUCCESS:'+store,new Date(now()).toISOString(),JSON.stringify({checkedAt:accepted.map(v=>v.offer.checkedAt).sort().at(-1),cycleId:state.id})));
+     if(accepted.length)writes.push(db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error').bind('PRICE_SOURCE_SUCCESS:'+store,new Date(now()).toISOString(),JSON.stringify({checkedAt:accepted.map(v=>v.offer.checkedAt).sort().at(-1),startedAt:state.startedAt,cycleId:state.id})));
     }
     delete state.bulkStaged;
    }
@@ -161,7 +161,7 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
     const accepted=Object.values(state.staged).filter(v=>v.offer.store===store&&!v.review);
     if(state.report.cycleCompleted&&accepted.length){
      const checkedAt=accepted.map(v=>v.offer.checkedAt).sort().at(-1)!;
-     publication.push(db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error').bind('PRICE_SOURCE_SUCCESS:'+store,state.report.finishedAt,JSON.stringify({checkedAt,cycleId:state.id})));
+     publication.push(db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?) ON CONFLICT(store) DO UPDATE SET checked_at=excluded.checked_at,error=excluded.error').bind('PRICE_SOURCE_SUCCESS:'+store,state.report.finishedAt,JSON.stringify({checkedAt,startedAt:state.startedAt,cycleId:state.id})));
     }
    }
   }

@@ -6,7 +6,7 @@ import {Readable} from 'node:stream';
 import {
   FEED_PART_SIZE, FeedError, StaleFeedError, feedStore, parseRetailFeed, readFeedBody, requireFreshFeed,
 } from '../lib/retail-feed.ts';
-import {dnsProvider} from '../lib/providers/dns.ts';
+import {providers} from '../lib/providers/index.ts';
 import {sourceIsDue} from '../lib/source-policy.ts';
 import {downloadFeed} from '../lib/feed-download.ts';
 
@@ -45,7 +45,8 @@ async function run() {
     text = await readFeedBody(Readable.toWeb(createReadStream(input)) as unknown as ReadableStream<Uint8Array>,String(file.size));
   }
 
-  const batch = store==='DNS'?await dnsProvider.fetchOffers({products:[],config:process.env,input:{text,date,lastModified}}):null;
+  const provider=providers.find(p=>p.store===store&&p.source==='feed');
+  const batch = provider?await provider.fetchOffers({products:[],config:process.env,input:{text,date,lastModified}}):null;
   const feed = batch?{checkedAt:batch.exportedAt,rows:batch.rows!}:parseRetailFeed(text,date,Date.now(),lastModified);
   requireFreshFeed(feed.checkedAt,process.env.FEED_MAX_AGE_HOURS);
   const parts = Math.max(1,Math.ceil(feed.rows.length/FEED_PART_SIZE));

@@ -5,6 +5,7 @@ import {offerMetadata,type PriceProvider,type OfferBatch} from './types.ts';
 /** DNS has no HTML fallback. An absent approved feed is a silent skip. */
 export const dnsProvider: PriceProvider = {
   store:'DNS', source:'feed',
+  isConfigured:config=>Boolean(config.DNS_FEED_URL||config.DNS_FEED_ENABLED==='1'),
   async fetchOffers(context) {
     const {config} = context;
     if (!context.input && !config.DNS_FEED_URL) return null;
@@ -25,3 +26,4 @@ export const dnsProvider: PriceProvider = {
     return batch;
   },
 };
+export default dnsProvider;

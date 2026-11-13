@@ -4,6 +4,7 @@ import {offerMetadata,type PriceProvider,type OfferBatch} from './types.ts';
 
 export const delectProvider: PriceProvider = {
   store:'DELECT', source:'api',
+  isConfigured:config=>Boolean(config.DELECT_API_KEY&&config.DELECT_DISTRIBUTOR),
   async fetchOffers(context) {
     const {config,products} = context;
     if (!config.DELECT_API_KEY || !config.DELECT_DISTRIBUTOR) return null;
@@ -23,7 +24,8 @@ export const delectProvider: PriceProvider = {
     // Oldest row determines the age of this export; download time is never substituted.
     const exportedAt = new Date(Math.min(...mapped.map(v=>Date.parse(v.offer.checkedAt)))).toISOString();
     const batch: OfferBatch = {store:'DELECT',source:'api',exportedAt,region:'Москва',currency:'RUB',offers:[]};
-    batch.offers = mapped.map(v=>({productId:v.id,offer:{...v.offer,...offerMetadata({...batch,exportedAt:v.offer.checkedAt})}}));
+    batch.offers = mapped.map(v=>({productId:v.id,offer:{...v.offer,checkedAt:new Date(v.offer.checkedAt).toISOString(),...offerMetadata({...batch,exportedAt:new Date(v.offer.checkedAt).toISOString()})}}));
     return batch;
   },
 };
+export default delectProvider;

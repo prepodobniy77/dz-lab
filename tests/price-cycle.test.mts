@@ -41,6 +41,16 @@ test('интервал XCOM не пропускает независимый п�
  }finally{await dispose()}
 });
 
+test('длительная утренняя публикация не отменяет вечерний слот XCOM',async()=>{
+ const {db,dispose}=await setup();try{
+  const s:CycleServices=services(db);const start=s.now!();
+  const checkedAt=new Date(start-11.5*3600000).toISOString();
+  await db.prepare('INSERT INTO source_health(store,checked_at,error) VALUES(?,?,?)').bind('PRICE_SOURCE_SUCCESS:XCOM',checkedAt,JSON.stringify({checkedAt,startedAt:new Date(start-12*3600000).toISOString()})).run();
+  let reads=0;const read=s.read;s.read=async(...args)=>{reads++;return read(...args)};
+  const result=await runPricePortion(s,'cron');assert.ok(reads>0);assert.equal(result.skipped,undefined);
+ }finally{await dispose()}
+});
+
 test('большой API-прайс публикуется порциями, сбой не продвигает курсор и не скачивает экспорт повторно',async()=>{
  const {db,dispose}=await setup();try{
   const s:CycleServices=services(db);s.config.PRICE_PUBLISH_PORTION_SIZE='2';let downloads=0;

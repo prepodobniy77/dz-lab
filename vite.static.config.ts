@@ -5,8 +5,10 @@ import {resolve} from 'node:path';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
 
 import {desktopCatalog} from './lib/catalog-scope';
+import {generatePriceProviders} from './scripts/generate-price-providers.mts';
 
 const root=fileURLToPath(new URL('.',import.meta.url));
+generatePriceProviders(resolve(root,'lib/providers'));
 export default defineConfig({
   root:resolve(root,'standalone'),
   publicDir:resolve(root,'public'),

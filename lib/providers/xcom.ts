@@ -7,6 +7,7 @@ const indexes=new WeakMap<Product[],ReturnType<typeof indexXcomProducts>>();
 /** Snapshot adapter. It never requests a page without the caller's robots-aware reader. */
 export const xcomProvider: PriceProvider = {
   store:'XCOM', source:'snapshot',
+  isConfigured:()=>true,
   async fetchOffers(context) {
     const target = context.snapshot;
     if (!target) throw new Error('Для XCOM нужна порция обхода с проверкой robots.txt.');
@@ -37,3 +38,4 @@ export const xcomProvider: PriceProvider = {
     return batch;
   },
 };
+export default xcomProvider;

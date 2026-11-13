@@ -1,4 +1,4 @@
-import {dnsProvider} from '../lib/providers/dns';
+import {providers} from '../lib/providers/index.ts';
 import {database, snapshot} from '../lib/catalog-server';
 import {
   cleanupFeedImports, commitFeedImport, feedCooldown, feedImportExpired, FeedConflictError, FeedRateError, privateFeedImports, publicFeedImports, readFeedImport,
@@ -83,7 +83,8 @@ export async function serveFeedImport(request: Request, env: Cloudflare.Env) {
     releaseLease = await acquirePriceLease(db);
     if (stage === null) {
       const store = feedStore(request.headers.get('x-feed-store') ?? 'DNS');
-      const providerBatch = store==='DNS'?await dnsProvider.fetchOffers({products:[],config:env as unknown as Record<string,string|undefined>,input:{text:body,date:request.headers.get('x-feed-date')??undefined}}):null;
+      const provider=providers.find(p=>p.store===store&&p.source==='feed');
+      const providerBatch = provider?await provider.fetchOffers({products:[],config:env as unknown as Record<string,string|undefined>,input:{text:body,date:request.headers.get('x-feed-date')??undefined}}):null;
       const feed = providerBatch?{checkedAt:providerBatch.exportedAt,rows:providerBatch.rows!}:parseRetailFeed(body,request.headers.get('x-feed-date') ?? undefined);
       requireFreshFeed(feed.checkedAt,env.FEED_MAX_AGE_HOURS);
       const index = await indexFor(db,store);
