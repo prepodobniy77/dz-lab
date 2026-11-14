@@ -1,6 +1,6 @@
 'use client';
 import {useState,useEffect,useMemo,useRef} from 'react';
-import {ArrowUpRight,ArrowRight,Check,ChevronDown,ChevronLeft,ChevronRight,Cpu,CircuitBoard,MemoryStick,HardDrive,Wind,Box,Zap,Plus,X,Search,RefreshCw,Bookmark,Download,ExternalLink,SlidersHorizontal,CheckCircle2,AlertTriangle,Info,Database,Clock,Layers,Scale,Menu,Trash2,Copy,Loader2,FolderOpen,Droplets} from 'lucide-react';
+import {ArrowUpRight,ArrowRight,Check,ChevronDown,ChevronLeft,ChevronRight,Cpu,CircuitBoard,MemoryStick,HardDrive,Wind,Box,Zap,Plus,X,Search,RefreshCw,Bookmark,Download,ExternalLink,SlidersHorizontal,CheckCircle2,AlertTriangle,Info,Database,Clock,createLucideIcon,Scale,Menu,Trash2,Copy,Loader2,FolderOpen,Droplets} from 'lucide-react';
 import type {Category,Product,CatalogData,Selection,Offer} from '../lib/catalog-types';
 import {Sheet,SheetContent,SheetHeader,SheetTitle,SheetDescription,SheetClose} from './ui/sheet';
 import {ThemeToggle} from './theme-toggle';
@@ -16,7 +16,14 @@ import {categories,money,bestOffer,facts,checkCompatibility,isCompatibleCandidat
 import {readLocalBuilds,saveLocalBuild} from '../lib/local-builds';
 const localBuilds=process.env.NEXT_PUBLIC_LOCAL_BUILDS==='1';
 const showAdmin=process.env.NEXT_PUBLIC_SHOW_ADMIN==='1';
-const icons={cpu:Cpu,motherboard:CircuitBoard,gpu:Layers,ram:MemoryStick,ssd:HardDrive,hdd:HardDrive,aio:Droplets,psu:Zap,cooler:Wind,case:Box};
+const GraphicsCard = createLucideIcon('graphics-card', [
+ ['rect', {key:'body', x:4, y:6, width:18, height:12, rx:2}],
+ ['path', {key:'bracket', d:'M2 4h2v16'}],
+ ['circle', {key:'fan-left', cx:9, cy:12, r:2}],
+ ['circle', {key:'fan-right', cx:17, cy:12, r:2}],
+ ['path', {key:'connector', d:'M9 18v2h6v-2'}],
+]);
+const icons={cpu:Cpu,motherboard:CircuitBoard,gpu:GraphicsCard,ram:MemoryStick,ssd:HardDrive,hdd:HardDrive,aio:Droplets,psu:Zap,cooler:Wind,case:Box};
 const date=(iso:string)=>new Intl.DateTimeFormat('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Moscow'}).format(new Date(iso));
 const shopLabel=(n:number)=>`${n} ${n%10===1&&n%100!==11?'магазин':n%10>=2&&n%10<=4&&(n%100<12||n%100>14)?'магазина':'магазинов'}`;
 const productLabel=(n:number)=>`${n} ${n%10===1&&n%100!==11?'товар':n%10>=2&&n%10<=4&&(n%100<12||n%100>14)?'товара':'товаров'}`;
