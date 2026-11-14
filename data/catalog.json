@@ -41,17 +41,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/337587.htm",
-          "price": 9870,
-          "checkedAt": "2026-11-01T20:13:07.792Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -113,17 +102,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/305997.htm",
-          "price": 25120,
-          "checkedAt": "2026-11-01T20:13:12.763Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -193,17 +171,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/563626.htm",
-          "price": 54490,
-          "checkedAt": "2026-11-01T20:13:15.367Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -264,17 +231,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/538355.htm",
-          "price": 16940,
-          "checkedAt": "2026-11-01T20:13:11.459Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -330,17 +286,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/379136.htm",
-          "price": 41940,
-          "checkedAt": "2026-11-01T20:13:15.000Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -405,17 +350,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/610148.htm",
-          "price": 28980,
-          "checkedAt": "2026-11-01T20:13:13.699Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -475,17 +409,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/379797.htm",
-          "price": 32940,
-          "checkedAt": "2026-11-01T20:13:14.440Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -556,10 +479,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/d4bde9994d11ed20/processor-amd-ryzen-5-7500f-oem/",
           "price": 12799,
-          "checkedAt": "2026-11-06T18:01:37.725Z",
-          "transport": "api",
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
           "availability": "in-stock",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -569,17 +493,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/441957.htm",
-          "price": 11410,
-          "checkedAt": "2026-11-01T20:13:07.232Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -631,17 +544,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/441952.htm",
-          "price": 12930,
-          "checkedAt": "2026-11-01T20:13:09.331Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -702,17 +604,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/441956.htm",
-          "price": 16180,
-          "checkedAt": "2026-11-01T20:13:11.276Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -773,17 +664,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/379795.htm",
-          "price": 30890,
-          "checkedAt": "2026-11-01T20:13:14.067Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -839,17 +719,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/396171.htm",
-          "price": 28034,
-          "checkedAt": "2026-11-01T20:13:13.319Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -912,17 +781,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/482775.htm",
-          "price": 30890,
-          "checkedAt": "2026-11-01T20:13:14.251Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -969,17 +827,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/307005.htm",
-          "price": 25020,
-          "checkedAt": "2026-11-01T20:13:12.575Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1035,11 +882,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/163592727233ed20/processor-intel-core-i5-14600kf-oem/",
-          "price": 24799,
-          "checkedAt": "2026-11-06T18:01:37.725Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 24999,
+          "checkedAt": "2026-11-14T11:18:22.850Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "REGARD",
@@ -1058,17 +906,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/379135.htm",
-          "price": 19400,
-          "checkedAt": "2026-11-01T20:13:12.019Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1124,17 +961,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/388251.htm",
-          "price": 29040,
-          "checkedAt": "2026-11-01T20:13:13.883Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1249,17 +1075,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/330724.htm",
-          "price": 18950,
-          "checkedAt": "2026-11-01T20:13:11.647Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1312,17 +1127,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/477880.htm",
-          "price": 12300,
-          "checkedAt": "2026-11-01T20:13:08.960Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1427,17 +1231,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/308207.htm",
-          "price": 9930,
-          "checkedAt": "2026-11-01T20:13:07.979Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1499,17 +1292,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/307741.htm",
-          "price": 14870,
-          "checkedAt": "2026-11-01T20:13:10.255Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1561,17 +1343,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/306997.htm",
-          "price": 13450,
-          "checkedAt": "2026-11-01T20:13:09.699Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1633,17 +1404,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/308444.htm",
-          "price": 11050,
-          "checkedAt": "2026-11-01T20:13:08.352Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1705,17 +1465,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/396170.htm",
-          "price": 11410,
-          "checkedAt": "2026-11-01T20:13:08.771Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1838,17 +1587,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/367432.htm",
-          "price": 25980,
-          "checkedAt": "2026-11-01T20:13:13.131Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1909,17 +1647,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/540122.htm",
-          "price": 35750,
-          "checkedAt": "2026-11-01T20:13:14.627Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -1981,17 +1708,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/538356.htm",
-          "price": 25890,
-          "checkedAt": "2026-11-01T20:13:12.947Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -2066,17 +1782,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/482304.htm",
-          "price": 20890,
-          "checkedAt": "2026-11-01T20:13:12.207Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -2184,17 +1889,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/345099.htm",
-          "price": 10680,
-          "checkedAt": "2026-11-01T20:13:08.167Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -2257,17 +1951,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/487316.htm",
-          "price": 38980,
-          "checkedAt": "2026-11-01T20:13:14.816Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -2321,17 +2004,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/263355.htm",
-          "price": 4200,
-          "checkedAt": "2026-11-01T20:13:07.416Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -2393,17 +2065,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/379794.htm",
-          "price": 20930,
-          "checkedAt": "2026-11-01T20:13:12.391Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -2512,17 +2173,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/559870.htm",
-          "price": 15010,
-          "checkedAt": "2026-11-01T20:13:10.672Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -2586,17 +2236,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/305956.htm",
-          "price": 19320,
-          "checkedAt": "2026-11-01T20:13:11.835Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -2719,17 +2358,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/367431.htm",
-          "price": 15840,
-          "checkedAt": "2026-11-01T20:13:10.903Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -2783,17 +2411,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "identity": "mpn"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/270266.htm",
-          "price": 6590,
-          "checkedAt": "2026-11-01T20:13:07.603Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -2853,17 +2470,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/538358.htm",
-          "price": 42740,
-          "checkedAt": "2026-11-01T20:13:15.183Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -2927,17 +2533,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/441958.htm",
-          "price": 11290,
-          "checkedAt": "2026-11-01T20:13:08.584Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -3012,17 +2607,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/335377.htm",
-          "price": 12870,
-          "checkedAt": "2026-11-01T20:13:09.147Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -3084,17 +2668,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/416263.htm",
-          "price": 28940,
-          "checkedAt": "2026-11-01T20:13:13.513Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -3167,17 +2740,6 @@
           "status": "ok",
           "transport": "html-snapshot",
           "availability": "in-stock"
-        },
-        {
-          "store": "COMPDAY",
-          "url": "https://www.compday.ru/komplektuyuszie/protsessory/482593.htm",
-          "price": 15920,
-          "checkedAt": "2026-11-01T20:13:11.088Z",
-          "status": "ok",
-          "availability": "in-stock",
-          "condition": "Цена со скидкой; условия оплаты уточни в магазине",
-          "identity": "mpn",
-          "transport": "html-snapshot"
         }
       ],
       "attributes": {
@@ -8502,10 +8064,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/17e2942c3953ed20/operativnaa-pamat-ddr5-udimm-kingston-fury-beast-black-kf556c36bbek2-32-32-gb/",
           "price": 51999,
-          "checkedAt": "2026-11-06T18:01:49.675Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:23.649Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "REGARD",
@@ -34506,11 +34069,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/847c59d0fe403332/128-gb-msata-nakopitel-netac-n5m-nt01n5m-128g-m3x/",
-          "price": 3399,
-          "checkedAt": "2026-11-06T18:16:18.980Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 3699,
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -34691,10 +34255,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/3fc6b0eef4fac823/240-gb-25-sata-nakopitel-apacer-as340x-ap240gas340xc-1/",
           "price": 3899,
-          "checkedAt": "2026-11-06T18:16:15.096Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -34969,11 +34534,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/fab60f520181d763/128-gb-25-sata-nakopitel-apacer-as350x-ap128gas350xr-1/",
-          "price": 3299,
-          "checkedAt": "2026-11-06T18:16:15.096Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 3099,
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -35949,10 +35515,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/7e82fa3593de2ff4/120-gb-25-sata-nakopitel-exegate-next-a400ts120-ex276687rus/",
           "price": 2550,
-          "checkedAt": "2026-11-06T18:16:23.095Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -35982,10 +35549,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/66781d99f8b53330/120-gb-25-sata-nakopitel-apacer-as340-panther-ap120gas340g-1/",
           "price": 3199,
-          "checkedAt": "2026-11-06T18:16:21.078Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -36066,10 +35634,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/1605969ef68003de/128-gb-25-sata-nakopitel-netac-sa500-nt01sa500-128-s3x/",
           "price": 2850,
-          "checkedAt": "2026-11-06T18:16:15.096Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -36109,10 +35678,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/88b5628dfe3e3332/128-gb-25-sata-nakopitel-netac-n600s-nt01n600s-128g-s3x/",
           "price": 3099,
-          "checkedAt": "2026-11-06T18:16:17.029Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -36242,10 +35812,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/56f9a44ba8922ff1/128-gb-25-sata-nakopitel-apacer-as350-panther-ap128gas350-1/",
           "price": 3099,
-          "checkedAt": "2026-11-06T18:01:57.158Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -49863,10 +49434,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/929eb88ffb53ed20/2-tb-zestkij-disk-wd-blue-wd20spzx/",
           "price": 14799,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ],
       "attributes": {
@@ -50433,11 +50005,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/96a079e5e4c0ed20/1-tb-zestkij-disk-toshiba-mq04-series-mq04abf100/",
-          "price": 13199,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 12699,
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -50495,10 +50068,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/0fec7304fb5ced20/4-tb-zestkij-disk-seagate-barracuda-st4000lm024/",
           "price": 24599,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ],
       "attributes": {
@@ -50547,10 +50121,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/d163e49efb53ed20/1-tb-zestkij-disk-seagate-barracuda-st1000lm048/",
           "price": 15299,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -50705,10 +50280,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/2ea913131c9eed20/1-tb-zestkij-disk-wd-blue-wd10spzx/",
           "price": 17199,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ],
       "attributes": {
@@ -52862,11 +52438,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/a1bd3529fb9ced20/1-tb-zestkij-disk-toshiba-l200-slim-hdwl110uzsva/",
-          "price": 16999,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
+          "price": 17599,
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -52921,10 +52498,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/4c75a2ecec76ed20/1-tb-zestkij-disk-seagate-barracuda-pro-st1000lm049/",
           "price": 19199,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -65441,10 +65019,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/588277aa3347ed20/processor-amd-ryzen-3-3200g-oem/",
           "price": 4599,
-          "checkedAt": "2026-11-06T18:01:37.725Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -65738,10 +65317,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/1394529e33d8ed20/processor-amd-athlon-pro-300ge-oem/",
           "price": 3499,
-          "checkedAt": "2026-11-06T18:03:02.006Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -67850,10 +67430,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/1da50852afa43330/processor-intel-pentium-g4560-oem/",
           "price": 1550,
-          "checkedAt": "2026-11-06T18:03:11.113Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -67943,10 +67524,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/aec7dc1f6a783332/processor-intel-pentium-gold-g6500-oem/",
           "price": 5299,
-          "checkedAt": "2026-11-06T18:03:11.113Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -68273,10 +67855,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/2310b40eaccd3330/processor-amd-athlon-200ge-oem/",
           "price": 3499,
-          "checkedAt": "2026-11-06T18:03:15.124Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -68503,11 +68086,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/c6d57433d07c3332/processor-intel-core-i3-9100f-oem/",
-          "price": 5799,
-          "checkedAt": "2026-11-06T18:03:15.124Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 5199,
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -68926,11 +68510,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/731720f1edadd763/processor-amd-ryzen-3-pro-2200g-oem/",
-          "price": 4999,
-          "checkedAt": "2026-11-06T18:03:19.826Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 5299,
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -69686,10 +69271,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/ef414b966a793332/processor-intel-celeron-g5900-oem/",
           "price": 3199,
-          "checkedAt": "2026-11-06T18:03:24.096Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -70939,10 +70525,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/057676b27db03330/processor-amd-athlon-x4-950-oem/",
           "price": 599,
-          "checkedAt": "2026-11-06T18:03:29.073Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -70972,10 +70559,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/2f878fe5fedb1b80/processor-intel-celeron-g5925-box/",
           "price": 4999,
-          "checkedAt": "2026-11-06T18:03:29.073Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -71070,10 +70658,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/39fea32f7e393330/processor-amd-athlon-x4-970-oem/",
           "price": 750,
-          "checkedAt": "2026-11-06T18:03:29.073Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -71228,11 +70817,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/7dcfb2e93b06ed20/processor-intel-celeron-g4900-oem/",
-          "price": 3799,
-          "checkedAt": "2026-11-06T18:03:29.073Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 3299,
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -71256,10 +70846,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/c6d0b1b73abeed20/processor-amd-athlon-silver-pro-3125ge-oem/",
           "price": 3099,
-          "checkedAt": "2026-11-06T18:03:33.579Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -71448,10 +71039,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/5b07d763fedb1b80/processor-intel-celeron-g5925-oem/",
           "price": 4499,
-          "checkedAt": "2026-11-06T18:03:33.579Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -71646,10 +71238,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/173b85a87e3e3330/processor-amd-a6-9500-oem/",
           "price": 1250,
-          "checkedAt": "2026-11-06T18:03:33.579Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -72096,10 +71689,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/05ca944615eced20/processor-amd-athlon-300ge-oem/",
           "price": 3699,
-          "checkedAt": "2026-11-06T18:03:37.537Z",
-          "transport": "api",
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -72387,10 +71981,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/12d32dadd0281b80/processor-amd-a6-7480-oem/",
           "price": 799,
-          "checkedAt": "2026-11-06T18:03:37.537Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -72452,11 +72047,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/3976de4964b71b80/processor-intel-core-i3-9100f-oem/",
-          "price": 5899,
-          "checkedAt": "2026-11-06T18:03:37.537Z",
-          "transport": "api",
+          "price": 5299,
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -72611,10 +72207,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/359637ae75273332/processor-intel-celeron-g4930-oem/",
           "price": 1699,
-          "checkedAt": "2026-11-06T18:03:37.537Z",
-          "transport": "api",
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -72764,10 +72361,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/ad1a58f96a793332/processor-intel-celeron-g5900-box/",
           "price": 4499,
-          "checkedAt": "2026-11-06T18:03:37.537Z",
-          "transport": "api",
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -72983,10 +72581,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/9fbce532b842d582/processor-amd-a6-9500e-oem/",
           "price": 1450,
-          "checkedAt": "2026-11-06T18:03:42.647Z",
-          "transport": "api",
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -75623,10 +75222,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/1e516fdd6a793332/processor-intel-pentium-gold-g6400-oem/",
           "price": 4699,
-          "checkedAt": "2026-11-06T18:02:38.450Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -76316,10 +75916,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/0e189711fb76ed20/processor-amd-athlon-3000g-oem/",
           "price": 3199,
-          "checkedAt": "2026-11-06T18:02:42.976Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -77999,10 +77600,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/79b092912808ed20/processor-intel-celeron-g5905-oem/",
           "price": 3199,
-          "checkedAt": "2026-11-06T18:02:51.667Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:16:26.194Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -79442,11 +79044,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/e21ad95a9626ed20/materinskaa-plata-gigabyte-a520m-k-v2/",
-          "price": 4999,
-          "checkedAt": "2026-11-06T18:01:41.125Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 5299,
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -80274,11 +79877,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/78efff9c8202d582/materinskaa-plata-biostar-a520mhp/",
-          "price": 4999,
-          "checkedAt": "2026-11-06T18:05:22.558Z",
-          "transport": "api",
+          "price": 5499,
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -80499,10 +80103,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/a5c3a9774ddfed20/materinskaa-plata-msi-pro-h610m-e/",
           "price": 4999,
-          "checkedAt": "2026-11-06T18:05:22.558Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -81939,10 +81544,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/1e79f1247d0ded20/materinskaa-plata-asus-prime-h610m-r-si/",
           "price": 5499,
-          "checkedAt": "2026-11-06T18:05:31.260Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -83315,10 +82921,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/bd2194b5e4c6ed20/materinskaa-plata-asrock-h610m-h2m2-d5/",
           "price": 5499,
-          "checkedAt": "2026-11-06T18:14:02.940Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -83795,10 +83402,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/71cf1f1959f7d582/materinskaa-plata-gigabyte-h610m-s2h-v2/",
           "price": 5199,
-          "checkedAt": "2026-11-06T18:14:02.940Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -84850,11 +84458,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/3ecddef8aa7fd21a/materinskaa-plata-msi-pro-h610m-b/",
-          "price": 5099,
-          "checkedAt": "2026-11-06T18:14:06.769Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 5199,
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -85042,10 +84651,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/ab821385234eed20/materinskaa-plata-gigabyte-ga-g41m-combo-gq-rev3/",
           "price": 4999,
-          "checkedAt": "2026-11-06T18:14:06.769Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -87474,10 +87084,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/55c6dee29c061b80/materinskaa-plata-asrock-a520mac/",
           "price": 5299,
-          "checkedAt": "2026-11-06T18:14:13.348Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -87698,10 +87309,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/f3aa99d78208d582/materinskaa-plata-biostar-h610ms/",
           "price": 5499,
-          "checkedAt": "2026-11-06T18:14:13.348Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -88146,10 +87758,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/e3fedf786fa6d9cb/materinskaa-plata-msi-pro-a520m-s/",
           "price": 5399,
-          "checkedAt": "2026-11-06T18:04:47.309Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -89490,10 +89103,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/47fb89b0dfaad21a/materinskaa-plata-maxsun-challenger-b450m/",
           "price": 5599,
-          "checkedAt": "2026-11-06T18:14:17.242Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -90962,10 +90576,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/fd3a79235005d21a/materinskaa-plata-asrock-h610m-hvsm2-d5-gen5/",
           "price": 5299,
-          "checkedAt": "2026-11-06T18:14:21.746Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -91026,10 +90641,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/7416ef3fc7208026/materinskaa-plata-biostar-a520ms/",
           "price": 5299,
-          "checkedAt": "2026-11-06T18:14:21.746Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -91122,10 +90738,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/421693e60fdd4b38/materinskaa-plata-maxsun-challenger-a520m-k/",
           "price": 5399,
-          "checkedAt": "2026-11-06T18:14:21.746Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -91762,10 +91379,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/eda2d2d7ffaa0f2f/materinskaa-plata-maxsun-challenger-h610m/",
           "price": 5599,
-          "checkedAt": "2026-11-06T18:14:24.230Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -92561,10 +92179,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/5a256ffedfaad21a/materinskaa-plata-maxsun-challenger-h610m-r/",
           "price": 5499,
-          "checkedAt": "2026-11-06T18:14:26.675Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -93937,10 +93556,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/b36720b9874fa19f/materinskaa-plata-biostar-h610mhc-20/",
           "price": 5599,
-          "checkedAt": "2026-11-06T18:14:28.574Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -94065,10 +93685,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/31e08a877dd0ed20/materinskaa-plata-maxsun-challenger-b760m-n-d5/",
           "price": 5399,
-          "checkedAt": "2026-11-06T18:14:30.538Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -95377,10 +94998,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/fbe5a3315005d21a/materinskaa-plata-asrock-h610m-hdvm2-d5-gen5/",
           "price": 5399,
-          "checkedAt": "2026-11-06T18:14:32.670Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -97965,10 +97587,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/1c7da9f79504d0a4/materinskaa-plata-biostar-h610mhd-d5/",
           "price": 5399,
-          "checkedAt": "2026-11-06T18:14:39.593Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -103491,11 +103114,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/55c6dee19c061b80/materinskaa-plata-asrock-a520m-hvs/",
-          "price": 4999,
-          "checkedAt": "2026-11-06T18:04:55.645Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 5299,
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -106084,10 +105708,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/e2b04a861957d582/materinskaa-plata-gigabyte-h610m-h-v2/",
           "price": 4999,
-          "checkedAt": "2026-11-06T18:05:13.805Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:17:52.743Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -153258,10 +152883,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/8c786cd8c0ce3330/blok-pitania-exegate-uns350-es261566rus-seryj/",
           "price": 999,
-          "checkedAt": "2026-11-06T18:17:54.214Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -154324,10 +153950,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/989da215c0ce3330/blok-pitania-exegate-aa400-ex253682rus-seryj/",
           "price": 950,
-          "checkedAt": "2026-11-06T18:17:56.256Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -156021,10 +155648,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/8678ec3fc0ce3330/blok-pitania-exegate-m350-ex234942rus-cernyj/",
           "price": 1150,
-          "checkedAt": "2026-11-06T18:18:02.788Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -157767,10 +157395,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/8678ec45c0ce3330/blok-pitania-exegate-ab450-ex219184rus-seryj/",
           "price": 999,
-          "checkedAt": "2026-11-06T18:18:06.722Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -159932,10 +159561,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/7fd02946c0ce3330/blok-pitania-exegate-aa350-ex253681rus-seryj/",
           "price": 699,
-          "checkedAt": "2026-11-06T18:18:11.194Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -161172,10 +160802,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/9e9f8aacc0ce3330/blok-pitania-exegate-un400-ex244553rus-seryj/",
           "price": 1150,
-          "checkedAt": "2026-11-06T18:18:15.371Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -162214,10 +161845,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/8678ec39c0ce3330/blok-pitania-exegate-cp350-ex169945rus-seryj/",
           "price": 850,
-          "checkedAt": "2026-11-06T18:18:17.260Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -162240,11 +161872,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/9e9f8a8ec0ce3330/blok-pitania-exegate-ab500-ex219185rus-seryj/",
-          "price": 1250,
-          "checkedAt": "2026-11-06T18:18:17.260Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 1150,
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -162463,10 +162096,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/7fd0294cc0ce3330/blok-pitania-exegate-aaa350-es259589rus-seryj/",
           "price": 799,
-          "checkedAt": "2026-11-06T18:18:19.639Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -162628,10 +162262,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/9e9f8ab2c0ce3330/blok-pitania-exegate-uns400-es261567rus-seryj/",
           "price": 950,
-          "checkedAt": "2026-11-06T18:18:19.639Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -163591,10 +163226,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/8678ec4bc0ce3330/blok-pitania-exegate-cp450-ex172785rus-seryj/",
           "price": 1050,
-          "checkedAt": "2026-11-06T18:18:21.709Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -164017,10 +163653,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/9e9f8a80c0ce3330/blok-pitania-exegate-cp400-ex165131rus-seryj/",
           "price": 999,
-          "checkedAt": "2026-11-06T18:18:23.708Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -164220,10 +163857,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/8c786cdec0ce3330/blok-pitania-exegate-xp350-ex221985rus-cernyj/",
           "price": 950,
-          "checkedAt": "2026-11-06T18:18:23.708Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -164256,10 +163894,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/8c786cd2c0ce3330/blok-pitania-exegate-un350-ex244552rus-seryj/",
           "price": 899,
-          "checkedAt": "2026-11-06T18:18:23.708Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -166377,10 +166016,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/989da241c0ce3330/blok-pitania-exegate-ab400-ex219183rus-seryj/",
           "price": 899,
-          "checkedAt": "2026-11-06T18:18:30.146Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -167701,10 +167341,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/9e9f8a94c0ce3330/blok-pitania-exegate-cp500-ex219457rus-seryj/",
           "price": 1199,
-          "checkedAt": "2026-11-06T18:18:32.332Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -168666,10 +168307,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/8678ec33c0ce3330/blok-pitania-exegate-ab350-ex219182rus-seryj/",
           "price": 799,
-          "checkedAt": "2026-11-06T18:18:36.255Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -169060,10 +168702,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/a4aafcb3c0ce3330/blok-pitania-exegate-m300-ex221635rus-cernyj/",
           "price": 950,
-          "checkedAt": "2026-11-06T18:18:36.255Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -171415,10 +171058,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/7fd02962c0ce3330/blok-pitania-exegate-ab550-ex282066rus-seryj/",
           "price": 1150,
-          "checkedAt": "2026-11-06T18:18:40.197Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -172603,10 +172247,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/989da21bc0ce3330/blok-pitania-exegate-aaa400-es259590rus-seryj/",
           "price": 750,
-          "checkedAt": "2026-11-06T18:18:42.451Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -172796,10 +172441,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/8cbfd4b39a2d2ff4/blok-pitania-ginzzu-sa450-17485-cernyj/",
           "price": 1099,
-          "checkedAt": "2026-11-06T18:18:44.456Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -175886,10 +175532,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/a4aafc8bc0ce3330/blok-pitania-exegate-xp400-ex219459rus-cernyj/",
           "price": 1099,
-          "checkedAt": "2026-11-06T18:18:50.882Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -178204,10 +177851,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/7fd0295ac0ce3330/blok-pitania-exegate-aa450-ex253683rus-pc-seryj/",
           "price": 999,
-          "checkedAt": "2026-11-06T18:18:56.992Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -181427,10 +181075,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/9e9f8a88c0ce3330/blok-pitania-exegate-aa500-ex256711rus-seryj/",
           "price": 1050,
-          "checkedAt": "2026-11-06T18:19:07.198Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:02.318Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -185035,10 +184684,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/7cae0d83aa6fed20/korpus-dexp-dcv-200b-cernyj/",
           "price": 1199,
-          "checkedAt": "2026-11-06T18:28:07.833Z",
+          "checkedAt": "2026-11-14T11:18:05.707Z",
           "transport": "html-snapshot",
-          "availability": "in-stock",
-          "status": "ok"
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -186327,11 +185977,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/2e9fd525656a3f0b/korpus-accord-entry-acc-241-acc-241-cernyj/",
-          "price": 1099,
-          "checkedAt": "2026-11-06T18:19:26.343Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 1299,
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -189158,10 +188809,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/5999d1899980c6d7/korpus-accord-entry-acc-2053b-cernyj/",
           "price": 1399,
-          "checkedAt": "2026-11-06T18:19:34.811Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -192968,10 +192620,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/26ca3df3aa70ed20/korpus-dexp-dcv-200w-belyj/",
           "price": 1250,
-          "checkedAt": "2026-11-06T18:28:07.216Z",
+          "checkedAt": "2026-11-14T11:18:05.707Z",
           "transport": "html-snapshot",
-          "availability": "in-stock",
-          "status": "ok"
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -196455,10 +196108,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/46d1a908ecc71acf/korpus-exegate-baa-113-ex292347rus-cernyj/",
           "price": 1399,
-          "checkedAt": "2026-11-06T18:19:53.623Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -196791,10 +196445,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/05e273cdbaafe4ae/korpus-ginzzu-b400-cernyj/",
           "price": 1250,
-          "checkedAt": "2026-11-06T18:19:55.824Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -197217,10 +196872,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/fe250d4799f48bcc/korpus-defender-x11-pro-25001-cernyj/",
           "price": 1399,
-          "checkedAt": "2026-11-06T18:19:55.824Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -197750,10 +197406,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/34b46a03c345d9cb/korpus-ginzzu-b410-cernyj/",
           "price": 1450,
-          "checkedAt": "2026-11-06T18:19:57.806Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -198174,10 +197831,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/47a7af3c04e2c54f/korpus-digma-dcc-mn301-dcc-mn301-cernyj/",
           "price": 1399,
-          "checkedAt": "2026-11-06T18:19:59.945Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -198951,10 +198609,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/8f01491e61de56fc/korpus-exegate-baa-113u-ex292351rus-cernyj/",
           "price": 1199,
-          "checkedAt": "2026-11-06T18:20:02.460Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -199009,11 +198668,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/3353134e1d4fd22d/korpus-defender-x11-25011-cernyj/",
-          "price": 1150,
-          "checkedAt": "2026-11-06T18:20:02.460Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 999,
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -199158,10 +198818,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/f948033875e22560/korpus-kingprice-kpcc-mn211-cernyj/",
           "price": 1399,
-          "checkedAt": "2026-11-06T18:20:02.460Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -201411,11 +201072,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/75a138feadcb1b80/korpus-dexp-dc-201m-cernyj/",
-          "price": 1399,
-          "checkedAt": "2026-11-06T18:19:11.600Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 1250,
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -202198,10 +201860,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/82c494a8c4e7bf40/korpus-accord-entry-acc-242b-acc-242b-cernyj/",
           "price": 1450,
-          "checkedAt": "2026-11-06T18:20:08.656Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -204981,10 +204644,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/dcbb8063bf9c2ff4/korpus-exegate-baa-105-01-ex291139rus-cernyj/",
           "price": 1450,
-          "checkedAt": "2026-11-06T18:20:16.749Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -209244,11 +208908,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/6eaee24db1d63332/korpus-dexp-dc-202m-cernyj/",
-          "price": 1250,
-          "checkedAt": "2026-11-06T18:19:13.548Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 1399,
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -212175,10 +211840,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/7e82f9dd93de2ff4/korpus-exegate-mi-207u-ex288779rus-cernyj/",
           "price": 1399,
-          "checkedAt": "2026-11-06T18:20:35.950Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -213200,11 +212866,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/506fd8a312b62b90/korpus-defender-apex-metal-xl-25032-belyj/",
-          "price": 1299,
-          "checkedAt": "2026-11-06T18:20:40.283Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 1450,
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -213775,10 +213442,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/d5863468e59a2ff4/korpus-exegate-baa-109u2-ex291272rus-cernyj/",
           "price": 1099,
-          "checkedAt": "2026-11-06T18:20:40.283Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -214784,10 +214452,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/6ace3a62c0d53330/korpus-exegate-xp-329s-xp350-ex278395rus-cernyj/",
           "price": 1250,
-          "checkedAt": "2026-11-06T18:28:53.123Z",
+          "checkedAt": "2026-11-14T11:18:05.707Z",
           "transport": "html-snapshot",
-          "availability": "in-stock",
-          "status": "ok"
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -217379,11 +217048,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/98f0ad6e5f423332/korpus-dexp-dc-302r-krasnyj/",
-          "price": 1450,
-          "checkedAt": "2026-11-06T18:19:15.766Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 1299,
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -218457,10 +218127,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/a8b576510b713332/korpus-dexp-dc-302b-sinij/",
           "price": 1199,
-          "checkedAt": "2026-11-06T18:19:17.869Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:05.707Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -221449,10 +221120,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/9c776881b231676c/korpus-kingprice-kpcc-mn209-2018222-cernyj/",
           "price": 1199,
-          "checkedAt": "2026-11-06T18:24:11.749Z",
+          "checkedAt": "2026-11-14T11:18:05.707Z",
           "transport": "html-snapshot",
-          "availability": "in-stock",
-          "status": "ok"
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -222306,10 +221978,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/a959149303cbb65d/korpus-formula-v-line-cs-1103-cs-1103-s-bk-v1-cernyj/",
           "price": 1399,
-          "checkedAt": "2026-11-06T18:24:11.881Z",
+          "checkedAt": "2026-11-14T11:18:05.707Z",
           "transport": "html-snapshot",
-          "availability": "in-stock",
-          "status": "ok"
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -290255,10 +289928,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/581316c14992ebaf/128-gb-25-sata-nakopitel-dexp-r100/",
           "price": 2699,
-          "checkedAt": "2026-11-06T18:01:57.158Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -290284,10 +289958,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/9eeb5026f8b53330/240-gb-25-sata-nakopitel-apacer-as340-panther-ap240gas340g-1/",
           "price": 3999,
-          "checkedAt": "2026-11-06T18:01:57.158Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -290351,10 +290026,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/2f8d81e5be3910ae/256-gb-25-sata-nakopitel-dexp-r100-r100shi256gb/",
           "price": 3999,
-          "checkedAt": "2026-11-06T18:01:57.158Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -290380,10 +290056,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/723b61b6f9ae30b5/256-gb-25-sata-nakopitel-dexp-r100-r100hg256gb/",
           "price": 3999,
-          "checkedAt": "2026-11-06T18:16:15.096Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -290675,10 +290352,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/c34d1edcff391b80/128-gb-25-sata-nakopitel-silicon-power-ace-a58-sp128gbss3a58a25/",
           "price": 3999,
-          "checkedAt": "2026-11-06T18:16:15.096Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -290953,10 +290631,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/22d845f5e5b73332/128-gb-25-sata-nakopitel-patriot-memory-p210-p210s128g25/",
           "price": 3399,
-          "checkedAt": "2026-11-06T18:16:17.029Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -291308,10 +290987,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/a56f15790180d763/120-gb-25-sata-nakopitel-apacer-as340x-ap120gas340xc-1/",
           "price": 3099,
-          "checkedAt": "2026-11-06T18:16:18.980Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -291395,10 +291075,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/b4db8b8f9f842ff4/128-gb-25-sata-nakopitel-silicon-power-ace-a55-sp128gbss3a55s25/",
           "price": 3099,
-          "checkedAt": "2026-11-06T18:16:18.980Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -291682,11 +291363,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/ac128eea3f714d55/128-gb-25-sata-nakopitel-kingspec-p3-128/",
-          "price": 2650,
-          "checkedAt": "2026-11-06T18:16:18.980Z",
-          "transport": "api",
+          "price": 2450,
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -291922,10 +291604,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/9465f970bb4bed20/128-gb-25-sata-nakopitel-patriot-memory-p220-p220s128g25/",
           "price": 3399,
-          "checkedAt": "2026-11-06T18:16:21.078Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -291951,10 +291634,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/a51383f91fa93332/128-gb-25-sata-nakopitel-hikvision-e100-hs-ssd-e100128g/",
           "price": 3199,
-          "checkedAt": "2026-11-06T18:16:21.078Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -292601,10 +292285,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/48b58f1374edd9cb/120-gb-25-sata-nakopitel-kingprice-kpss120g2/",
           "price": 3299,
-          "checkedAt": "2026-11-06T18:16:23.095Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -292716,10 +292401,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/f48458e76c29d9cb/128-gb-25-sata-nakopitel-colorful-sl300-client-sl300-128gb/",
           "price": 3399,
-          "checkedAt": "2026-11-06T18:16:23.095Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -293296,10 +292982,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/6a00bb068be2d9cb/120-gb-25-sata-nakopitel-smartbuy-helix-sbssd120-hlx-25s3/",
           "price": 3199,
-          "checkedAt": "2026-11-06T18:16:24.978Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -293470,10 +293157,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/ac16582340fafd34/120-gb-25-sata-nakopitel-agi-ai138-agi120g06ai138-cb/",
           "price": 3499,
-          "checkedAt": "2026-11-06T18:16:24.978Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -293755,10 +293443,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/0ec89ea28be4d9cb/128-gb-25-sata-nakopitel-smartbuy-helix-pro-sbssd128hlxp25s3/",
           "price": 3399,
-          "checkedAt": "2026-11-06T18:16:27.018Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:18:56.238Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -308792,11 +308481,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/fff7c5d6411bd9cb/4-tb-zestkij-disk-wd-blue-wd40npjz/",
-          "price": 24199,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
+          "price": 24999,
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -308823,10 +308513,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/d9bf7ced281e3330/500-gb-zestkij-disk-seagate-barracuda-pro-st500lm034/",
           "price": 15699,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -308852,11 +308543,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/53055354f619ed20/2-tb-zestkij-disk-seagate-barracuda-st2000lm015/",
-          "price": 19299,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
+          "price": 16999,
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -308892,10 +308584,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/704423e1cb68d9cb/05-tb-zestkij-disk-wd-blue-wd5000lucx/",
           "price": 13399,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -308922,10 +308615,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/4a04e7fdc7c7ed20/5-tb-zestkij-disk-seagate-barracuda-st5000lm000/",
           "price": 32999,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -308961,10 +308655,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/2b2ba0b91a75d582/05-tb-zestkij-disk-toshiba-mq01abf-series-mq01abf050/",
           "price": 14499,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -308991,10 +308686,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/6dd7dfbd08578a5a/2-tb-zestkij-disk-seagate-mobile-st2000lm007/",
           "price": 17899,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         },
         {
           "store": "CITILINK",
@@ -309029,11 +308725,12 @@
         {
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/788733f7cbf3d9cb/4-tb-zestkij-disk-toshiba-mq04ab-mq04abb400/",
-          "price": 24299,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "price": 25799,
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -309060,10 +308757,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/e98e1bb53c98d582/1-tb-zestkij-disk-toshiba-mq01abd-v-series-mq01abd100v/",
           "price": 20499,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
-          "availability": "in-stock",
-          "status": "ok"
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
+          "availability": "unknown",
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -309090,10 +308788,11 @@
           "store": "DNS",
           "url": "https://www.dns-shop.ru/product/91139c96f7d319a0/2-tb-zestkij-disk-toshiba-mq04ab-mq04abd200/",
           "price": 17999,
-          "checkedAt": "2026-11-06T18:02:07.652Z",
-          "transport": "api",
+          "checkedAt": "2026-11-14T11:19:06.992Z",
+          "transport": "html-snapshot",
           "availability": "unknown",
-          "status": "ok"
+          "status": "ok",
+          "identity": "verified-reference"
         }
       ]
     },
@@ -370800,13 +370499,6 @@
       "url": "https://www.mvideo.ru/",
       "status": "pending",
       "note": "Цены ещё не подключены. Ожидается подтверждённый источник розничных цен по Москве."
-    },
-    {
-      "name": "COMPDAY",
-      "url": "https://www.compday.ru/",
-      "checkedAt": "2026-11-05T18:30:51.224Z",
-      "status": "limited",
-      "note": "Проверено запросов: 0; обновлено цен: 0; требуется проверка: 0. TypeError: fetch failed"
     },
     {
       "name": "ONLINETRADE",

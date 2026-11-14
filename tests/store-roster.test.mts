@@ -11,12 +11,10 @@ const date='2026-11-13T09:00:00.000Z';
 const offer:Offer={store:'XCOM',url:'https://www.xcom-shop.ru/part.html',price:1000,status:'ok',availability:'in-stock',checkedAt:date};
 const product:Product={id:'part',category:'cpu',name:'Part',mpn:'MPN-1',brand:'',description:'',specs:{},image:'',offers:[offer,...retiredStoreIds.map(store=>({...offer,store,price:1}))]};
 
-test('четыре удалённых магазинов не принимаются; 28bit имеет только официальный домен',()=>{
+test('пять удалённых магазинов не принимаются; 28bit имеет только официальный домен',()=>{
  for(const store of retiredStoreIds){assert.equal(storeInfo(store),undefined);assert.throws(()=>feedStore(store));}
- assert.deepEqual(stores.map(s=>s.id),['DELECT','XCOM','REGARD','DNS','CITILINK','COMPDAY','ONLINETRADE','BIT28','MVIDEO']);
- assert.equal(feedStore('compday'),'COMPDAY');
+ assert.deepEqual(stores.map(s=>s.id),['DELECT','XCOM','REGARD','DNS','CITILINK','ONLINETRADE','BIT28','MVIDEO']);
  assert.equal(feedStore('onlinetrade'),'ONLINETRADE');
- assert.equal(isAllowedStoreUrl('https://www.compday.ru/product/','COMPDAY'),true);
  assert.equal(isAllowedStoreUrl('https://www.onlinetrade.ru/product/','ONLINETRADE'),true);
  assert.equal(feedStore('mvideo'),'MVIDEO');
  assert.equal(isAllowedStoreUrl('https://www.mvideo.ru/products/123','MVIDEO'),true);
