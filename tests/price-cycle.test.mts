@@ -68,3 +68,29 @@ test('большой API-прайс публикуется порциями, с�
   assert.ok(await db.prepare("SELECT store FROM source_health WHERE store='PRICE_SOURCE_SUCCESS:DELECT'").first());
  }finally{await dispose()}
 });
+
+
+test('failed detail requests consume their portion budget and persist the next cursor',async()=>{
+ const {db,dispose}=await setup();
+ try{
+  const s:CycleServices=services(db);
+  s.config.PRICE_PORTION_REQUESTS='1';
+  s.config.PRICE_DETAIL_PORTION_REQUESTS='1';
+  s.read=async url=>url.endsWith('/robots.txt')?'User-agent: *':listing(1);
+  let result=await runPricePortion(s);
+  for(let i=0;i<100&&result.cursor?.phase!=='details';i++)result=await runPricePortion(s);
+  assert.equal(result.cursor?.phase,'details');
+  const start=result.cursor!.index;
+  let requests=0;
+  s.read=async url=>{
+   if(url.endsWith('/robots.txt'))return 'User-agent: *';
+   requests++;
+   throw new Error('HTTP 404');
+  };
+  const next=await runPricePortion(s);
+  assert.equal(requests,1);
+  assert.equal(next.cursor?.index,start+1);
+  const saved=await db.prepare("SELECT error FROM source_health WHERE store='PRICE_CYCLE_STATE'").first<{error:string}>();
+  assert.equal(JSON.parse(saved!.error).index,start+1);
+ }finally{await dispose()}
+});
