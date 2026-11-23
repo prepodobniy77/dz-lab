@@ -109,10 +109,10 @@ export async function runPricePortion(services:CycleServices,trigger:SweepReport
    if(state.phase==='details'&&state.index>=state.missing.length){if(!coverageAccepted(state.seen.length,state.expected)){await finalise('failed',`Охват XCOM ${state.seen.length} из ${state.expected}, ниже 80%. Предложения не опубликованы.`)}else{state.phase='publish';state.index=0}break}
    const job=jobs[state.index],product=state.phase==='details'?findProduct(state.missing[state.index]):undefined;const url=state.phase==='scan'?job.url:product?.offers.find(o=>o.store==='XCOM')?.url;
    if(!url){state.index++;continue}
+   requests++;
    try{
     const batch=await xcomProvider.fetchOffers({products,config,now:now(),snapshot:{url,
       ...(state.phase==='scan'?{category:job.category as Product['category']}:{product}),read}});
-    requests++;
     if(batch===null)break;
     for(const value of batch.offers){const known=findProduct(value.productId);if(known)add(known,value.offer)}
     if(product)markAttempt(product.id);
